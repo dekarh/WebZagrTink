@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from openpyxl import Workbook
-
-__author__ = 'Nurzhanov Edward'
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -14,12 +11,12 @@ from openpyxl.writer.write_only import WriteOnlyCell
 import NormalizeFields as norm
 import datetime
 
-LOGIN = 'rogacheva'
-PASSWORD = '123qwerty'
-AUTHORIZE_PAGE = 'https://dss-fe03.aksicom.ru:9843/PageOne/login'
-FILL_FORM_PAGE = 'https://dss-fe03.aksicom.ru:9843/PageOne'
+LOGIN = 'cca433779_ff1'
+PASSWORD = '03124edbfe9'
+AUTHORIZE_PAGE = 'https://brokers.tcsbank.ru/pages/auth/'
+FILL_FORM_PAGE = 'https://brokers.tcsbank.ru/pages/form/'
 # DRIVER_PATH = 'drivers/chromedriver.exe'
-DRIVER_PATH = 'drivers/chromedriver'
+#DRIVER_PATH = 'drivers/chromedriver'
 
 conformity = [[0,'Фамилия','Фамилия'],
               [1,'Имя', 'Имя'],
@@ -47,7 +44,7 @@ def authorize(driver, login, password, authorize_page=''):
     if authorize_page != '':
         driver.get(authorize_page)
     # Ввод логина
-    elem = driver.find_element_by_name("userName")
+    elem = driver.find_element_by_name("login")
     elem.send_keys(login)
 
     # Ввод пароля
@@ -55,7 +52,7 @@ def authorize(driver, login, password, authorize_page=''):
     elem.send_keys(password)
 
     # Отправка формы нажатием кнопки
-    elem = driver.find_element_by_tag_name('button')
+    elem = driver.find_element_by_name('go')
     elem.click()
 
 
@@ -186,21 +183,30 @@ driver.get(FILL_FORM_PAGE)  # Открытие страницы
 
 authorize(driver, LOGIN, PASSWORD)  # Авторизация
 
-
-wb_read = openpyxl.load_workbook(filename=sys.argv[1], read_only=True)
-ws_read = wb_read[wb_read.sheetnames[0]]
-
+dbconfig = read_db_config()
+conn = MySQLConnection(**dbconfig)
+cursor = conn.cursor()
 try:
-    f = sys.argv[1].replace(sys.argv[1].split('/')[-1], 'err_' + sys.argv[1].split('/')[-1])
-    wb_had = openpyxl.load_workbook(filename=f, read_only=True)
-    ws_had = wb_had[wb_had.sheetnames[0]]
-    loaded = []
-    for j, sj in enumerate(ws_had.rows):
-        for k, qk in enumerate(sj):
-            if not (qk.value == '' or qk.value == 'None' or qk.value == None):
-                loaded.append(qk.value)                             # массив СНИЛС уже загруженных
-except FileNotFoundError:
-    loaded = []
+    sql = "SELECT banks.bank_id, banks.bank_name, banks.type_rasch, banks.per_day, banks.koef_185_fz, " \
+          "gar_banks.delta, gar_banks.summ, gar_banks.perc_fz_44, gar_banks.min_fz_44 FROM gar_banks,banks" \
+          " WHERE (gar_banks.bank_id = banks.bank_id) AND (banks.per_day = TRUE) AND (gar_banks.delta >= %s)" \
+          " AND (gar_banks.summ >= %s) ORDER BY (gar_banks.delta - %s), (gar_banks.summ - %s)"
+    cursor.execute(sql, (delta.days, summ, delta.days, summ))
+    rows = cursor.fetchall()
+
+    b_bank_id = {}
+    b_bank_name = {}
+    b_type_rasch = {}
+    b_per_day = {}
+    b_koef_185_fz = {}
+    b_delta = {}
+    b_summ = {}
+    b_perc_fz_44 = {}
+    b_min_fz_44 = {}
+
+    for row in rows:
+        if b_bank_name.get(row[0]) == None:
+            b_bank_id[row[0]] = row[0]
 
 errors = []
 date_err = []
