@@ -3,13 +3,17 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+
 import sys
-import time
+from mysql.connector import MySQLConnection, Error
+from python_mysql_dbconfig import read_db_config
 import openpyxl
 from openpyxl import Workbook
 from openpyxl.writer.write_only import WriteOnlyCell
 import NormalizeFields as norm
 import datetime
+import time
 
 LOGIN = 'cca433779_ff1'
 PASSWORD = '03124edbfe9'
@@ -17,28 +21,120 @@ AUTHORIZE_PAGE = 'https://brokers.tcsbank.ru/pages/auth/'
 FILL_FORM_PAGE = 'https://brokers.tcsbank.ru/pages/form/'
 # DRIVER_PATH = 'drivers/chromedriver.exe'
 #DRIVER_PATH = 'drivers/chromedriver'
+clicktity = {
+               "mobile_verified"        : "1" # Звонок на этот мобильный телефон (вычисляемое)
+             , "amnesia_reg"            : "IF(a.p_postalcode=0 OR a.p_postalcode=111111,1,0)"  # Индекс =рег - не помню
+             , "reg_addr_is_home_addr"  : "0"  # Адрес проживания такой же?
+             , "amnesia_home"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =прож - не помню
+             , "no_home_phone"          : "IF(a.phone_home<9999999999,1,0)"  # Нет стац. телефона
+             , "not_official"           : "b.unofficial_employment_code"  # Свой бизнес не официальный?
+#             , "additional_phone_home"  : "" # Дополнительный стационарный телефон
+#             , "amnesia_work"           : "IF(b.employment_postalcode=0 OR b.employment_postalcode=111111,1,0)"    # Индекс =раб - не помню
+             , "amnesia_work"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =раб - не помню
+             }
 
-conformity = [[0,'Фамилия','Фамилия'],
-              [1,'Имя', 'Имя'],
-              [2,'Отчество', 'Отчество'],
-              [3,'Дата рождения', 'Дата рождения'],
-              [4,'Место рождения', 'Место рождения'],
-              [5,'Пол', 'Пол'],
-              [6,'СНИЛС', 'СНИЛС'],
-              [7,'Адрес -Индекс', 'Почтовый индекс'],
-              [8,'Город', 'Город прописки'],
-              [9,'Улица', 'Улица прописки'],
-              [10,'Дом', 'Номер дома'],
-              [11,'Квартира', 'Номер квартиры'],
-              [12,'Документ-Серия', 'Серия и номер паспорта'],
-              [13,'Номер', 'Серия и номер паспорта'],
-              [14,'Кем выдан', 'Кем выдан'],
-              [15,'Дата', 'Паспорт выдан'],
-              [16,'Телефон', 'Контактный номер телефона'],
-              [17,'89648846302', 'Телефон для получения СМС']
-              ]
+inputtity = {
+               "surname"                            : "a.p_surname"    # Фамилия
+             , "name"                               : "a.p_name"    # Имя
+             , "patronymic"                         : "a.p_lastname"    # Отчество
+             , "phone_mobile"                       : "a.phone_personal_mobile-70000000000"    # Мобильный телефон
+             , "email"                              : "a.email"    # Электронная почта
+             , "id_code_number"                     : "CONCAT_WS('',a.p_seria,a.p_number)"    # Паспорт (номер и серия) (обработать?)
+             , "passport_who_given"                 : "a.p_police"    # Кто выдал
+             , "passport_date_given"                : "DATE_FORMAT(a.p_date,'%d%m%Y')"    # Дата выдачи
+             , "id_division_code"                   : "a.p_police_code"    # Код подразделения
+             , "birthdate"                          : "DATE_FORMAT(a.b_date,'%d%m%Y')"    # Дата рождения
+             , "place_of_birth"                     : "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"    # Место рождения
+             , "addresstype_registered_postal_code" : "a.p_postalcode"    # Индекс =рег
+             , "addresstype_registered_place"       : "a.p_region"    # Регион =рег
+             , "addresstype_registered_area"        : "CONCAT_WS(' ',a.p_district,a.p_district_type,"
+                                                      "a.p_place,a.p_place_type)"    # Район или город =рег
+             , "addresstype_registered_city"        : "CONCAT_WS(' ',a.p_subplace,a.p_subplace_type)"# Населенный пункт =рег
+             , "addresstype_registered_street"      : "CONCAT_WS(' ',a.p_street,a.p_street_type)"    # Улица =рег
+             , "addresstype_registered_building"    : "a.p_building"    # Дом =рег
+             , "addresstype_registered_corpus"      : "a.p_corpus"    # Корпус =рег
+             , "addresstype_registered_stroenie"    : ""    # Строение =рег
+             , "addresstype_registered_flat"        : "a.p_flat"    # Квартира =рег
+             , "addresstype_home_postal_code"       : "a.d_postalcode"    # Индекс =прож
+             , "addresstype_home_place"             : "a.d_region"    # Регион =прож
+             , "addresstype_home_area"              : "CONCAT_WS(' ',a.d_district,a.d_district_type,"
+                                                      "a.d_place,a.d_place_type)"    # Район или город =прож
+             , "addresstype_home_city"              : "CONCAT_WS(' ',a.d_subplace,a.d_subplace_type)"    # Населенный пункт =прож
+             , "addresstype_home_street"            : "CONCAT_WS(' ',a.d_street,a.d_street_type)"    # Улица =прож
+             , "addresstype_home_building"          : "a.d_building"    # Дом =прож
+             , "addresstype_home_corpus"            : "a.d_corpus"    # Корпус =прож
+             , "addresstype_home_stroenie"          : ""    # Строение =прож
+             , "addresstype_home_flat"              : "a.d_flat"    # Квартира =прож
+             , "phone_home"                         : "a.phone_home-70000000000"    # Стационарный телефон по месту проживания или регистрации
+#             , "additional_phone_home_comment"      : '"родственники"' # Всегда родственники
+             , "work_name"                          : "b.employment_organization"    # Наименование организации
+             , "phone_work"                         : "b.employment_phone"    # Рабочий телефон
+             , "account_duration_years"             : "TRUNCATE(b.employment_experience_months/12,0)"    # Сколько лет работаю
+             , "account_duration_months"            : "(b.employment_experience_months-TRUNCATE"
+                                                      "(b.employment_experience_months/12,0))*12"    # Сколько месяцев работаю
+#             , "addresstype_work_postal_code"       : "b.employment_postalcode"    # Индекс =раб
+#             , "addresstype_work_place"             : 108    # Регион =раб (1 слово)
+#             , "addresstype_work_area"              : 109    # Район или город =раб (2 слово)
+#             , "addresstype_work_city"              : 110    # Населенный пункт =раб (3 слово)
+#             , "addresstype_work_street"            : "b.employment_address"    # Улица =раб (все остальное)
+#             , "addresstype_work_building"          : 111    # Дом =раб
+#             , "addresstype_work_corpus"            : 112    # Корпус =раб
+#             , "addresstype_work_stroenie"          : 113    # Строение =раб
+#             , "addresstype_work_flat"              : 114    # Номер офиса =раб
+             , "addresstype_work_postal_code"       : "a.d_postalcode"    # Индекс =прож
+             , "addresstype_work_place"             : "a.d_region"    # Регион =прож
+             , "addresstype_work_area"              : "CONCAT_WS(' ',a.d_district,a.d_district_type,"
+                                                      "a.d_place,a.d_place_type)"    # Район или город =прож
+             , "addresstype_work_city"              : "CONCAT_WS(' ',a.d_subplace,a.d_subplace_type)"    # Населенный пункт =прож
+             , "addresstype_work_street"            : "CONCAT_WS(' ',a.d_street,a.d_street_type)"    # Улица =прож
+             , "addresstype_work_building"          : "a.d_building"    # Дом =прож
+             , "addresstype_work_corpus"            : "a.d_corpus"    # Корпус =прож
+             , "addresstype_work_stroenie"          : ""     # Строение =раб
+             , "addresstype_work_flat"              : "a.d_flat"    # Квартира =прож
+             , "notwork_other_text"                 : "b.unemployment_other" # Не работаю - другое
+             , "income_individual"                  : "b.personal_income"    # Персональный доход
+             , "expenses_amount"                    : "b.flat_payment"    # Сумма аренды квартиры
+             , "liability_n_w_amount"               : "b.banks_payment"    # Сумма платежей по тек.кредитам в др.банках
+             , "desired_credit_limit"               : "b.want_amount"    # Желательная сумма кредита
+            }
 
+inputtity_first = [
+                   "addresstype_registered_postal_code", "addresstype_registered_place",
+                   "addresstype_registered_area", "addresstype_registered_city",
+                   "addresstype_registered_street", "addresstype_registered_building",
+                   "addresstype_registered_corpus", "addresstype_registered_flat", "addresstype_home_postal_code",
+                   "addresstype_home_place", "addresstype_home_area", "addresstype_home_city",
+                   "addresstype_home_street", "addresstype_home_building",
+                   "addresstype_home_corpus", "addresstype_home_flat",
+                   "addresstype_work_postal_code", "addresstype_work_place", "addresstype_work_area",
+                   "addresstype_work_city", "addresstype_work_street", "addresstype_work_building",
+                   "addresstype_work_corpus", "addresstype_work_flat"
+                  ]
 
+selectity = {
+               "(//DIV[@class='tcs-plugin-select2'])[1]"    : "employment_status_code"# Тип занятости
+             , "(//DIV[@class='tcs-plugin-select2'])[2]"    : "employment_position_code"# Если работаю то Должность
+             , "not_work"                                   : "0"# !!!! Если не работаю то Кем !!!! БУДУТ ИЗМЕНЕНИЯ !!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[3]"    : "status_childs_code"# Количество детей
+             , "(//DIV[@class='tcs-plugin-select2'])[4]"    : "status_marital_code"# Семейное положение
+             , "(//DIV[@class='tcs-plugin-select2'])[5]"    : "status_education_code"# Образование
+             , "(//DIV[@class='tcs-plugin-select2'])[6]"    : "status_car_code"# Автомобиль
+             , "(//DIV[@class='tcs-plugin-select2'])[7]"    : "status_credit_history_code"# Какая кредитная история
+             , "(//DIV[@class='tcs-plugin-select2'])[8]"    : "status_credit_delay_code"# Просрочки по текущим кредитам
+             , "(//DIV[@class='tcs-plugin-select2'])[9]"    : "driver_card_attachment_id"# Предоставит вод.удостоверение
+             , "(//DIV[@class='tcs-plugin-select2'])[10]"   : "international_passport_attachment_id"# Предоставит Загранпаспорт
+             , "(//DIV[@class='tcs-plugin-select2'])[11]"   : "pensioner_card_attachment_id"# Предоставит Пенс.удостоверение
+             , "(//DIV[@class='tcs-plugin-select2'])[12]"   : "identity_card_mvd_attachment_id"# Предоставит Удост.офицера МВД
+             , "(//DIV[@class='tcs-plugin-select2'])[13]"   : "military_card_attachment_id"# Предоставит Военный билет
+             , "(//DIV[@class='tcs-plugin-select2'])[14]"   : "0"# Cвидетельство регистрации ТС !!!!!!!!!!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[15]"   : "0"# Оригинал ПТС!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[16]"   : "0"# Полис страхования КАСКО!!!!!!!!!!!!!!!!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[17]"   : "0"# ППолис ОСАГО!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[18]"   : "number_attachment_id"# Предоставит СНИЛС
+             , "(//DIV[@class='tcs-plugin-select2'])[19]"   : "inn_attachment_id"# Предоставит ИНН
+             , "(//DIV[@class='tcs-plugin-select2'])[20]"   : "has_2NDFL"# Предоставит 2 НДФЛ
+             , "(//DIV[@class='tcs-plugin-select2'])[21]"   : "has_income_report"  # Предоставит Справку о доходах
+            }
 
 def authorize(driver, login, password, authorize_page=''):
     if authorize_page != '':
@@ -56,269 +152,143 @@ def authorize(driver, login, password, authorize_page=''):
     elem.click()
 
 
-def fill_form(driver, row, head2):                                          #row строка, а head2 - заголовок excel
-    conformity_i = []
-    for z, zj in enumerate(conformity):
-        conformity_i.append(zj[1])
-    time.sleep(5)
-    elems = driver.find_elements_by_tag_name('label')                       # все поля label из web-страницы
-    for z in elems:
-        if z.text == 'Даю согласие на обработку персональных данных':
-            z.click()
-            break
-    for jj, j in enumerate(conformity):
-        for i in elems:                                                     # i - текущее поле ввода web-страницы
-            if i.text == j[2]:                                     # сравниваем наш массив и текст поля ввода web-страницы
-                elem_id = driver.find_element_by_id(i.get_attribute('for')) # экземпляр нужного поля ввода
-                e = ''
-                if i.text == 'Пол':                                         # исключая эти случаи
-                    if str(row[conformity_i.index(j[1])]) == '1':
-                        e += i.get_attribute('for') + '_1'
-                    elif str(row[conformity_i.index(j[1])]) == '0':
-                        e += i.get_attribute('for') + '_2'
-                    elem_id = driver.find_element_by_id(e)
-                    elem_id.click()
-                    continue
-
-                if j[1] == 'Номер':                                            # исключая эти случаи
-                    e = i.get_attribute('for').replace('series', 'number')
-                    elem_id = driver.find_element_by_id(e)
-                    elem_id.send_keys(norm.normalize_index(str(row[conformity_i.index(j[1])])))
-                    continue
-
-                if j[1] == 'Документ-Серия':                                            # исключая эти случаи
-                    string = norm.normalize_number(str(row[conformity_i.index(j[1])]))
-                    elem_id.send_keys(string)
-                    continue
-
-
-                if i.text == 'Контактный номер телефона' and elem_id.get_attribute('name') == 'phone.prefix':
-                    string = norm.normalize_phone_number(str(row[conformity_i.index(j[1])]))
-                    if string == norm.ERROR_VALUE:
-                        string = '89648846302'
-                    string = string[1:4]
-                    elem_id.send_keys(string)
-
-                    e = i.get_attribute('for').replace('prefix', 'number')
-                    elem_id = driver.find_element_by_id(e)
-                    string = norm.normalize_phone_number(str(row[conformity_i.index(j[1])]))
-                    if string == norm.ERROR_VALUE:
-                        string = '89648846302'
-                    string = string[4:]
-                    elem_id.send_keys(string)
-                    continue
-
-                if i.text == 'Телефон для получения СМС' and elem_id.get_attribute('name') == 'mobilePhone.prefix':
-                    string = '89648846302'
-                    string = string[1:4]
-                    elem_id.send_keys(string)
-
-                    e = i.get_attribute('for').replace('prefix', 'number')
-                    elem_id = driver.find_element_by_id(e)
-                    string = '89648846302'
-                    string = string[4:]
-                    elem_id.send_keys(string)
-                    continue
-
-                if i.text == 'Дата рождения':
-                    string = norm.normalize_date(str(row[conformity_i.index(j[1])]))
-                    elem_id.send_keys(string)
-                    continue
-
-                if i.text == 'Паспорт выдан':
-                    string = norm.normalize_date(str(row[conformity_i.index(j[1])]))
-                    elem_id.send_keys(string)
-                    continue
-
-                elem_id.send_keys(Keys.HOME)
-                elem_id.send_keys(norm.normalize_text(row[conformity_i.index(j[1])]))
-
-    elems[0].click()
-    time.sleep(1)
-    # Отправка формы нажатием кнопки
-    elem = driver.find_element_by_name("Verify")
-    elem.click()
-    time.sleep(1)
-    elem = driver.find_element_by_name("Confirm")
-    elem.click()
-    dubl = 'Дубль - '
-    try:
-        time.sleep(1)
-        elem = driver.find_element_by_name('Debug')
-        elem.click()
-        time.sleep(1)
-        elem = driver.find_element_by_name('ok')
-        elem.click()
-        time.sleep(1)
-    except NoSuchElementException:
-        dubl = ''
-        time.sleep(1)
-    elem = driver.find_element_by_tag_name('a')
-    elem.click()
-    time.sleep(1)
-    elem = driver.find_element_by_name('yes')
-    elem.click()
-
-#    elems = driver.find_elements_by_tag_name('button')
-#    elems[2].click()
-
-#    elem = driver.find_elements_by_id("btn-home")
-#    elem = driver.find_element_by_class_name("modal-body")
-#    e = elem.find_element_by_tag_name('input')
-##    MOBILE_COD = input('Введите СМС:')   # Пока СМСки для подтверждения не нужны
-#    MOBILE_COD = '1234'
-#    e.send_keys(MOBILE_COD)
-#    elem.click()
-#    x5 = driver.find_elements_by_tag_name('button')
-#    e = elem.find_element_by_tag_name('input') # просто так
-    time.sleep(1)
-    return dubl
-
-
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
 driver = webdriver.Chrome()  # Инициализация драйвера
 #driver = webdriver.Firefox()  # Инициализация драйвера
 
+authorize(driver, LOGIN, PASSWORD, AUTHORIZE_PAGE)  # Авторизация
+
 driver.get(FILL_FORM_PAGE)  # Открытие страницы
+time.sleep(1)
 
-authorize(driver, LOGIN, PASSWORD)  # Авторизация
-
+# Открываем БД из конфиг-файла
 dbconfig = read_db_config()
 conn = MySQLConnection(**dbconfig)
 cursor = conn.cursor()
-try:
-    sql = "SELECT banks.bank_id, banks.bank_name, banks.type_rasch, banks.per_day, banks.koef_185_fz, " \
-          "gar_banks.delta, gar_banks.summ, gar_banks.perc_fz_44, gar_banks.min_fz_44 FROM gar_banks,banks" \
-          " WHERE (gar_banks.bank_id = banks.bank_id) AND (banks.per_day = TRUE) AND (gar_banks.delta >= %s)" \
-          " AND (gar_banks.summ >= %s) ORDER BY (gar_banks.delta - %s), (gar_banks.summ - %s)"
-    cursor.execute(sql, (delta.days, summ, delta.days, summ))
-    rows = cursor.fetchall()
 
-    b_bank_id = {}
-    b_bank_name = {}
-    b_type_rasch = {}
-    b_per_day = {}
-    b_koef_185_fz = {}
-    b_delta = {}
-    b_summ = {}
-    b_perc_fz_44 = {}
-    b_min_fz_44 = {}
+# Формируем SQL
+sql = 'SELECT '
+for i, inp_i in enumerate(clicktity):
+    if str(type(clicktity[inp_i]))=="<class 'str'>" and clicktity[inp_i] != '':
+        sql = sql + clicktity[inp_i] + ','
 
-    for row in rows:
-        if b_bank_name.get(row[0]) == None:
-            b_bank_id[row[0]] = row[0]
+for i, inp_i in enumerate(inputtity):
+    if str(type(inputtity[inp_i]))=="<class 'str'>" and inputtity[inp_i] != '':
+        sql = sql + inputtity[inp_i] + ','
 
-errors = []
-date_err = []
-longs = []
-head = []
-for j, sj in enumerate(ws_read.rows):
-    for k, qk in enumerate(sj):                             # заголовок
-         head.append(qk.value)
-    break
+for i, sel_i in enumerate(selectity):
+    if selectity[sel_i] != '':
+        sql = sql + selectity[sel_i] + ','
 
-for i, ii in enumerate(ws_read.rows):                       # главный цикл по строчкам
-    if i == 0:
-        continue
-    row = []
-    for jj, j in enumerate(conformity):                     # формируем row в соотв с conformity
-        for k, qk in enumerate(ii):
-            if k < len(head):
-                if head[k] == j[1]:
-                    if qk.value == 'None' or qk.value == None:
-                        row.append('')
-                    else:
-                        row.append(qk.value)
-                    break
-    had = False
-    for k, fj in enumerate(loaded):
-        if fj == row[6]:
-            had = True
-    for k, fj in enumerate(errors):
-        if fj == row[6]:
-            had = True
-    for k, fj in enumerate(date_err):
-        if fj == row[6]:
-            had = True
-    for k, fj in enumerate(longs):
-        if fj == row[6]:
-            had = True
-    if had:
-        continue
-    exl_err = False
-    for k, fj in enumerate(row):
-        if not (k == 7 or k == 9 or k == 10 or k == 11):
-            if fj == '':
-                exl_err = True
-                exl_type = 'Не заполнена колонка ' + conformity[k][1]
-    if exl_err:
-        errors.append([row[6],exl_type])
-        continue
-    elif row[15].date() > datetime.date.today():
-        errors.append([row[6],'Паспорт выдан в будущем'])
-        continue
-    elif row[3].date() > datetime.date.today():
-        errors.append([row[6], 'Человек родился в будущем'])
-        continue
-    elif (row[15] - row[3]).days < 5113:
-        date_err.append(row[6])
-        continue
-    elif len(row[14]) >= 100:
-        longs.append(row[6])
-        continue
-    else:
-        try:
-            dd = fill_form(driver, row, head)
-            loaded.append(row[6])
-        except:
-            errors.append([row[6],'Поле не определено'])
-            wb_out = Workbook(write_only=True)
-            ws_write = wb_out.create_sheet('Загружено')
-            ws_err = wb_out.create_sheet('Ошибки')
-            ws_date = wb_out.create_sheet('Паспорт выдан раньше 14')
-            ws_long = wb_out.create_sheet('Кем выдан > 100 симв')
-            for ik, jkl in enumerate(loaded):
-                cell = WriteOnlyCell(ws_write, value=jkl)
-                ws_write.append([cell])
-            for ik, jkl in enumerate(errors):
-                cell = WriteOnlyCell(ws_err, value=jkl[0])
-                cell2 = WriteOnlyCell(ws_err, value=jkl[1])
-                ws_err.append([cell, cell2])
-            for ik, jkl in enumerate(date_err):
-                cell = WriteOnlyCell(ws_date, value=jkl)
-                ws_date.append([cell])
-            for ik, jkl in enumerate(longs):
-                cell = WriteOnlyCell(ws_long, value=jkl)
-                ws_long.append([cell])
-            f = sys.argv[1].replace(sys.argv[1].split('/')[-1], 'err_' + sys.argv[1].split('/')[-1])
-            wb_out.save(f)
-            driver.close()
-            driver = webdriver.Chrome()  # Инициализация драйвера
-            driver.get(FILL_FORM_PAGE)  # Открытие страницы
-            authorize(driver, LOGIN, PASSWORD)  # Авторизация
+sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.loaded=0"
+
+#sql = "SELECT banks.bank_id, banks.bank_name, banks.type_rasch, banks.per_day, banks.koef_185_fz, " \
+#      "gar_banks.delta, gar_banks.summ, gar_banks.perc_fz_44, gar_banks.min_fz_44 FROM gar_banks,banks" \
+#      " WHERE (gar_banks.bank_id = banks.bank_id) AND (banks.per_day = TRUE) AND (gar_banks.delta >= %s)" \
+#      " AND (gar_banks.summ >= %s) ORDER BY (gar_banks.delta - %s), (gar_banks.summ - %s)"
+#cursor.execute(sql, (delta.days, summ, delta.days, summ))
+cursor.execute(sql)
+rows = cursor.fetchall()
+
+for row in rows:                    # Цикл по строкам таблицы (основной)
+    j = 0
+    res_cli = {}
+    for i, inp_i in enumerate(clicktity):
+        if str(type(clicktity[inp_i])) == "<class 'str'>" and clicktity[inp_i] != '':
+            res_cli[inp_i] = row[j]
+            j += 1
+
+    res_inp = {}
+    for i, inp_i in enumerate(inputtity):
+        if str(type(inputtity[inp_i])) == "<class 'str'>" and inputtity[inp_i] != '':
+            res_inp[inp_i] = row[j]
+            j += 1
+
+    res_sel = {}
+    for i, sel_i in enumerate(selectity):
+        if selectity[sel_i] != '':
+            res_sel[sel_i] = row[j]
+            j += 1
+
+# ---------------------------------- ИНИЦИАЛИЗАЦИЯ--------------------------------------------------
+    driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
+    elem = driver.find_element_by_name('reg_addr_is_home_addr') #Адреса регистрации и проживания всегда отличаются
+    elem.click()
+    elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[1]") # Тип занятости
+    elem.click()
+    i = 0
+    while i < res_sel["(//DIV[@class='tcs-plugin-select2'])[1]"]:
+        elem.send_keys(Keys.ARROW_DOWN)
+        i+=1
+    elem.send_keys(Keys.ENTER)
+    elem = driver.find_element_by_name("not_work") # Если не работаю то почему
+    if elem.is_displayed():
+        elem.click()
+        i = 0
+        while i < res_sel["not_work"]:
+            elem.send_keys(Keys.ARROW_DOWN)
+            i+=1
+        elem.send_keys(Keys.ENTER)
+# ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
+
+    i = 2
+    while i <= 21:                                          # Все остальные выпадающие списки
+        elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]")
+        if elem.is_displayed() and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != 0 \
+                and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != None:
+            elem.click()
+            j = 0
+            while j < res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"]:
+                elem.send_keys(Keys.ARROW_DOWN)
+                j += 1
+            elem.send_keys(Keys.ENTER)
+            time.sleep(1)
+        i += 1
+
+    for i, inp_i in enumerate(res_cli):                     # Все чекбоксы
+        if inp_i == 'reg_addr_is_home_addr':
             continue
-#    now_time = datetime.datetime.now()
-#    print(dd, i, row[2], row[3], row[4], now_time.strftime("%M:%S"))
+        elem = driver.find_element_by_name(inp_i)
+        if res_cli[inp_i] == 0 or res_cli[inp_i] == 1:
+            #            time.sleep(1)
+            if elem.get_attribute('value') != str(res_cli[inp_i]):
+                elem.click()
 
-wb_out = Workbook(write_only=True)
-ws_write = wb_out.create_sheet('Загружено')
-ws_err = wb_out.create_sheet('Ошибки')
-ws_date = wb_out.create_sheet('Паспорт выдан раньше 14')
-ws_long = wb_out.create_sheet('Кем выдан > 100 симв')
-for ik, jkl in enumerate(loaded):
-    cell = WriteOnlyCell(ws_write, value=jkl)
-    ws_write.append([cell])
-for ik, jkl in enumerate(errors):
-    cell = WriteOnlyCell(ws_err, value=jkl[0])
-    cell2 = WriteOnlyCell(ws_err, value=jkl[1])
-    ws_err.append([cell, cell2])
-for ik, jkl in enumerate(date_err):
-    cell = WriteOnlyCell(ws_date, value=jkl)
-    ws_date.append([cell])
-for ik, jkl in enumerate(longs):
-    cell = WriteOnlyCell(ws_long, value=jkl)
-    ws_long.append([cell])
-f = sys.argv[1].replace(sys.argv[1].split('/')[-1], 'err_' + sys.argv[1].split('/')[-1])
-wb_out.save(f)
-driver.close()
+    for i, inp_i in enumerate(inputtity_first):             # Первоочередные поля (строгий порядок)
+        if inp_i.find('place') == -1 and inp_i.find('area') == -1:
+            elem = driver.find_element_by_name(inp_i)
+            if elem.is_displayed() and res_inp[inp_i] != None:
+                j = 0
+                while j < 30:
+                    elem.send_keys(Keys.BACKSPACE)
+                    j+=1
+                elem.click()
+    #            time.sleep(1)
+                elem.send_keys(res_inp[inp_i])
+                elem.send_keys(Keys.TAB)
+    #            elem.send_keys(Keys.ENTER)
+    #            j = 0
+
+    for i, inp_i in enumerate(res_inp):
+        cont = False
+        for j, first in enumerate(inputtity_first):
+            if inp_i == first:
+                cont = True
+        if cont:
+            continue
+        elem = driver.find_element_by_name(inp_i)
+        if elem.is_displayed() and res_inp[inp_i] != None:
+#            j = 0
+#            while j < 30:
+#                elem.send_keys(Keys.BACKSPACE)
+#                j+=1
+            elem.click()
+#            time.sleep(1)
+            elem.send_keys(res_inp[inp_i])
+            elem.send_keys(Keys.TAB)
+#            elem.send_keys(Keys.ARROW_DOWN)
+#            elem.send_keys(Keys.ENTER)
+#            j = 0
+
+
 
