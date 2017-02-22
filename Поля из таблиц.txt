@@ -1,0 +1,21 @@
+clients (Таблица a)
+
+`id`, `client_id`, `number`, `p_surname`, `p_name`, `p_lastname`, `b_surname`, `b_name`, `b_lastname`, `gender`, `b_date`, `b_country`, `b_region`, `b_district`, `b_place`, `p_seria`, `p_number`, `p_date`, `p_police`, `p_police_code`, `p_postalcode`, `p_region`, `p_region_type`, `p_district`, `p_district_type`, `p_place`, `p_place_type`, `p_subplace`, `p_subplace_type`, `p_street`, `p_street_type`, `p_building`, `p_corpus`, `p_flat`, `p_service_address`, `p_service_kladr_id`, `p_service_fias_id`, `p_service_fias_level`, `p_service_qc_geo`, `d_postalcode`, `d_region`, `d_region_type`, `d_district`, `d_district_type`, `d_place`, `d_place_type`, `d_subplace`, `d_subplace_type`, `d_street`, `d_street_type`, `d_building`, `d_corpus`, `d_flat`, `d_service_address`, `d_service_kladr_id`, `d_service_fias_id`, `d_service_fias_level`, `d_service_qc_geo`, `phone_personal_mobile`, `phone_relative_mobile`, `phone_home`, `inserted_date`, `inserted_user_code`, `partner_code`, `subdomain_id`, `email`
+
+sql = "SELECT a.p_surname,a.p_name,a.p_lastname,a.phone_personal_mobile,a.email,CONCAT_WS('',a.p_seria,a.p_number)," \
+      "a.p_police,DATE_FORMAT(a.p_date,'%d%m%Y'),a.p_police_code,DATE_FORMAT(a.b_date,'%d%m%Y')," \
+      "a.b_country,a.b_region,a.b_district,a.b_place,a.p_postalcode,a.p_region,a.p_region_type," \
+      "a.p_district,a.p_district_type,a.p_place,a.p_place_type,a.p_subplace,a.p_subplace_type,a.p_street," \
+      "a.p_street_type,a.p_building,a.p_corpus,a.p_flat,a.d_postalcode,a.d_region," \
+      "a.d_region_type,a.d_district,a.d_district_type, a.d_place,a.d_place_type,a.d_subplace," \
+      "a.d_subplace_type,a.d_street,a.d_street_type,a.d_building,a.d_corpus,a.d_flat," \
+      "a.phone_home,b.employment_status_code,b.status_childs_code,b.status_marital_code,b.status_education_code," \
+      "b.status_car_code,b.personal_income,b.flat_payment,b.banks_payment,b.want_amount,b.status_credit_history_code," \
+      "b.status_credit_delay_code,b.driver_card_attachment_id,b.international_passport_attachment_id," \
+      "b.pensioner_card_attachment_id,b.identity_card_mvd_attachment_id,b.military_card_attachment_id," \
+      "b.number_attachment_id,b.inn_attachment_id "
+contracts (Таблица b)
+
+`id`, `client_id`, `agent_code`, `previous_insurance_company`, `inserted_date`, `inserted_code`, `contract_number`, `status_code`, `status_secure_code`, `status_secure_regional_code`, `status_secure_sequence_code`, `status_callcenter_code`, `external_status_code`, `external_status_secure_code`, `external_status_secure_message`, `external_status_callcenter_code`, `passport_attachment_id`, `insurance_attachment_id`, `add_0_attachment_id`, `add_1_attachment_id`, `add_2_attachment_id`, `kapitan_anketa_1_id`, `kapitan_dogovor_1_id`, `kapitan_dogovor_2_id`, `kapitan_dogovor_3_id`, `kapitan_dogovor_4_id`, `kapitan_e_sign_1_id`, `kapitan_z_npf_npf_1_id`, `kapitan_z_npf_pfr_1_id`, `callcenter_priority`, `average_account`, `status_payment_code`, `blocked`, `exchanged`, `payment_date`, `in_sequence`, `in_regional_block`, `socium_contract_number`, `loaded`, `employment_status_code`, `unofficial_employment_code`, `unemployment_other`, `landline_phone`, `landline_phone_relatives`, `landline_phone_relatives_comment`, `status_childs_code`, `status_marital_code`, `status_education_code`, `status_car_code`, `flat_payment`, `banks_payment`, `want_amount`, `status_credit_history_code`, `status_credit_delay_code`, `status_separate_docs_code`, `driver_card_attachment_id`, `international_passport_attachment_id`, `pensioner_card_attachment_id`, `identity_card_mvd_attachment_id`, `military_card_attachment_id`, `number_attachment_id`, `inn_attachment_id`, `personal_income`, `employment_organization`, `employment_phone`, `employment_position_code`, `employment_experience_months`, `employment_postalcode`, `employment_address`, `has_2NDFL`, `has_income_report`
+
+

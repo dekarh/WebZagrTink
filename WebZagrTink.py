@@ -265,7 +265,8 @@ for row in rows:                    # Цикл по строкам таблиц�
                 elem.click()
     #            time.sleep(1)
                 elem.send_keys(res_inp[inp_i])
-                elem.send_keys(Keys.TAB)
+                elem = driver.find_element_by_name("id_division_code")
+                elem.click()
     #            elem.send_keys(Keys.ENTER)
     #            j = 0
 

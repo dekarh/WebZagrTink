@@ -1,0 +1,376 @@
+Форма заявки 
+
+<input type="text" name="surname" id="surname" title="Фамилия" maxlength="33" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+
+<input type="text" name="name" id="name" maxlength="40" title="Имя" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+
+<input type="text" name="patronymic" id="patronymic" title="Отчество" maxlength="40" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+
+--------------------------------------------------------
+
+<input type="text" name="phone_mobile" id="phone_mobile" title="Мобильный телефон" class="tcs-input tcs-input-type-text tcs-gradient-light-gray tcs-valid-phone-not-equal tcs-masked-input tcs-masked-input-empty">
+
+<input type="checkbox" name="mobile_verified" id="mobile_verified" value="0" class="checkbox" title="Звонок на этот мобильный телефон" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<input type="text" maxlength="50" name="email" id="email" title="Электронная почта" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+
+<input type="text" name="id_code_number" id="id_code_number" title="Паспорт" class="tcs-input tcs-gradient-light-gray tcs-masked-input tcs-masked-input-empty">
+
+<textarea noresize="" type="text" name="passport_who_given" id="passport_who_given" class="tcs-textarea tcs-gradient-light-gray" title="Кем выдан"></textarea>
+
+<input type="text" name="passport_date_given" id="passport_date_given" class="tcs-input tcs-gradient-light-gray tcs-masked-input tcs-masked-input-empty" title="Дата выдачи">
+
+<input type="text" name="id_division_code" id="id_division_code" class="tcs-input tcs-gradient-light-gray tcs-masked-input tcs-masked-input-empty" title="Код подразделения">
+
+<input type="text" name="birthdate" id="birthdate" class="tcs-input tcs-gradient-light-gray tcs-masked-input tcs-masked-input-empty" title="Дата рождения">
+
+<input type="text" name="place_of_birth" id="place_of_birth" class="tcs-input tcs-gradient-light-gray" title="Место рождения">
+
+Адрес по месту постоянной регистрации
+
+<input type="text" name="addresstype_registered_postal_code" id="addresstype_registered_postal_code" class="tcs-input tcs-gradient-light-gray tcs-form-zip-js tcs-masked-input tcs-masked-input-empty" title="Индекс" autocomplete="off">
+	<input type="checkbox" name="amnesia_reg" id="amnesia_registered" data-revalid="addresstype_registered_postal_code" value="1" class="checkbox tcs-from-invoke-revalid checkbox_enabled" title="Индекс" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<input type="text" data-selected-id="" name="addresstype_registered_place" id="addresstype_registered_place" class="tcs-input tcs-gradient-light-gray" title="Регион" autocomplete="off">
+
+<input type="text" name="addresstype_registered_area" id="addresstype_registered_area" class="tcs-input tcs-gradient-light-gray valid" title="Район или город" autocomplete="off" data-selected-id="30006" data-selected-name="Камызякский р-н">
+
+<input type="text" name="addresstype_registered_city" id="addresstype_registered_city" class="tcs-input tcs-gradient-light-gray valid" title="Населенный пункт" autocomplete="off" data-selected-id="" data-selected-name="">
+
+<input type="text" name="addresstype_registered_street" id="addresstype_registered_street" class="tcs-input tcs-gradient-light-gray" title="Улица" autocomplete="off">
+
+<input maxlength="7" placeholder="дом" type="text" name="addresstype_registered_building" id="addresstype_registered_building" class="tcs-input tcs-gradient-light-gray" title="Дом">
+<input maxlength="10" placeholder="корпус" type="text" name="addresstype_registered_corpus" id="addresstype_registered_corpus" class="tcs-input tcs-gradient-light-gray" title="Корпус">
+<input maxlength="10" placeholder="строение" type="text" name="addresstype_registered_stroenie" id="addresstype_registered_stroenie" class="tcs-input tcs-gradient-light-gray" title="Строение">
+
+<input maxlength="9" type="text" name="addresstype_registered_flat" id="addresstype_registered_flat" class="tcs-input tcs-gradient-light-gray" title="Квартира">
+
+
+Адрес фактического проживания
+
+<input checked="checked" type="checkbox" value="0" name="reg_addr_is_home_addr" id="reg_addr_is_home_addr" class="checkbox checkbox_disabled" title="" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<input type="text" name="addresstype_home_postal_code" id="addresstype_home_postal_code" title="Индекс" class="tcs-input tcs-input-type-text tcs-gradient-light-gray tcs-form-zip-js tcs-masked-input tcs-masked-input-empty" autocomplete="off">
+	<input type="checkbox" name="amnesia_home" id="amnesia_home" data-revalid="addresstype_home_postal_code" value="0" class="checkbox tcs-from-invoke-revalid" title="Индекс" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<input data-selected-id="" type="text" name="addresstype_home_place" id="addresstype_home_place" class="tcs-input tcs-input-type-text tcs-gradient-light-gray" title="Регион" autocomplete="off">
+
+<input type="text" name="addresstype_home_area" id="addresstype_home_area" title="Район или город" class="tcs-input tcs-input-type-text tcs-gradient-light-gray" autocomplete="off">
+
+<input type="text" name="addresstype_home_city" id="addresstype_home_city" title="Населенный пункт" class="tcs-input tcs-input-type-text tcs-gradient-light-gray" autocomplete="off">
+
+<input type="text" name="addresstype_home_street" id="addresstype_home_street" title="Улица" class="tcs-input tcs-input-type-text tcs-gradient-light-gray" autocomplete="off">
+
+<input maxlength="7" placeholder="дом" type="text" name="addresstype_home_building" title="Дом" id="addresstype_home_building" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+<input maxlength="4" placeholder="корпус" type="text" name="addresstype_home_corpus" title="Корпус" id="addresstype_home_corpus" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+<input maxlength="4" placeholder="строение" type="text" name="addresstype_home_stroenie" title="Строение" id="addresstype_home_stroenie" class="tcs-input tcs-input-type-text tcs-gradient-light-gray">
+
+<input maxlength="9" type="text" name="addresstype_home_flat" id="addresstype_home_flat" class="tcs-input tcs-input-type-text tcs-gradient-light-gray" title="Квартира">
+
+<input type="text" name="phone_home" id="phone_home" placeholder="84951234567" class="tcs-input tcs-gradient-light-gray tcs-valid-phone-not-equal tcs-masked-input tcs-masked-input-empty" title="Стационарный телефон по месту проживания или регистрации">
+	<input type="checkbox" name="no_home_phone" data-name="no_home_phone" id="no_home_phone" value="0" data-revalid="phone_home" class="checkbox tcs-from-invoke-revalid" title="Нет стационарного телефона" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+>>>> Нет домашнего телефона
+
+<input type="text" name="additional_phone_home" id="additional_phone_home" placeholder="84951234567" class="tcs-input tcs-gradient-light-gray tcs-valid-phone-not-equal tcs-masked-input tcs-masked-input-empty" title="Дополнительный стационарный телефон">
+<input type="text" name="additional_phone_home_comment" id="additional_phone_home_comment" placeholder="комментарий" class="tcs-input tcs-gradient-light-gray" title="Комментарий к дополнительному стационарному телефону">
+
+<<<< Нет домашнего телефона
+
+
+
+Правильное заполнение этих полей увеличит шансы на одобрение заявки, а также положительно повлияет на сумму кредитного лимита.
+
+<select name="employment_type" id="employment_type" class="tcs-select" title="Тип занятости" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                    <option value="work">Работаю в организации</option>
+                    <option value="businessman">Собственный бизнес</option>
+                    <option value="not_work">Не работаю</option>
+                </select>
+
+
+>>>> Работаю в организации ИЛИ Собственный бизнес
+
+===Нет==============================
+
+>>>>>>>>Собственный бизнес
+
+<input type="checkbox" value="0" name="not_official" id="not_official" class="checkbox" title="" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<<<<<<<<Собственный бизнес
+
+<textarea noresize="" type="text" name="work_name" id="work_name" title="Наименование организации" class="tcs-textarea tcs-gradient-light-gray" maxlength="150"></textarea>
+
+<input type="text" name="phone_work" id="phone_work" placeholder="84951234567" class="tcs-input tcs-gradient-light-gray tcs-valid-phone-not-equal tcs-masked-input tcs-masked-input-empty" title="Рабочий телефон" style="float:left">
+<input maxlength="9" type="text" name="phone_work_ext" id="phone_work_ext" class="tcs-input tcs-gradient-light-gray tcs-form-credit-extphone" style="width: 70px; float: right;" title="Рабочий телефон">
+
+<select name="work_position" id="work_position" class="tcs-select" title="Занимаемая должность" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                    <option value="0">не выбрано</option>
+                    <option value="1">Руководитель организации</option>
+                    <option value="2">Руководитель подразделения</option>
+                    <option value="3">Неруководящий сотрудник - специалист</option>
+                    <option value="6">Неруководящий сотрудник - рабочий</option>
+                    <option value="4">Неруководящий сотрудник - обсл. персонал</option>
+                </select>
+
+<input maxlength="2" placeholder="лет" type="text" name="account_duration_years" id="account_duration_years" class="tcs-input tcs-gradient-light-gray" title="лет">
+	<input maxlength="2" placeholder="месяцев" type="text" name="account_duration_months" id="account_duration_months" class="tcs-input tcs-gradient-light-gray" title="месяцев">
+
+
+Рабочий адрес
+
+<input type="text" name="addresstype_work_postal_code" id="addresstype_work_postal_code" class="tcs-input tcs-gradient-light-gray tcs-form-zip-js tcs-masked-input tcs-masked-input-empty" title="Индекс" autocomplete="off">
+	<input type="checkbox" name="amnesia_work" id="amnesia_work" value="0" class="checkbox" title="Индекс" style="display: block; position: static; opacity: 0; margin: 0px; padding: 0px; width: 20px; height: 20px; outline: 0px;">
+
+<input type="text" data-selected-id="" name="addresstype_work_place" id="addresstype_work_place" class="tcs-input tcs-gradient-light-gray" title="Регион" autocomplete="off">
+
+<input type="text" name="addresstype_work_area" id="addresstype_work_area" class="tcs-input tcs-gradient-light-gray valid" title="Район или город" autocomplete="off" data-selected-id="78" data-selected-name="г. Санкт-Петербург">
+
+<input type="text" name="addresstype_work_city" id="addresstype_work_city" class="tcs-input tcs-gradient-light-gray valid" title="Населенный пункт" autocomplete="off" data-selected-id="78" data-selected-name="г. Санкт-Петербург">
+
+<input type="text" name="addresstype_work_street" id="addresstype_work_street" class="tcs-input tcs-gradient-light-gray" title="Улица" autocomplete="off">
+
+<input maxlength="7" placeholder="дом" type="text" name="addresstype_work_building" id="addresstype_work_building" class="tcs-input tcs-gradient-light-gray" title="Дом">
+<input maxlength="10" placeholder="корпус" type="text" name="addresstype_work_corpus" id="addresstype_work_corpus" class="tcs-input tcs-gradient-light-gray" title="Корпус">
+<input maxlength="10" placeholder="строение" type="text" name="addresstype_work_stroenie" id="addresstype_work_stroenie" class="tcs-input tcs-gradient-light-gray" title="Строение">
+
+<input maxlength="9" type="text" name="addresstype_work_flat" title="Номер офиса" id="addresstype_work_flat" class="tcs-input tcs-gradient-light-gray">
+
+===Нет==============================
+
+<<<< Работаю в организации ИЛИ Собственный бизнес
+
+>>>> Не работаю
+
+<input type="radio" name="not_work" value="pension_age" id="notwork_pension_age" class="tcs-input radio tcs-gradient-light-gray" title="Пенсионер по возрасту/стажу работы" style="display: inline; opacity: 0; outline: 0px; margin: 0px; padding: 0px; width: 15px; height: 13px;">
+
+<input type="radio" name="not_work" value="pension_disability" id="notwork_pension_disability" class="tcs-input radio tcs-gradient-light-gray" title="Пенсионер по инвалидности" style="display: inline; opacity: 0; outline: 0px; margin: 0px; padding: 0px; width: 15px; height: 13px;">
+
+<input type="radio" name="not_work" value="look_work" id="notwork_look_work" class="tcs-input radio tcs-gradient-light-gray" title="Ищу работу" style="display: inline; opacity: 0; outline: 0px; margin: 0px; padding: 0px; width: 15px; height: 13px;">
+
+<input type="radio" name="not_work" value="husband_wife_contains" id="notwork_husband_wife_contains" class="tcs-input radio tcs-gradient-light-gray" title="Содержит муж/жена" style="display: inline; opacity: 0; outline: 0px; margin: 0px; padding: 0px; width: 15px; height: 13px;">
+
+<input type="radio" name="not_work" value="other" id="notwork_other" class="tcs-input radio tcs-gradient-light-gray" title="Другое" style="display: inline; opacity: 0; outline: 0px; margin: 0px; padding: 0px; width: 15px; height: 13px;">
+<input type="text" name="notwork_other_text" id="notwork_other_text" class="tcs-input tcs-gradient-light-gray" title="">
+
+
+<<<< Не работаю
+
+<select name="number_of_children" id="number_of_children" class="tcs-select" title="Количество детей" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="0">нет</option>
+                <option value="1">один</option>
+                <option value="2">два</option>
+                <option value="3">три и более</option>
+            </select>
+
+<select name="marital_status" id="marital_status" class="tcs-select" title="Семейное положение" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="0">Не выбрано</option>
+                <option value="1">Холост/не замужем</option>
+                <option value="2">Разведен (а)</option>
+                <option value="3">Гражданский брак</option>
+                <option value="4">Женат/замужем</option>
+                <option value="5">Вдовец, вдова</option>
+            </select>
+
+
+
+<--------------------------До открытия
+(//DIV[@class='tcs-plugin-select2__current-value'][text()='Не выбрано'][text()='Не выбрано'])[1]
+(//DIV[@class='tcs-plugin-select2__arrow'])[4]
+(//DIV[@class='tcs-plugin-select2'])[4]
+<--------------------------После открытия
+//UL[@class='tcs-plugin-select2__list']
+
+//LI[@class='tcs-plugin-select2__list-item tcs-plugin-select2__list-item_active'][text()='Не выбрано']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Холост/не замужем']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Разведен (а)']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Гражданский брак']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Женат/замужем']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Вдовец, вдова']
+<--------------------------
+
+
+
+<select name="education" id="education" class="tcs-select" title="Образование" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="0">Не выбрано</option>
+                <option value="1">Начальное, среднее</option>
+                <option value="2">Неполное высшее</option>
+                <option value="3">Высшее</option>
+                <option value="4">Второе высшее</option>
+                <option value="5">Ученая степень</option>
+            </select>
+<--------------------------До открытия
+//DIV[@class='tcs-plugin-select2__current-value'][text()='Не выбрано']
+(//DIV[@class='tcs-plugin-select2__arrow'])[5]
+(//DIV[@class='tcs-plugin-select2'])[5]
+<--------------------------После открытия
+//UL[@class='tcs-plugin-select2__list']
+
+//LI[@class='tcs-plugin-select2__list-item tcs-plugin-select2__list-item_active'][text()='Не выбрано']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Начальное, среднее']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Неполное высшее']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Высшее']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Второе высшее']
+//LI[@class='tcs-plugin-select2__list-item'][text()='Ученая степень']
+<--------------------------
+
+
+
+<select name="asset_foreign_vehicle_flag" id="asset_foreign_vehicle_flag" class="tcs-select" title="Автомобиль" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="1">нет</option>
+                <option value="2">Отечественный</option>
+                <option value="3">Иномарка</option>
+                </select>
+
+<input type="text" maxlength="10" name="income_individual" id="income_individual" class="tcs-input tcs-gradient-light-gray" title="Персональный доход">
+
+<input type="text" maxlength="10" name="expenses_amount" id="expenses_amount" class="tcs-input tcs-gradient-light-gray" title="Сумма аренды квартиры">
+
+<input type="text" maxlength="10" name="liability_n_w_amount" id="liability_n_w_amount" class="tcs-input tcs-gradient-light-gray" title="Сумма платежей по текущим кредитам в других банках">
+
+<input type="text" maxlength="10" name="desired_credit_limit" id="desired_credit_limit" class="tcs-input tcs-gradient-light-gray" title="Сумма платежей по текущим кредитам в других банках"> !!!!!!!!!!!!!!! Ошибка - Желательная сумма кредита
+                
+<select name="client_declared_credit_history" id="client_declared_credit_history" class="tcs-select" title="Кредитная история" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="0">Не указано</option>
+                <option value="1">Хорошая</option>
+                <option value="2">Плохая</option>
+                <option value="3">Не брал кредитов</option>
+                <option value="4">Не знает</option>
+            </select>
+
+            <select name="client_declared_current_delay" id="client_declared_current_delay" class="tcs-select" title="Кредитная история" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                <option value="0">Не указано</option>
+                <option value="1">Нет</option>
+                <option value="2">Есть, меньше 90 дней</option>
+                <option value="3">Есть, больше 90 дней</option>
+            </select><div class="tcs-plugin-select2" tabindex="0" style="width: 350px;"><div class="tcs-plugin-select2__current-value">Не указано</div><div class="tcs-plugin-select2__arrow"></div></div>
+        </span>
+
+Дополнительные документы, которые клиент готов предоставить
+
+Документы, подтверждающие личность:
+
+<select name="show_driver_license" id="show_driver_license" class="tcs-select" title="Водительское удостоверение" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_foreign_passport" id="show_foreign_passport" class="tcs-select" title="Заграничный паспорт" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_pension_cert" id="show_pension_cert" class="tcs-select" title="Пенсионное удостоверение" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_officer_id_card" id="show_officer_id_card" class="tcs-select" title="Удостоверение личности офицера МВД\ВС" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_military_id" id="show_military_id" class="tcs-select" title="Военный билет" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+Другие документы
+
+<select name="show_pension_insuarance_cert" id="show_pension_insuarance_cert" class="tcs-select" title="Страховое свидетельство государственного пенсионного страхования (СНИЛС)" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_inn" id="show_inn" class="tcs-select" title="ИНН" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+===Нет==============================
+
+<select name="show_2ndfl" id="show_2ndfl" class="tcs-select" title="2 НДФЛ" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+<select name="show_income_statement" id="show_income_statement" class="tcs-select" title="Справка о доходах" data-requiredplugin="true" data-plugin-select="true" style="visibility: hidden; position: absolute;">
+                
+                    <option value="0">Не ответил</option>
+                
+                    <option value="1">Нет</option>
+                
+                    <option value="2">Да</option>
+                
+                    <option value="3">Не уверен</option>
+                
+            </select>
+
+===Нет==============================
+
+Кнопка:
+
+<a href="#">Оформить</a>
+
+Кнопка со всеми классами:
+
+<section class="actions">
+    <div class="forward available lastclick">
+        <span class="js_forward psevdo-button-span long_button"><a href="#">Оформить</a></span>
+    </div>
+</section>
