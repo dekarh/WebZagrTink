@@ -26,7 +26,7 @@ clicktity = {
              , "amnesia_reg"            : "IF(a.p_postalcode=0 OR a.p_postalcode=111111,1,0)"  # Индекс =рег - не помню
              , "reg_addr_is_home_addr"  : "0"  # Адрес проживания такой же?
              , "amnesia_home"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =прож - не помню
-             , "no_home_phone"          : "IF(a.phone_home<9999999999,1,0)"  # Нет стац. телефона
+             , "no_home_phone"          : "IF(phone_home<9999999999 OR phone_home IS null,1,0)"  # Нет стац. телефона
              , "not_official"           : "b.unofficial_employment_code"  # Свой бизнес не официальный?
 #             , "additional_phone_home"  : "" # Дополнительный стационарный телефон
 #             , "amnesia_work"           : "IF(b.employment_postalcode=0 OR b.employment_postalcode=111111,1,0)"    # Индекс =раб - не помню
@@ -113,8 +113,8 @@ inputtity_first = [
 
 selectity = {
                "(//DIV[@class='tcs-plugin-select2'])[1]"    : "employment_status_code"# Тип занятости
+             , "not_work"                                   : "unemployment_code"# !!!! Если не работаю то Кем ПРОВЕРИТЬ ИЗМЕНЕНИЯ !!!!!
              , "(//DIV[@class='tcs-plugin-select2'])[2]"    : "employment_position_code"# Если работаю то Должность
-             , "not_work"                                   : "0"# !!!! Если не работаю то Кем !!!! БУДУТ ИЗМЕНЕНИЯ !!!!!
              , "(//DIV[@class='tcs-plugin-select2'])[3]"    : "status_childs_code"# Количество детей
              , "(//DIV[@class='tcs-plugin-select2'])[4]"    : "status_marital_code"# Семейное положение
              , "(//DIV[@class='tcs-plugin-select2'])[5]"    : "status_education_code"# Образование
@@ -126,10 +126,10 @@ selectity = {
              , "(//DIV[@class='tcs-plugin-select2'])[11]"   : "pensioner_card_attachment_id"# Предоставит Пенс.удостоверение
              , "(//DIV[@class='tcs-plugin-select2'])[12]"   : "identity_card_mvd_attachment_id"# Предоставит Удост.офицера МВД
              , "(//DIV[@class='tcs-plugin-select2'])[13]"   : "military_card_attachment_id"# Предоставит Военный билет
-             , "(//DIV[@class='tcs-plugin-select2'])[14]"   : "0"# Cвидетельство регистрации ТС !!!!!!!!!!!!!
-             , "(//DIV[@class='tcs-plugin-select2'])[15]"   : "0"# Оригинал ПТС!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-             , "(//DIV[@class='tcs-plugin-select2'])[16]"   : "0"# Полис страхования КАСКО!!!!!!!!!!!!!!!!!!!
-             , "(//DIV[@class='tcs-plugin-select2'])[17]"   : "0"# ППолис ОСАГО!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             , "(//DIV[@class='tcs-plugin-select2'])[14]"   : "auto_reg_attachment_id"# Cвидетельство регистрации ТС
+             , "(//DIV[@class='tcs-plugin-select2'])[15]"   : "auto_pts_attachment_id"# Оригинал ПТС
+             , "(//DIV[@class='tcs-plugin-select2'])[16]"   : "auto_kasko_attachment_id"# Полис страхования КАСКО
+             , "(//DIV[@class='tcs-plugin-select2'])[17]"   : "auto_osago_attachment_id"# Полис ОСАГО
              , "(//DIV[@class='tcs-plugin-select2'])[18]"   : "number_attachment_id"# Предоставит СНИЛС
              , "(//DIV[@class='tcs-plugin-select2'])[19]"   : "inn_attachment_id"# Предоставит ИНН
              , "(//DIV[@class='tcs-plugin-select2'])[20]"   : "has_2NDFL"# Предоставит 2 НДФЛ
@@ -165,6 +165,13 @@ time.sleep(1)
 dbconfig = read_db_config()
 conn = MySQLConnection(**dbconfig)
 cursor = conn.cursor()
+
+# Заполняем массив дурацкого  селектора "Занимаемая должность"
+emptity = []
+cursor.execute('SELECT code,text FROM status_employment_position WHERE code >-1;')
+rows = cursor.fetchall()
+for row in rows:
+    emptity.append(row[1])
 
 # Формируем SQL
 sql = 'SELECT '
@@ -221,6 +228,7 @@ for row in rows:                    # Цикл по строкам таблиц�
         elem.send_keys(Keys.ARROW_DOWN)
         i+=1
     elem.send_keys(Keys.ENTER)
+
     elem = driver.find_element_by_name("not_work") # Если не работаю то почему
     if elem.is_displayed():
         elem.click()
@@ -229,20 +237,34 @@ for row in rows:                    # Цикл по строкам таблиц�
             elem.send_keys(Keys.ARROW_DOWN)
             i+=1
         elem.send_keys(Keys.ENTER)
-# ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
 
-    i = 2
+# Занимаемая должность - не срабатывает стрелка вниз
+    elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[2]")
+    time.sleep(1)
+    if elem.is_displayed() and res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"] != 0 \
+            and res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"] != None:
+        time.sleep(1)
+        elem.click()
+        elem1 = driver.find_element_by_xpath("//LI[@class='tcs-plugin-select2__list-item'][text()='"
+                                             + emptity[res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"]] + "']")
+        time.sleep(1)
+        elem1.click()
+
+    # ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
+
+    i = 3
     while i <= 21:                                          # Все остальные выпадающие списки
         elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]")
         if elem.is_displayed() and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != 0 \
                 and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != None:
+            time.sleep(1)
             elem.click()
+            time.sleep(1)
             j = 0
             while j < res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"]:
                 elem.send_keys(Keys.ARROW_DOWN)
                 j += 1
             elem.send_keys(Keys.ENTER)
-            time.sleep(1)
         i += 1
 
     for i, inp_i in enumerate(res_cli):                     # Все чекбоксы
@@ -267,6 +289,7 @@ for row in rows:                    # Цикл по строкам таблиц�
                 elem.send_keys(res_inp[inp_i])
                 elem = driver.find_element_by_name("id_division_code")
                 elem.click()
+                elem.click()
     #            elem.send_keys(Keys.ENTER)
     #            j = 0
 
@@ -284,12 +307,14 @@ for row in rows:                    # Цикл по строкам таблиц�
 #                elem.send_keys(Keys.BACKSPACE)
 #                j+=1
             elem.click()
-#            time.sleep(1)
+            time.sleep(1)
             elem.send_keys(res_inp[inp_i])
-            elem.send_keys(Keys.TAB)
+            elem = driver.find_element_by_name("id_division_code")
+            elem.click()
+            elem.click()
 #            elem.send_keys(Keys.ARROW_DOWN)
 #            elem.send_keys(Keys.ENTER)
-#            j = 0
+    j = 0
 
 
 
