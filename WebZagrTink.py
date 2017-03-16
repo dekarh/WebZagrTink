@@ -26,9 +26,8 @@ clicktity = {
              , "amnesia_reg"            : "IF(a.p_postalcode=0 OR a.p_postalcode=111111,1,0)"  # Индекс =рег - не помню
              , "reg_addr_is_home_addr"  : "0"  # Адрес проживания такой же?
              , "amnesia_home"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =прож - не помню
-             , "no_home_phone"          : "IF(phone_home<9999999999 OR phone_home IS null,1,0)"  # Нет стац. телефона
+             , "no_home_phone"          : "IF(b.landline_phone<70000000000 OR b.landline_phone IS null,1,0)"  # Нет стац. телефона
              , "not_official"           : "b.unofficial_employment_code"  # Свой бизнес не официальный?
-#             , "additional_phone_home"  : "" # Дополнительный стационарный телефон
 #             , "amnesia_work"           : "IF(b.employment_postalcode=0 OR b.employment_postalcode=111111,1,0)"    # Индекс =раб - не помню
              , "amnesia_work"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =раб - не помню
              }
@@ -65,32 +64,27 @@ inputtity = {
              , "addresstype_home_corpus"            : "a.d_corpus"    # Корпус =прож
              , "addresstype_home_stroenie"          : ""    # Строение =прож
              , "addresstype_home_flat"              : "a.d_flat"    # Квартира =прож
-             , "phone_home"                         : "a.phone_home-70000000000"    # Стационарный телефон по месту проживания или регистрации
+             , "phone_home"                         : "b.landline_phone-70000000000"    # Стационарный телефон по месту проживания или регистрации
+             , "additional_phone_home"              : "IF(b.landline_phone>70000000000 AND b.landline_phone IS NOT NULL,"
+                                                      "NULL,IF(b.landline_phone_relatives>70000000000 AND "
+                                                      "b.landline_phone_relatives IS NOT NULL,"
+                                                      "b.landline_phone_relatives-70000000000,NULL))" # Дополнительный стационарный телефон
 #             , "additional_phone_home_comment"      : '"родственники"' # Всегда родственники
              , "work_name"                          : "b.employment_organization"    # Наименование организации
              , "phone_work"                         : "b.employment_phone-70000000000"    # Рабочий телефон
              , "account_duration_years"             : "FLOOR(TRUNCATE(b.employment_experience_months/12,0))"    # Сколько лет работаю
              , "account_duration_months"            : "FLOOR(b.employment_experience_months-TRUNCATE"
                                                       "(b.employment_experience_months/12,0)*12)"    # Сколько месяцев работаю
-#             , "addresstype_work_postal_code"       : "b.employment_postalcode"    # Индекс =раб
-#             , "addresstype_work_place"             : 108    # Регион =раб (1 слово)
-#             , "addresstype_work_area"              : 109    # Район или город =раб (2 слово)
-#             , "addresstype_work_city"              : 110    # Населенный пункт =раб (3 слово)
-#             , "addresstype_work_street"            : "b.employment_address"    # Улица =раб (все остальное)
-#             , "addresstype_work_building"          : 111    # Дом =раб
-#             , "addresstype_work_corpus"            : 112    # Корпус =раб
-#             , "addresstype_work_stroenie"          : 113    # Строение =раб
-#             , "addresstype_work_flat"              : 114    # Номер офиса =раб
-             , "addresstype_work_postal_code"       : "a.d_postalcode"    # Индекс =прож
-             , "addresstype_work_place"             : "a.d_region"    # Регион =прож
-             , "addresstype_work_area"              : "CONCAT_WS(' ',a.d_district,a.d_district_type,"
-                                                      "a.d_place,a.d_place_type)"    # Район или город =прож
-             , "addresstype_work_city"              : "CONCAT_WS(' ',a.d_subplace,a.d_subplace_type)"    # Населенный пункт =прож
-             , "addresstype_work_street"            : "CONCAT_WS(' ',a.d_street,a.d_street_type)"    # Улица =прож
-             , "addresstype_work_building"          : "a.d_building"    # Дом =прож
-             , "addresstype_work_corpus"            : "a.d_corpus"    # Корпус =прож
+             , "addresstype_work_postal_code"       : "a.w_postalcode"    # Индекс =раб
+             , "addresstype_work_place"             : "a.w_region"    # Регион =раб
+             , "addresstype_work_area"              : "CONCAT_WS(' ',a.w_district,a.w_district_type,"
+                                                      "a.w_place,a.w_place_type)"    # Район или город =раб
+             , "addresstype_work_city"              : "CONCAT_WS(' ',a.w_subplace,a.w_subplace_type)"    # Населенный пункт =раб
+             , "addresstype_work_street"            : "CONCAT_WS(' ',a.w_street,a.w_street_type)"    # Улица =раб
+             , "addresstype_work_building"          : "a.w_building"    # Дом =прож
+             , "addresstype_work_corpus"            : "a.w_corpus"    # Корпус =прож
              , "addresstype_work_stroenie"          : ""     # Строение =раб
-             , "addresstype_work_flat"              : "a.d_flat"    # Квартира =прож
+             , "addresstype_work_flat"              : "a.w_flat"    # Номер офиса =раб
              , "notwork_other_text"                 : "b.unemployment_other" # Не работаю - другое
              , "income_individual"                  : "b.personal_income"    # Персональный доход
              , "expenses_amount"                    : "b.flat_payment"    # Сумма аренды квартиры
@@ -202,7 +196,10 @@ for row in rows:                    # Цикл по строкам таблиц�
     res_cli = {}
     for i, inp_i in enumerate(clicktity):
         if str(type(clicktity[inp_i])) == "<class 'str'>" and clicktity[inp_i] != '':
-            res_cli[inp_i] = row[j]
+            if row[j] == None:
+                res_cli[inp_i] = 0
+            else:
+                res_cli[inp_i] = row[j]
             j += 1
 
     res_inp = {}
