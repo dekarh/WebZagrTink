@@ -68,10 +68,10 @@ inputtity = {
              , "phone_home"                         : "a.phone_home-70000000000"    # Стационарный телефон по месту проживания или регистрации
 #             , "additional_phone_home_comment"      : '"родственники"' # Всегда родственники
              , "work_name"                          : "b.employment_organization"    # Наименование организации
-             , "phone_work"                         : "b.employment_phone"    # Рабочий телефон
-             , "account_duration_years"             : "TRUNCATE(b.employment_experience_months/12,0)"    # Сколько лет работаю
-             , "account_duration_months"            : "(b.employment_experience_months-TRUNCATE"
-                                                      "(b.employment_experience_months/12,0))*12"    # Сколько месяцев работаю
+             , "phone_work"                         : "b.employment_phone-70000000000"    # Рабочий телефон
+             , "account_duration_years"             : "FLOOR(TRUNCATE(b.employment_experience_months/12,0))"    # Сколько лет работаю
+             , "account_duration_months"            : "FLOOR(b.employment_experience_months-TRUNCATE"
+                                                      "(b.employment_experience_months/12,0)*12)"    # Сколько месяцев работаю
 #             , "addresstype_work_postal_code"       : "b.employment_postalcode"    # Индекс =раб
 #             , "addresstype_work_place"             : 108    # Регион =раб (1 слово)
 #             , "addresstype_work_area"              : 109    # Район или город =раб (2 слово)
@@ -307,7 +307,9 @@ for row in rows:                    # Цикл по строкам таблиц�
 #                elem.send_keys(Keys.BACKSPACE)
 #                j+=1
             elem.click()
-            time.sleep(1)
+#            time.sleep(1)
+            if inp_i == 'account_duration_months' or inp_i == 'account_duration_years':
+                elem.send_keys(Keys.BACKSPACE,Keys.BACKSPACE,Keys.BACKSPACE)
             elem.send_keys(res_inp[inp_i])
             elem = driver.find_element_by_name("id_division_code")
             elem.click()
