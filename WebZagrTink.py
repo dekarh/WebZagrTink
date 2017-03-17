@@ -28,8 +28,7 @@ clicktity = {
              , "amnesia_home"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =прож - не помню
              , "no_home_phone"          : "IF(b.landline_phone<70000000000 OR b.landline_phone IS null,1,0)"  # Нет стац. телефона
              , "not_official"           : "b.unofficial_employment_code"  # Свой бизнес не официальный?
-#             , "amnesia_work"           : "IF(b.employment_postalcode=0 OR b.employment_postalcode=111111,1,0)"    # Индекс =раб - не помню
-             , "amnesia_work"           : "IF(a.d_postalcode=0 OR a.d_postalcode=111111,1,0)"  # Индекс =раб - не помню
+             , "amnesia_work"           : "IF(b.w_postalcode=0 OR b.w_postalcode=111111,1,0)"  # Индекс =раб - не помню
              }
 
 inputtity = {
@@ -48,7 +47,10 @@ inputtity = {
              , "addresstype_registered_place"       : "a.p_region"    # Регион =рег
              , "addresstype_registered_area"        : "CONCAT_WS(' ',a.p_district,a.p_district_type,"
                                                       "a.p_place,a.p_place_type)"    # Район или город =рег
-             , "addresstype_registered_city"        : "CONCAT_WS(' ',a.p_subplace,a.p_subplace_type)"# Населенный пункт =рег
+             , "addresstype_registered_city"        : "IF(a.p_subplace IS NULL OR CHAR_LENGTH(TRIM(a.p_subplace))=0,"
+                                                      "CONCAT_WS(' ',a.p_district,a.p_district_type,"
+                                                      "a.p_place,a.p_place_type),"
+                                                      "CONCAT_WS(' ',a.p_subplace,a.p_subplace_type))"# Населенный пункт =рег
              , "addresstype_registered_street"      : "CONCAT_WS(' ',a.p_street,a.p_street_type)"    # Улица =рег
              , "addresstype_registered_building"    : "a.p_building"    # Дом =рег
              , "addresstype_registered_corpus"      : "a.p_corpus"    # Корпус =рег
@@ -58,7 +60,10 @@ inputtity = {
              , "addresstype_home_place"             : "a.d_region"    # Регион =прож
              , "addresstype_home_area"              : "CONCAT_WS(' ',a.d_district,a.d_district_type,"
                                                       "a.d_place,a.d_place_type)"    # Район или город =прож
-             , "addresstype_home_city"              : "CONCAT_WS(' ',a.d_subplace,a.d_subplace_type)"    # Населенный пункт =прож
+             , "addresstype_home_city"              : "IF(a.d_subplace IS NULL OR CHAR_LENGTH(TRIM(a.d_subplace))=0,"
+                                                      "CONCAT_WS(' ',a.d_district,a.d_district_type,"
+                                                      "a.d_place,a.d_place_type),"
+                                                      "CONCAT_WS(' ',a.d_subplace,a.d_subplace_type))"    # Населенный пункт =прож
              , "addresstype_home_street"            : "CONCAT_WS(' ',a.d_street,a.d_street_type)"    # Улица =прож
              , "addresstype_home_building"          : "a.d_building"    # Дом =прож
              , "addresstype_home_corpus"            : "a.d_corpus"    # Корпус =прож
@@ -75,16 +80,19 @@ inputtity = {
              , "account_duration_years"             : "FLOOR(TRUNCATE(b.employment_experience_months/12,0))"    # Сколько лет работаю
              , "account_duration_months"            : "FLOOR(b.employment_experience_months-TRUNCATE"
                                                       "(b.employment_experience_months/12,0)*12)"    # Сколько месяцев работаю
-             , "addresstype_work_postal_code"       : "a.w_postalcode"    # Индекс =раб
-             , "addresstype_work_place"             : "a.w_region"    # Регион =раб
-             , "addresstype_work_area"              : "CONCAT_WS(' ',a.w_district,a.w_district_type,"
-                                                      "a.w_place,a.w_place_type)"    # Район или город =раб
-             , "addresstype_work_city"              : "CONCAT_WS(' ',a.w_subplace,a.w_subplace_type)"    # Населенный пункт =раб
-             , "addresstype_work_street"            : "CONCAT_WS(' ',a.w_street,a.w_street_type)"    # Улица =раб
-             , "addresstype_work_building"          : "a.w_building"    # Дом =прож
-             , "addresstype_work_corpus"            : "a.w_corpus"    # Корпус =прож
+             , "addresstype_work_postal_code"       : "b.w_postalcode"    # Индекс =раб
+             , "addresstype_work_place"             : "b.w_region"    # Регион =раб
+             , "addresstype_work_area"              : "CONCAT_WS(' ',b.w_district,b.w_district_type,"
+                                                      "b.w_place,b.w_place_type)"    # Район или город =раб
+             , "addresstype_work_city"              : "IF(b.w_subplace IS NULL OR CHAR_LENGTH(TRIM(b.w_subplace))=0,"
+                                                      "CONCAT_WS(' ',b.w_district,b.w_district_type,"
+                                                      "b.w_place,b.w_place_type),"
+                                                      "CONCAT_WS(' ',b.w_subplace,b.w_subplace_type))"# Населенный пункт =раб
+             , "addresstype_work_street"            : "CONCAT_WS(' ',b.w_street,b.w_street_type)"    # Улица =раб
+             , "addresstype_work_building"          : "b.w_building"    # Дом =прож
+             , "addresstype_work_corpus"            : "b.w_corpus"    # Корпус =прож
              , "addresstype_work_stroenie"          : ""     # Строение =раб
-             , "addresstype_work_flat"              : "a.w_flat"    # Номер офиса =раб
+             , "addresstype_work_flat"              : "b.w_flat"    # Номер офиса =раб
              , "notwork_other_text"                 : "b.unemployment_other" # Не работаю - другое
              , "income_individual"                  : "b.personal_income"    # Персональный доход
              , "expenses_amount"                    : "b.flat_payment"    # Сумма аренды квартиры
@@ -129,6 +137,13 @@ selectity = {
              , "(//DIV[@class='tcs-plugin-select2'])[20]"   : "has_2NDFL"# Предоставит 2 НДФЛ
              , "(//DIV[@class='tcs-plugin-select2'])[21]"   : "has_income_report"  # Предоставит Справку о доходах
             }
+
+gluk_w_point = ["surname", "name", "patronymic", "passport_who_given", "place_of_birth",
+                "addresstype_registered_place", "addresstype_registered_area", "addresstype_registered_city",
+                "addresstype_registered_street",
+                "addresstype_home_place", "addresstype_home_area", "addresstype_home_city","addresstype_home_street",
+                "addresstype_work_place", "addresstype_work_area", "addresstype_work_city", "addresstype_work_street"
+                ]
 
 def authorize(driver, login, password, authorize_page=''):
     if authorize_page != '':
@@ -247,7 +262,7 @@ for row in rows:                    # Цикл по строкам таблиц�
         time.sleep(1)
         elem1.click()
 
-    # ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
+# ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
 
     i = 3
     while i <= 21:                                          # Все остальные выпадающие списки
@@ -305,14 +320,35 @@ for row in rows:                    # Цикл по строкам таблиц�
 #                j+=1
             elem.click()
 #            time.sleep(1)
+#-------------------------------------------------Глюколовка старт-----------------------------
             if inp_i == 'account_duration_months' or inp_i == 'account_duration_years':
                 elem.send_keys(Keys.BACKSPACE,Keys.BACKSPACE,Keys.BACKSPACE)
-            elem.send_keys(res_inp[inp_i])
+            if inp_i in gluk_w_point:
+                elem.send_keys(res_inp[inp_i].replace('.',' '))
+            else:
+# -------------------------------------------------Глюколовка конец-----------------------------
+                elem.send_keys(res_inp[inp_i])
             elem = driver.find_element_by_name("id_division_code")
             elem.click()
             elem.click()
 #            elem.send_keys(Keys.ARROW_DOWN)
 #            elem.send_keys(Keys.ENTER)
+    elem = driver.find_element_by_xpath("// A[ @ href = '#'][text() = 'Оформить']") # Сохраняем
+#    elem.click()  # Пока на стрелку "Сохранить" не нажимаем!!!!!
+
+    loaded = False
+    try:
+        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм !!! Не работает если уже переключены
+        elem = driver.find_element_by_name('surname')
+        if elem.get_attribute('value') == res_inp['surname']:
+            loaded = False
+        else:
+            loaded = True
+    except NoSuchElementException:
+        loaded = True
+    except Exception:
+        loaded = False
+
     j = 0
 
 
