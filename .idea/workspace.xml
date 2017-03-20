@@ -21,38 +21,8 @@
       <file leaf-file-name="WebZagrTink.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebZagrTink.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="340" column="136" lean-forward="false" selection-start-line="340" selection-start-column="136" selection-end-line="340" selection-end-column="136" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apport_python_hook.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/common/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="937">
-              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="connection.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3/dist-packages/mysql/connector/connection.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="639" column="0" lean-forward="false" selection-start-line="639" selection-start-column="0" selection-end-line="639" selection-end-column="0" />
+            <state relative-caret-position="323">
+              <caret line="364" column="0" lean-forward="false" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,6 +34,7 @@
     <findStrings>
       <find>driver.get</find>
       <find>country</find>
+      <find>emptity</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -78,9 +49,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="327" />
+    <option name="x" value="344" />
     <option name="y" value="52" />
-    <option name="width" value="953" />
+    <option name="width" value="933" />
     <option name="height" value="972" />
   </component>
   <component name="ProjectView">
@@ -101,7 +72,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../calc" />
   </component>
   <component name="RunManager" selected="Python.WebZagrTink">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -305,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489672089056</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Прописал в addresstype_*_city если  города - дублирование из addresstype_*_area (на уровне MySQL)&#10; Отловил глюк печатания на клавиатуре английской раскладке русских букв - точку меняет на ю (см. gluck_w_point)&#10; Добавил отправку анкеты (click() пока закомментил)&#10; Написал проект определялки отправлено/неотправлено (iframe не работает !!!)">
+      <created>1489766980438</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1489766980438</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -318,7 +296,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="327" y="52" width="953" height="972" extended-state="4" />
+    <frame x="344" y="52" width="933" height="972" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21434139" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -367,36 +345,43 @@
     <MESSAGE value="Нашел поле, которое не закрывается выпадающими списками и кликаю на него как подтверждение сохранения данных" />
     <MESSAGE value="Исправил ошибку  с account_duration_months (неправильно вычислялось в mysql) &#10;Нашел и компенсировал глюк программы (в поле появляется 0)" />
     <MESSAGE value="Поправил прописывание телефона родственников (только если нет домашнего) и его крыжик&#10;Убрал закомментаренные поля работы и прописал новые (добавили в таблицу  b) - раньше было дублирование полей прописки&#10;Добавил замену None на  0 при заполнении res_cli (результаты для полей кликов-крыжиков)&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Поправил прописывание телефона родственников (только если нет домашнего) и его крыжик&#10;Убрал закомментаренные поля работы и прописал новые (добавили в таблицу  b) - раньше было дублирование полей прописки&#10;Добавил замену None на  0 при заполнении res_cli (результаты для полей кликов-крыжиков)&#10;" />
+    <MESSAGE value="Прописал в addresstype_*_city если  города - дублирование из addresstype_*_area (на уровне MySQL)&#10; Отловил глюк печатания на клавиатуре английской раскладке русских букв - точку меняет на ю (см. gluck_w_point)&#10; Добавил отправку анкеты (click() пока закомментил)&#10; Написал проект определялки отправлено/неотправлено (iframe не работает !!!)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Прописал в addresstype_*_city если  города - дублирование из addresstype_*_area (на уровне MySQL)&#10; Отловил глюк печатания на клавиатуре английской раскладке русских букв - точку меняет на ю (см. gluck_w_point)&#10; Добавил отправку анкеты (click() пока закомментил)&#10; Написал проект определялки отправлено/неотправлено (iframe не работает !!!)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/WebZagrTink.py</url>
-          <line>351</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/WebZagrTink.py</url>
-          <line>266</line>
-          <option name="timeStamp" value="73" />
+          <line>364</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="76" />
+      <option name="time" value="85" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="row[j]" language="Python" />
-        <watch expression="clicktity[inp_i]" language="Python" />
-        <watch expression="str(type(clicktity[inp_i]))" language="Python" />
-        <watch expression="elem.is_displayed()" language="Python" />
-        <watch expression="elem.get_attribute('value')" language="Python" />
-        <watch expression="e" language="Python" />
+        <watch expression="'UPDATE contracts SET loaded=1 WHERE client_id=' + res_inp['id']" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/common/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2235">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/mysql/connector/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9585">
+          <caret line="639" column="0" lean-forward="false" selection-start-line="639" selection-start-column="0" selection-end-line="639" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebZagrTink.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2070">
@@ -726,7 +711,7 @@
     </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/common/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="937">
+        <state relative-caret-position="2220">
           <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
           <folding />
         </state>
@@ -734,7 +719,7 @@
     </entry>
     <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
+        <state relative-caret-position="675">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
@@ -742,7 +727,7 @@
     </entry>
     <entry file="file:///usr/lib/python3/dist-packages/mysql/connector/connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
+        <state relative-caret-position="502">
           <caret line="639" column="0" lean-forward="false" selection-start-line="639" selection-start-column="0" selection-end-line="639" selection-end-column="0" />
           <folding />
         </state>
@@ -750,8 +735,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebZagrTink.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="340" column="136" lean-forward="false" selection-start-line="340" selection-start-column="136" selection-end-line="340" selection-end-column="136" />
+        <state relative-caret-position="323">
+          <caret line="364" column="0" lean-forward="false" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -32,7 +32,8 @@ clicktity = {
              }
 
 inputtity = {
-               "surname"                            : "a.p_surname"    # Фамилия
+               "id"                                 : "a.client_id" # Поле id для update b.loaded
+             , "surname"                            : "a.p_surname"    # Фамилия
              , "name"                               : "a.p_name"    # Имя
              , "patronymic"                         : "a.p_lastname"    # Отчество
              , "phone_mobile"                       : "a.phone_personal_mobile-70000000000"    # Мобильный телефон
@@ -306,11 +307,9 @@ for row in rows:                    # Цикл по строкам таблиц�
     #            j = 0
 
     for i, inp_i in enumerate(res_inp):
-        cont = False
-        for j, first in enumerate(inputtity_first):
-            if inp_i == first:
-                cont = True
-        if cont:
+        if inp_i in inputtity_first:
+            continue
+        if inp_i == 'id':
             continue
         elem = driver.find_element_by_name(inp_i)
         if elem.is_displayed() and res_inp[inp_i] != None:
@@ -333,12 +332,16 @@ for row in rows:                    # Цикл по строкам таблиц�
             elem.click()
 #            elem.send_keys(Keys.ARROW_DOWN)
 #            elem.send_keys(Keys.ENTER)
-    elem = driver.find_element_by_xpath("// A[ @ href = '#'][text() = 'Оформить']") # Сохраняем
-#    elem.click()  # Пока на стрелку "Сохранить" не нажимаем!!!!!
+    elem = driver.find_element_by_xpath("// A[ @ href = '#'][text() = 'Оформить']") # Оформить
+    elem.click()  # Пока на стрелку "Сохранить" то нажимаем, то не нажимаем!!!!!
 
     loaded = False
     try:
-        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм !!! Не работает если уже переключены
+        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм
+    except Exception:
+        loaded = False                                                     # Если уже во фрейме - ошибка
+        continue
+    try:
         elem = driver.find_element_by_name('surname')
         if elem.get_attribute('value') == res_inp['surname']:
             loaded = False
@@ -349,7 +352,20 @@ for row in rows:                    # Цикл по строкам таблиц�
     except Exception:
         loaded = False
 
-    j = 0
+    if loaded:
+        sql = 'UPDATE contracts SET loaded=1 WHERE client_id=' + '"' + res_inp['id'] + '"' + ' AND id>-1'
+        cursor.execute(sql)
+        conn.commit()
+
+# Пока выдает пустую страницу после нажатия "Оформить" и никуда не пускает. Приходится заново входить
+    driver.close()
+    driver = webdriver.Chrome()  # Инициализация драйвера
+    authorize(driver, LOGIN, PASSWORD, AUTHORIZE_PAGE)  # Авторизация
+    driver.get(FILL_FORM_PAGE)  # Открытие страницы
+    time.sleep(1)
+
+
+driver.close()
 
 
 
