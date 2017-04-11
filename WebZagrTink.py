@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import Select
 
 import sys
 from mysql.connector import MySQLConnection, Error
-from python_mysql_dbconfig import read_db_config
+from python_mysql_dbconfig import read_config
 import openpyxl
 from openpyxl import Workbook
 from openpyxl.writer.write_only import WriteOnlyCell
@@ -15,12 +15,9 @@ import NormalizeFields as norm
 import datetime
 import time
 
-LOGIN = 'cca433779_ff1'
-PASSWORD = '03124edbfe9'
-AUTHORIZE_PAGE = 'https://brokers.tcsbank.ru/pages/auth/'
-FILL_FORM_PAGE = 'https://brokers.tcsbank.ru/pages/form/'
 # DRIVER_PATH = 'drivers/chromedriver.exe'
 #DRIVER_PATH = 'drivers/chromedriver'
+
 clicktity = {
                "mobile_verified"        : "1" # Звонок на этот мобильный телефон (вычисляемое)
              , "amnesia_reg"            : "IF(a.p_postalcode=0 OR a.p_postalcode=111111,1,0)"  # Индекс =рег - не помню
@@ -163,17 +160,18 @@ def authorize(driver, login, password, authorize_page=''):
 
 
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
-driver = webdriver.Chrome()  # Инициализация драйвера
 #driver = webdriver.Firefox()  # Инициализация драйвера
 
-authorize(driver, LOGIN, PASSWORD, AUTHORIZE_PAGE)  # Авторизация
+webconfig = read_config(section='web')
+fillconfig = read_config(section='fill')
+dbconfig = read_config(section='mysql')
 
-driver.get(FILL_FORM_PAGE)  # Открытие страницы
+driver = webdriver.Chrome()  # Инициализация драйвера
+authorize(driver, **webconfig)  # Авторизация
+driver.get(**fillconfig)  # Открытие страницы
 time.sleep(1)
 
-# Открываем БД из конфиг-файла
-dbconfig = read_db_config()
-conn = MySQLConnection(**dbconfig)
+conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
 cursor = conn.cursor()
 
 # Заполняем массив дурацкого  селектора "Занимаемая должность"
@@ -360,8 +358,8 @@ for row in rows:                    # Цикл по строкам таблиц�
 # Пока выдает пустую страницу после нажатия "Оформить" и никуда не пускает. Приходится заново входить
     driver.close()
     driver = webdriver.Chrome()  # Инициализация драйвера
-    authorize(driver, LOGIN, PASSWORD, AUTHORIZE_PAGE)  # Авторизация
-    driver.get(FILL_FORM_PAGE)  # Открытие страницы
+    authorize(driver, **webconfig)  # Авторизация
+    driver.get(**fillconfig)  # Открытие страницы
     time.sleep(1)
 
 
