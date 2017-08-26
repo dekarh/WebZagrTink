@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
+# Робот, ежечасно переносящий из Сатурна в Tinkoff
 
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
+
 import sys
 from mysql.connector import MySQLConnection, Error
 
 from lib import read_config
+from lib_scan import wj
 from tink_env import clicktity, inputtity, inputtity_first, selectity, gluk_w_point
 
 import time
@@ -30,7 +33,6 @@ def authorize(driver, login, password, authorize_page=''):
     # Отправка формы нажатием кнопки
     elem = driver.find_element_by_name('go')
     elem.click()
-
 
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
 #driver = webdriver.Firefox()  # Инициализация драйвера
@@ -104,9 +106,17 @@ for row in rows:                    # Цикл по строкам таблиц�
 # ---------------------------------- ИНИЦИАЛИЗАЦИЯ--------------------------------------------------
     driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
     elem = driver.find_element_by_xpath('//LABEL[@for="reg_addr_is_home_addr"]') #Адреса регистрации и проживания всегда отличаются
+    wj(driver)
     elem.click()
-    elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[1]") # Тип занятости
+    wj(driver)
+    elem = driver.find_element_by_xpath('(//SELECT[@name="employment_type"]/..') # Тип занятости
+    wj(driver)
     elem.click()
+    wj(driver)
+    elem = driver.find_element_by_xpath('//UL[@class="ui-select__slider ui-select__slider_open"]//SPAN[text()="Собственный бизнес"]')
+    wj(driver)
+    elem.click()
+
     i = 0
     while i < res_sel["(//DIV[@class='tcs-plugin-select2'])[1]"]:
         elem.send_keys(Keys.ARROW_DOWN)

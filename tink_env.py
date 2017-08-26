@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Общие переменые и процедуры проекта WebZagrTink
 
 clicktity = {
                "mobile_verified"        : "1" # Звонок на этот мобильный телефон (вычисляемое)
@@ -124,3 +125,4 @@ gluk_w_point = ["surname", "name", "patronymic", "passport_who_given", "place_of
                 "addresstype_home_place", "addresstype_home_area", "addresstype_home_city","addresstype_home_street",
                 "addresstype_work_place", "addresstype_work_area", "addresstype_work_city", "addresstype_work_street"
                 ]
+

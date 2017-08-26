@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Общая библиотека функций
-# ver 1.02
+# ver 1.03
 
 import string
 from configparser import ConfigParser
@@ -68,6 +68,26 @@ def format_police_code(code):# форматирование любого чис�
         return '{:=06d}'.format(l(code))[:3]+'-'+'{:=06d}'.format(l(code))[3:]
     else:
         return '111-111'
+
+def format_phone(tel):
+    tel = str(tel).strip()
+    if tel == '' or tel == None:
+        return None
+    else:
+        tel = ''.join([char for char in tel if char in string.digits])
+        if len(tel) == 11:
+            if tel[0] in ['8', '9']:
+                return int('7' + tel[1:])
+            elif tel[0] == '7':
+                return int(tel)
+            else:
+                return None
+        elif len(tel) == 10:
+            return int('7' + tel)
+        elif len(tel) == 6:
+            return int('78512' + tel)
+        else:
+            return None
 
 def read_config(filename='config.ini', section='mysql'):
     """ Read database configuration file and return a dictionary object
