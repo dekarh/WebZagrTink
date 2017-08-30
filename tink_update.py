@@ -120,7 +120,6 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             res_sel[sel_i] = row[j]
             j += 1
 
-# ---------------------------------- ИНИЦИАЛИЗАЦИЯ--------------------------------------------------
     driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
     elem = p(d = driver, f = 'c', **clicktity['cAddrFACTtoo'])  # Адреса регистрации и проживания всегда отличаются
     wj(driver)
@@ -160,6 +159,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elif int(res_sel['ТипЗанятости']) == 1: # Бизнес
         if res_cli['cBisUnOfficial'] == 1:
             elem = p(d=driver, f='c', **clicktity['cBisUnOfficial'])
+            wj(driver)
             elem.click()
             wj(driver)
     else:                                   # Не работаю
@@ -190,6 +190,15 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         my_input(driver, ['ИндексФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
+    elem = p(d=driver, f='c', **clicktity['ПодтвФамилии'])
+    wj(driver)
+    elem.click()
+    wj(driver)
+    elem = p(d=driver, f='c', **clicktity['ПодтвМобТел'])
+    wj(driver)
+    elem.click()
+    wj(driver)
+    my_input(driver, ['ДатаРождения', 'СерияНомер', 'МестоРождения', 'КодПодразд', '', ''], res_inp, inputtity)
 
     i = 0
     while i < res_sel["(//DIV[@class='tcs-plugin-select2'])[1]"]:

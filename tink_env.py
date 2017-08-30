@@ -10,6 +10,8 @@ clicktity = {
 'cBisUnOfficial' : {'t': 'x', 's': '//SPAN[text()="Неофициальный бизнес"]' , 'SQL': "b.unofficial_employment_code"}, # Свой бизнес не официальный?
 'cIndWORKAmn' : {'t': 'x', 's': '//[@class="amnesia_work"]' , 'SQL': "IF(b.w_postalcode=0 OR b.w_postalcode=111111,1,0)"}, # Индекс =раб - не помню
 'cAddrWORKtoo' : {'t': 'x', 's': '//LABEL[@for="same_reg_home_org"]' , 'SQL': "0"}, #ok Адрес бизнеса такой же как рег?
+'ПодтвМобТел' : {'t': 'x', 's': '//LABEL[@for="phone_mobile_check"]//SPAN[text()="Проверено"]' , 'SQL': "1"},
+'ПодтвФамилии' : {'t': 'x', 's': '//LABEL[@for="surname_verified"]//SPAN[text()="Проверено"]' , 'SQL': "1"},
 }
 
 inputtity = {
@@ -19,12 +21,13 @@ inputtity = {
 'Отчество' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
 'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "a.phone_personal_mobile-70000000000"}, # Мобильный телефон
 'Email' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
-'iPNum' : {'t': 'x', 's': '//[@class="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия) (обработать?)
+'СерияНомер' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия)
 'iPWho' : {'t': 'x', 's': '//[@class="passport_who_given"]' , 'SQL': "a.p_police"}, # Кто выдал
 'iPDate' : {'t': 'x', 's': '//[@class="passport_date_given"]' , 'SQL': "DATE_FORMAT(a.p_date,'%d%m%Y')"}, # Дата выдачи
-'iPKod' : {'t': 'x', 's': '//[@class="id_division_code"]' , 'SQL': "a.p_police_code"}, # Код подразделения
-'iBDate' : {'t': 'x', 's': '//[@class="birthdate"]' , 'SQL': "DATE_FORMAT(a.b_date,'%d%m%Y')"}, # Дата рождения
-'iBPlace' : {'t': 'x', 's': '//[@class="place_of_birth"]' , 'SQL': "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"}, # Место рождения
+'КодПодразд' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_division_code"]' , 'SQL': "a.p_police_code"}, # Код подразделения
+'ДатаРождения' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="birthdate"]' , 'SQL': "DATE_FORMAT(a.b_date,'%d%m%Y')"}, # Дата рождения
+'МестоРождения' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="place_of_birth"]'
+              , 'SQL': "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"}, # Место рождения
 'ИндексФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.d_postalcode"}, # Индекс =факт
 'РегионФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="place"]' , 'SQL': "a.d_region"}, # Регион =факт
 'Район+ГородФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
