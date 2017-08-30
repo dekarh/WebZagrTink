@@ -9,9 +9,9 @@ from selenium.webdriver.common.keys import Keys
 import sys
 from mysql.connector import MySQLConnection, Error
 
-from lib import read_config
-from lib_scan import wj
-from tink_env import clicktity, inputtity, inputtity_first, selectity, gluk_w_point
+from lib import read_config, lenl, s_minus
+from lib_scan import wj, p
+from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
 
 import time
 
@@ -34,6 +34,21 @@ def authorize(driver, login, password, authorize_page=''):
     elem = driver.find_element_by_name('go')
     elem.click()
 
+def my_input(driver, a, res, inp):
+    for pole in a:
+        if res_inp[pole] != None:
+            elem = p(d=driver, f='c', **inp[pole])
+            wj(driver)
+            elem.click()
+            wj(driver)
+            elem.send_keys(s_minus(res[pole]))
+            wj(driver)
+            elem = p(d=driver, f='c', **inp['Фамилия'])
+            wj(driver)
+            elem.click()
+            wj(driver)
+
+
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
 #driver = webdriver.Firefox()  # Инициализация драйвера
 
@@ -42,6 +57,7 @@ fillconfig = read_config(filename='tink.ini', section='fill')
 dbconfig = read_config(filename='tink.ini', section='mysql')
 
 driver = webdriver.Chrome()  # Инициализация драйвера
+driver.implicitly_wait(10)
 authorize(driver, **webconfig)  # Авторизация
 driver.get(**fillconfig)  # Открытие страницы
 time.sleep(1)
@@ -59,16 +75,16 @@ for row in rows:
 # Формируем SQL
 sql = 'SELECT '
 for i, inp_i in enumerate(clicktity):
-    if str(type(clicktity[inp_i]))=="<class 'str'>" and clicktity[inp_i] != '':
-        sql = sql + clicktity[inp_i] + ','
+    if str(type(clicktity[inp_i]['SQL']))=="<class 'str'>" and clicktity[inp_i]['SQL'] != '':
+        sql += clicktity[inp_i]['SQL'] + ','
 
 for i, inp_i in enumerate(inputtity):
-    if str(type(inputtity[inp_i]))=="<class 'str'>" and inputtity[inp_i] != '':
-        sql = sql + inputtity[inp_i] + ','
+    if str(type(inputtity[inp_i]['SQL']))=="<class 'str'>" and inputtity[inp_i]['SQL'] != '':
+        sql += inputtity[inp_i]['SQL'] + ','
 
 for i, sel_i in enumerate(selectity):
-    if selectity[sel_i] != '':
-        sql = sql + selectity[sel_i] + ','
+    if selectity[sel_i]['SQL'] != '':
+        sql += selectity[sel_i]['SQL'] + ','
 
 sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.loaded=0"
 
@@ -80,11 +96,12 @@ sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.cl
 cursor.execute(sql)
 rows = cursor.fetchall()
 
-for row in rows:                    # Цикл по строкам таблицы (основной)
+for k, row in enumerate(rows):                    # Цикл по строкам таблицы (основной)
+
     j = 0
     res_cli = {}
     for i, inp_i in enumerate(clicktity):
-        if str(type(clicktity[inp_i])) == "<class 'str'>" and clicktity[inp_i] != '':
+        if str(type(clicktity[inp_i]['SQL'])) == "<class 'str'>" and clicktity[inp_i]['SQL'] != '':
             if row[j] == None:
                 res_cli[inp_i] = 0
             else:
@@ -93,29 +110,86 @@ for row in rows:                    # Цикл по строкам таблиц�
 
     res_inp = {}
     for i, inp_i in enumerate(inputtity):
-        if str(type(inputtity[inp_i])) == "<class 'str'>" and inputtity[inp_i] != '':
+        if str(type(inputtity[inp_i]['SQL'])) == "<class 'str'>" and inputtity[inp_i]['SQL'] != '':
             res_inp[inp_i] = row[j]
             j += 1
 
     res_sel = {}
     for i, sel_i in enumerate(selectity):
-        if selectity[sel_i] != '':
+        if selectity[sel_i]['SQL'] != '':
             res_sel[sel_i] = row[j]
             j += 1
 
 # ---------------------------------- ИНИЦИАЛИЗАЦИЯ--------------------------------------------------
     driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
-    elem = driver.find_element_by_xpath('//LABEL[@for="reg_addr_is_home_addr"]') #Адреса регистрации и проживания всегда отличаются
+    elem = p(d = driver, f = 'c', **clicktity['cAddrFACTtoo'])  # Адреса регистрации и проживания всегда отличаются
     wj(driver)
     elem.click()
     wj(driver)
-    elem = driver.find_element_by_xpath('(//SELECT[@name="employment_type"]/..') # Тип занятости
+    elem = p(d = driver, f = 'c', **selectity['ТипЗанятости']) # Тип занятости
     wj(driver)
     elem.click()
-    wj(driver)
-    elem = driver.find_element_by_xpath('//UL[@class="ui-select__slider ui-select__slider_open"]//SPAN[text()="Собственный бизнес"]')
+    res_sel['ТипЗанятости'] = '0'                                   # !!!!!!
+    elem = p(d = driver, f = 'c', **select_selectity['ТипЗанятости'][int(res_sel['ТипЗанятости'])])
     wj(driver)
     elem.click()
+    if int(res_sel['ТипЗанятости']) == 0:                           # Работаю
+        elem = p(d=driver, f='c', **selectity['Должность'])
+        wj(driver)
+        elem.click()
+        elem = p(d=driver, f='c', **select_selectity['Должность'][int(res_sel['Должность'])])
+        wj(driver)
+        elem.click()
+        elem = p(d=driver, f='c', **selectity['Стаж'])
+        wj(driver)
+        elem.click()
+        if int(res_sel['Стаж']) <= 6:
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][0])
+        elif int(res_sel['Стаж']) <= 36:
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][1])
+        elif int(res_sel['Стаж']) <= 60:
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][2])
+        elif int(res_sel['Стаж']) <= 84:
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][3])
+        else:
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][4])
+        wj(driver)
+        elem.click()
+        wj(driver)
+
+    elif int(res_sel['ТипЗанятости']) == 1: # Бизнес
+        if res_cli['cBisUnOfficial'] == 1:
+            elem = p(d=driver, f='c', **clicktity['cBisUnOfficial'])
+            elem.click()
+            wj(driver)
+    else:                                   # Не работаю
+        elem = p(d=driver, f='c', **select_selectity['ТипНезанятости'][int(res_sel['ТипНезанятости'])])
+        wj(driver)
+        elem.click()
+        if int(res_sel['ТипНезанятости']) == 4:                     #  Заполняем Не работаю-Другое
+            my_input(driver, ['НеРаботаю-Другое'], res_inp, inputtity)
+
+    if int(res_sel['ТипЗанятости']) <= 1:                           # Работаю или Бизнес
+        my_input(driver, ['НазвФирмы', 'ТелефонРАБ'], res_inp, inputtity)
+        if lenl(res_inp['ИндексРАБ']) == 0:
+            my_input(driver, ['РегионРАБ', 'Район+ГородРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ',
+                              'НомОфисаРАБ'], res_inp, inputtity)
+        else:
+            my_input(driver, ['ИндексРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
+
+    if lenl(res_inp['ИндексРЕГ']) == 0:
+        my_input(driver, ['РегионРЕГ', 'Район+ГородРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ',
+                          'КвартираРЕГ'], res_inp, inputtity)
+    else:
+        my_input(driver, ['ИндексРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
+
+    if lenl(res_inp['ИндексФАКТ']) == 0:
+        my_input(driver, ['РегионФАКТ', 'Район+ГородФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ',
+                          'КвартираФАКТ'], res_inp, inputtity)
+    else:
+        my_input(driver, ['ИндексФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
+
+    my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
 
     i = 0
     while i < res_sel["(//DIV[@class='tcs-plugin-select2'])[1]"]:
