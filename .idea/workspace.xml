@@ -15,7 +15,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/WebZagrTink$WebZagrTink.coverage" NAME="WebZagrTink Coverage Results" MODIFIED="1503543219673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1504116181396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1504187516417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -25,10 +25,10 @@
       <file leaf-file-name="tink_env.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_env.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="11" />
+            <state relative-caret-position="435">
+              <caret line="209" column="0" lean-forward="true" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
               <folding>
-                <element signature="e#13790#13919#0" expanded="false" />
+                <element signature="e#13119#13248#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -37,13 +37,23 @@
       <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tink_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="200" column="88" lean-forward="false" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
+            <state relative-caret-position="331">
+              <caret line="300" column="14" lean-forward="true" selection-start-line="300" selection-start-column="14" selection-end-line="300" selection-end-column="14" />
               <folding>
                 <element signature="e#76#106#0" expanded="true" />
-                <marker date="1504117404517" expanded="true" signature="2116:2179" ph="SELECT code,... status_employment_position" />
-                <marker date="1504117404517" expanded="true" signature="12907:12965" ph="UPDATE contr... " />
+                <marker date="1504187272427" expanded="true" signature="2772:2835" ph="SELECT code,... status_employment_position" />
+                <marker date="1504187272427" expanded="true" signature="11480:11538" ph="UPDATE contr... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/python3.5/http/client.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4500">
+              <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,8 +61,8 @@
       <file leaf-file-name="lib_scan.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib_scan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state relative-caret-position="738">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding>
                 <element signature="e#79#109#0" expanded="true" />
               </folding>
@@ -73,8 +83,8 @@
       <file leaf-file-name="lib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+            <state relative-caret-position="720">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
                 <element signature="e#63#76#0" expanded="true" />
               </folding>
@@ -94,6 +104,9 @@
       <find>unemployment_other</find>
       <find>CONCAT_WS</find>
       <find>d.p_corpus</find>
+      <find>'//TEXTAREA[@name=&quot;passport_who_given&quot;]'</find>
+      <find>КемВыдан</find>
+      <find>passport_who_given</find>
     </findStrings>
     <replaceStrings>
       <replace>'s': '//DIV[@class=&quot;</replace>
@@ -124,9 +137,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="299" />
+    <option name="x" value="715" />
     <option name="y" value="24" />
-    <option name="width" value="1621" />
+    <option name="width" value="1205" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
@@ -413,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504100722593</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Недоделал паспортные данннные">
+      <created>1504117429043</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1504117429043</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -426,7 +446,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="299" y="24" width="1621" height="1056" extended-state="4" />
+    <frame x="715" y="24" width="1205" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.212987" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -486,15 +506,16 @@
     <MESSAGE value="Изменился исходный сайт :(&#10;Изменил назавания файлов, переделал структуру проекта под имеющиеся наработки" />
     <MESSAGE value="Подключил станадртизированную lib_scan.py&#10;Обновил версию lib.py&#10;Жду решения по js в функции wj()" />
     <MESSAGE value="Дошел до паспортных данннных" />
-    <option name="LAST_COMMIT_MESSAGE" value="Дошел до паспортных данннных" />
+    <MESSAGE value="Недоделал паспортные данннные" />
+    <option name="LAST_COMMIT_MESSAGE" value="Недоделал паспортные данннные" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>199</line>
-          <option name="timeStamp" value="122" />
+          <line>277</line>
+          <option name="timeStamp" value="136" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -504,11 +525,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="123" />
+      <option name="time" value="137" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="res_sel['ТипЗанятости']" language="Python" />
+        <watch expression="res_inp['КемВыдан']" language="Python" />
         <watch expression="int(res_sel['ТипЗанятости'])" language="Python" />
         <watch expression="select_selectity['ТипЗанятости'][int(res_sel['ТипЗанятости'])]" language="Python" />
         <watch expression="res_cli['cBisUnOfficial']" language="Python" />
@@ -662,13 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.5/http/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4110">
-          <caret line="282" column="32" lean-forward="false" selection-start-line="282" selection-start-column="32" selection-end-line="282" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/webdriver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -743,7 +757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1386">
           <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,44 +767,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-          <folding>
-            <element signature="e#63#76#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib_scan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        <state relative-caret-position="738">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
             <element signature="e#79#109#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#63#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.5/http/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4500">
+          <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tink_env.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="11" />
+        <state relative-caret-position="435">
+          <caret line="209" column="0" lean-forward="true" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
           <folding>
-            <element signature="e#13790#13919#0" expanded="false" />
+            <element signature="e#13119#13248#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tink_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="200" column="88" lean-forward="false" selection-start-line="200" selection-start-column="88" selection-end-line="200" selection-end-column="88" />
+        <state relative-caret-position="331">
+          <caret line="300" column="14" lean-forward="true" selection-start-line="300" selection-start-column="14" selection-end-line="300" selection-end-column="14" />
           <folding>
             <element signature="e#76#106#0" expanded="true" />
-            <marker date="1504117404517" expanded="true" signature="2116:2179" ph="SELECT code,... status_employment_position" />
-            <marker date="1504117404517" expanded="true" signature="12907:12965" ph="UPDATE contr... " />
+            <marker date="1504187272427" expanded="true" signature="2772:2835" ph="SELECT code,... status_employment_position" />
+            <marker date="1504187272427" expanded="true" signature="11480:11538" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>

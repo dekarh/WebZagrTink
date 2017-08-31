@@ -3,8 +3,10 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 import sys
 from mysql.connector import MySQLConnection, Error
@@ -34,12 +36,30 @@ def authorize(driver, login, password, authorize_page=''):
     elem = driver.find_element_by_name('go')
     elem.click()
 
+def my_input2(driver, a, res, inp):
+    for pole in a:
+        if res_inp[pole] != None:
+            elem = p(d=driver, f='c', **inp[pole])
+            iq = 1
+            while iq < 150:
+                elem.send_keys(Keys.BACKSPACE)
+                iq += 1
+            for fucked_char in res[pole]:
+                elem.send_keys(fucked_char)
+            wj(driver)
+            elem = p(d=driver, f='c', **inp['Фамилия'])
+            wj(driver)
+            elem.click()
+            wj(driver)
+
 def my_input(driver, a, res, inp):
     for pole in a:
         if res_inp[pole] != None:
             elem = p(d=driver, f='c', **inp[pole])
-            wj(driver)
-            elem.click()
+#            wj(driver)
+#            elem.click()
+#            wj(driver)
+#            elem.clear()
             wj(driver)
             elem.send_keys(s_minus(res[pole]))
             wj(driver)
@@ -128,7 +148,6 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem = p(d = driver, f = 'c', **selectity['ТипЗанятости']) # Тип занятости
     wj(driver)
     elem.click()
-    res_sel['ТипЗанятости'] = '0'                                   # !!!!!!
     elem = p(d = driver, f = 'c', **select_selectity['ТипЗанятости'][int(res_sel['ТипЗанятости'])])
     wj(driver)
     elem.click()
@@ -190,7 +209,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         my_input(driver, ['ИндексФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
-    elem = p(d=driver, f='c', **clicktity['ПодтвФамилии'])
+    elem = p(d=driver, f='c', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
     wj(driver)
     elem.click()
     wj(driver)
@@ -198,106 +217,63 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     wj(driver)
     elem.click()
     wj(driver)
-    my_input(driver, ['ДатаРождения', 'СерияНомер', 'МестоРождения', 'КодПодразд', '', ''], res_inp, inputtity)
+    res_inp['МестоРождения'] = res_inp['МестоРождения'].replace('.',' ').replace('  ',' ').replace('  ',' ')
+    my_input(driver, ['ДатаРождения', 'СерияНомер', 'МестоРождения', 'КодПодразд', 'ДатаВыдачи'], res_inp, inputtity)
+    res_inp['КемВыдан'] = res_inp['КемВыдан'].replace('.', ' ').replace('  ', ' ').replace('  ', ' ')
+    my_input2(driver, ['КемВыдан'], res_inp, inputtity)
 
-    i = 0
-    while i < res_sel["(//DIV[@class='tcs-plugin-select2'])[1]"]:
-        elem.send_keys(Keys.ARROW_DOWN)
-        i+=1
-    elem.send_keys(Keys.ENTER)
-
-    elem = driver.find_element_by_name("not_work") # Если не работаю то почему
-    if elem.is_displayed():
+    my_input(driver, ['ДопТелефон'], res_inp, inputtity)
+    wj(driver)
+    elem = p(d = driver, f = 'c', **selectity['ВладелецДопТелефона'])
+    wj(driver)
+    elem.click()
+    elem = p(d = driver, f = 'c', **select_selectity['ВладелецДопТелефона'][int(res_sel['ВладелецДопТелефона'])])
+    wj(driver)
+    elem.click()
+    wj(driver)
+    if int(res_sel['ВладелецДопТелефона']) > 0:
+        my_input(driver, ['ИмяДопТелефон'], res_inp, inputtity)
+    my_input(driver, ['ПерсДоход', 'КвартПлата'], res_inp, inputtity)
+    wj(driver)
+    elem = p(d = driver, f = 'c', **selectity['ПлатежиКредитные'])
+    wj(driver)
+    elem.click()
+    elem = p(d = driver, f = 'c', **select_selectity['ПлатежиКредитные'][int(res_sel['ПлатежиКредитные'])])
+    wj(driver)
+    elem.click()
+    wj(driver)
+    if int(res_sel['КредитнаяИстория']) > 0:
+        elem = p(d = driver, f = 'c', **selectity['КредитнаяИстория'])
+        wj(driver)
         elem.click()
-        i = 0
-        while i < res_sel["not_work"]:
-            elem.send_keys(Keys.ARROW_DOWN)
-            i+=1
-        elem.send_keys(Keys.ENTER)
-
-# Занимаемая должность - не срабатывает стрелка вниз
-    elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[2]")
-    time.sleep(1)
-    if elem.is_displayed() and res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"] != 0 \
-            and res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"] != None:
-        time.sleep(1)
+        elem = p(d = driver, f = 'c', **select_selectity['КредитнаяИстория'][int(res_sel['КредитнаяИстория'])])
+        wj(driver)
         elem.click()
-        elem1 = driver.find_element_by_xpath("//LI[@class='tcs-plugin-select2__list-item'][text()='"
-                                             + emptity[res_sel["(//DIV[@class='tcs-plugin-select2'])[2]"]] + "']")
-        time.sleep(1)
-        elem1.click()
+        wj(driver)
+    if int(res_sel['Образование']) > 0:
+        elem = p(d = driver, f = 'c', **selectity['Образование'])
+        wj(driver)
+        elem.click()
+        elem = p(d = driver, f = 'c', **select_selectity['Образование'][int(res_sel['Образование'])])
+        wj(driver)
+        elem.click()
+        wj(driver)
+    if int(res_sel['СемейноеПоложение']) > 0:
+        elem = p(d = driver, f = 'c', **selectity['СемейноеПоложение'])
+        wj(driver)
+        elem.click()
+        elem = p(d = driver, f = 'c', **select_selectity['СемейноеПоложение'][int(res_sel['СемейноеПоложение'])])
+        wj(driver)
+        elem.click()
+        wj(driver)
+    elem = p(d = driver, f = 'c', **selectity['Автомобиль'])
+    wj(driver)
+    elem.click()
+    elem = p(d = driver, f = 'c', **select_selectity['Автомобиль'][int(res_sel['Автомобиль'])])
+    wj(driver)
+    elem.click()
+    wj(driver)
 
-# ---------------------------------- КОНЕЦ ИНИЦИАЛИЗАЦИИ----------------------------------------------
-
-    i = 3
-    while i <= 21:                                          # Все остальные выпадающие списки
-        elem = driver.find_element_by_xpath("(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]")
-        if elem.is_displayed() and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != 0 \
-                and res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"] != None:
-            time.sleep(1)
-            elem.click()
-            time.sleep(1)
-            j = 0
-            while j < res_sel["(//DIV[@class='tcs-plugin-select2'])[" + str(i) + "]"]:
-                elem.send_keys(Keys.ARROW_DOWN)
-                j += 1
-            elem.send_keys(Keys.ENTER)
-        i += 1
-
-    for i, inp_i in enumerate(res_cli):                     # Все чекбоксы
-        if inp_i == 'reg_addr_is_home_addr':
-            continue
-        elem = driver.find_element_by_name(inp_i)
-        if res_cli[inp_i] == 0 or res_cli[inp_i] == 1:
-            #            time.sleep(1)
-            if elem.get_attribute('value') != str(res_cli[inp_i]):
-                elem.click()
-
-    for i, inp_i in enumerate(inputtity_first):             # Первоочередные поля (строгий порядок)
-        if inp_i.find('place') == -1 and inp_i.find('area') == -1:
-            elem = driver.find_element_by_name(inp_i)
-            if elem.is_displayed() and res_inp[inp_i] != None:
-                j = 0
-                while j < 30:
-                    elem.send_keys(Keys.BACKSPACE)
-                    j+=1
-                elem.click()
-    #            time.sleep(1)
-                elem.send_keys(res_inp[inp_i])
-                elem = driver.find_element_by_name("id_division_code")
-                elem.click()
-                elem.click()
-    #            elem.send_keys(Keys.ENTER)
-    #            j = 0
-
-    for i, inp_i in enumerate(res_inp):
-        if inp_i in inputtity_first:
-            continue
-        if inp_i == 'id':
-            continue
-        elem = driver.find_element_by_name(inp_i)
-        if elem.is_displayed() and res_inp[inp_i] != None:
-#            j = 0
-#            while j < 30:
-#                elem.send_keys(Keys.BACKSPACE)
-#                j+=1
-            elem.click()
-#            time.sleep(1)
-#-------------------------------------------------Глюколовка старт-----------------------------
-            if inp_i == 'account_duration_months' or inp_i == 'account_duration_years':
-                elem.send_keys(Keys.BACKSPACE,Keys.BACKSPACE,Keys.BACKSPACE)
-            if inp_i in gluk_w_point:
-                elem.send_keys(res_inp[inp_i].replace('.',' '))
-            else:
-# -------------------------------------------------Глюколовка конец-----------------------------
-                elem.send_keys(res_inp[inp_i])
-            elem = driver.find_element_by_name("id_division_code")
-            elem.click()
-            elem.click()
-#            elem.send_keys(Keys.ARROW_DOWN)
-#            elem.send_keys(Keys.ENTER)
-    elem = driver.find_element_by_xpath("// A[ @ href = '#'][text() = 'Оформить']") # Оформить
-    elem.click()  # Пока на стрелку "Сохранить" то нажимаем, то не нажимаем!!!!!
 
     loaded = False
     try:
