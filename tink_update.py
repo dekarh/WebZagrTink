@@ -38,35 +38,37 @@ def authorize(driver, login, password, authorize_page=''):
 
 def my_input2(driver, a, res, inp):
     for pole in a:
-        if res_inp[pole] != None:
-            elem = p(d=driver, f='c', **inp[pole])
-            iq = 1
-            while iq < 150:
-                elem.send_keys(Keys.BACKSPACE)
-                iq += 1
-            for fucked_char in res[pole]:
-                elem.send_keys(fucked_char)
-            wj(driver)
-            elem = p(d=driver, f='c', **inp['Фамилия'])
-            wj(driver)
-            elem.click()
-            wj(driver)
+        if res[pole] != None:
+            if res[pole] != '':
+                elem = p(d=driver, f='c', **inp[pole])
+                iq = 1
+                while iq < 150:
+                    elem.send_keys(Keys.BACKSPACE)
+                    iq += 1
+                for fucked_char in res[pole]:
+                    elem.send_keys(fucked_char)
+                wj(driver)
+                elem = p(d=driver, f='c', **inp['Фамилия'])
+                wj(driver)
+                elem.click()
+                wj(driver)
 
 def my_input(driver, a, res, inp):
     for pole in a:
-        if res_inp[pole] != None:
-            elem = p(d=driver, f='c', **inp[pole])
-#            wj(driver)
-#            elem.click()
-#            wj(driver)
-#            elem.clear()
-            wj(driver)
-            elem.send_keys(s_minus(res[pole]))
-            wj(driver)
-            elem = p(d=driver, f='c', **inp['Фамилия'])
-            wj(driver)
-            elem.click()
-            wj(driver)
+        if res[pole] != None:
+            if res[pole] != '':
+                elem = p(d=driver, f='c', **inp[pole])
+    #            wj(driver)
+    #            elem.click()
+    #            wj(driver)
+    #            elem.clear()
+                wj(driver)
+                elem.send_keys(s_minus(res[pole]))
+                wj(driver)
+                elem = p(d=driver, f='c', **inp['Фамилия'])
+                wj(driver)
+                elem.click()
+                wj(driver)
 
 
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
@@ -195,18 +197,29 @@ for k, row in enumerate(rows):                    # Цикл по строкам
                               'НомОфисаРАБ'], res_inp, inputtity)
         else:
             my_input(driver, ['ИндексРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
+        if p(d=driver, f='p', **inputtity['НасПунктРАБ']) != None:      # Если есть нас пункты, совпадающие с назв. города
+            res_inp['НасПунктРАБ'] = res_inp['Район+ГородРАБ']
+            my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
 
     if lenl(res_inp['ИндексРЕГ']) == 0:
         my_input(driver, ['РегионРЕГ', 'Район+ГородРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ',
                           'КвартираРЕГ'], res_inp, inputtity)
     else:
         my_input(driver, ['ИндексРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
+    if p(d=driver, f='p', **inputtity['НасПунктРЕГ']) != None:         # Если есть нас пункты, совпадающие с назв. города
+        res_inp['НасПунктРЕГ'] = res_inp['Район+ГородРЕГ']
+        my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
+
 
     if lenl(res_inp['ИндексФАКТ']) == 0:
         my_input(driver, ['РегионФАКТ', 'Район+ГородФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ',
                           'КвартираФАКТ'], res_inp, inputtity)
     else:
         my_input(driver, ['ИндексФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
+    if p(d=driver, f='p', **inputtity['НасПунктФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
+        res_inp['НасПунктФАКТ'] = res_inp['Район+ГородФАКТ']
+        my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
     elem = p(d=driver, f='c', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
@@ -274,35 +287,37 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem.click()
     wj(driver)
 
+    elem = p(d=driver, f='c', **clicktity['Оформить'])  # Нажимаем кнопку Оформить
+    wj(driver)
+    elem.click()
+    wj(driver)
 
-    loaded = False
-    try:
-        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм
-    except Exception:
-        loaded = False                                                     # Если уже во фрейме - ошибка
-        continue
-    try:
-        elem = driver.find_element_by_name('surname')
-        if elem.get_attribute('value') == res_inp['surname']:
-            loaded = False
-        else:
-            loaded = True
-    except NoSuchElementException:
-        loaded = True
-    except Exception:
-        loaded = False
+#    try:
+#        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм
+#    except Exception:
+#        loaded = False                                                     # Если уже во фрейме - ошибка
+#        continue
 
-    if loaded:
+    if p(d=driver, f='p', **clicktity['Загружено?']) != None:
         sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
-        cursor.execute(sql, (res_inp['id'],))
+        cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
 
+    driver.switch_to.default_content()   # Выходим из iframe
+
+    wj(driver)
+    elem = p(d=driver, f='c', **clicktity['СледующаяЗаявка'])  # Следующая заявка
+    wj(driver)
+    elem.click()
+    wj(driver)
+
+
 # Пока выдает пустую страницу после нажатия "Оформить" и никуда не пускает. Приходится заново входить
-    driver.close()
-    driver = webdriver.Chrome()  # Инициализация драйвера
-    authorize(driver, **webconfig)  # Авторизация
-    driver.get(**fillconfig)  # Открытие страницы
-    time.sleep(1)
+#    driver.close()
+#    driver = webdriver.Chrome()  # Инициализация драйвера
+#    authorize(driver, **webconfig)  # Авторизация
+#    driver.get(**fillconfig)  # Открытие страницы
+#    time.sleep(1)
 
 
 driver.close()
