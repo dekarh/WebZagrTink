@@ -13,7 +13,7 @@ from mysql.connector import MySQLConnection, Error
 
 from lib import read_config, lenl, s_minus
 from lib_scan import wj, p
-from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
+# from tink_env import
 
 import time
 import datetime
@@ -24,8 +24,12 @@ import datetime
 localtity = {
 'От' : {'t': 'x', 's': '//INPUT[@name="date_from"]'}, #
 'До' : {'t': 'x', 's': '//INPUT[@name="date_to"]' }, #
-'КнопкаПоиск' : {'t': 'x', 's': '//INPUT[@value="Поиск"]' }, #
+'КнопкаПоиск' : {'t': 'x', 's': '//INPUT[@value="Поиск"]' },
+'ТаблицаСтроки' : {'t': 'x', 's': '//TABLE[@class="content"]//TR[not(@class="thead")]' },
+'ТаблицаЯчейки' : {'t': 'x', 's': '//TABLE[@class="content"]//TR[not(@class="thead")]/TD', 'a': 'text'},
+
 }
+statuses = {'Новая': 0, 'В рассмотрении': 1, 'Отказ': 2, 'Одобрена': 3}
 
 
 def authorize(driver, login, password, authorize_page=''):
@@ -58,14 +62,52 @@ driver.get(**reportconfig)  # Открытие страницы
 time.sleep(1)
 
 conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
-cursor = conn.cursor()
 
+elem = p(d=driver, f='c', **localtity['До'])
+wj(driver)
+dt = datetime.datetime.now()
+for iq in range(1, 20):
+    elem.send_keys(Keys.BACKSPACE)
+wj(driver)
+elem.send_keys(dt.strftime("%d.%m.%Y"))
+wj(driver)
 elem = p(d=driver, f='c', **localtity['От'])
 wj(driver)
-elem.send_keys(datetime.date.today())
+dt += datetime.timedelta(weeks=-1)     # !!!!! на 1 неделю назад смотрим
+for iq in range(1, 20):
+    elem.send_keys(Keys.BACKSPACE)
 wj(driver)
+elem.send_keys(dt.strftime("%d.%m.%Y"))
+wj(driver)
+elem = p(d=driver, f='c', **localtity['КнопкаПоиск'])
+wj(driver)
+elem.click()
 
-cursor.execute('SELECT code,text FROM status_employment_position WHERE code >-1;')
+fios_t = []
+dates_t= []
+types_t = []
+statuses_t = []
+elems = p(d=driver, f='ps', **localtity['ТаблицаСтроки'])
+n_strok = len(elems)
+elems = p(d=driver, f='ps', **localtity['ТаблицаЯчейки'])
+for i in range(0, n_strok):
+    fios_t.append(elems[i*4])
+    dates_t.append(elems[i*4+1])
+    types_t.append(elems[i*4+2])
+    statuses_t.append(elems[i*4+3])
+
+cursor = conn.cursor()
+cursor.execute('SELECT b.client_id, b.status_code, a.p_surname, a.p_name, a.p_lastname, b.inserted_date '
+               'FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.inserted_date >= %s;',
+               (dt,))
 rows = cursor.fetchall()
 for row in rows:
-    emptity.append(row[1])
+    for i, fio_t in enumerate(fios_t):
+        if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
+                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')- row[5]) < datetime.timedelta(days=2):
+            if statuses[statuses_t[i]] > row[1]:
+                write_cursor = conn.cursor()
+                sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
+                cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1', (statuses[statuses_t[i]], row[0]))
+                conn.commit()
+

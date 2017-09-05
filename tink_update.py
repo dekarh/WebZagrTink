@@ -41,10 +41,8 @@ def my_input2(driver, a, res, inp):
         if res[pole] != None:
             if res[pole] != '':
                 elem = p(d=driver, f='c', **inp[pole])
-                iq = 1
-                while iq < 150:
+                for iq in range(1,150):
                     elem.send_keys(Keys.BACKSPACE)
-                    iq += 1
                 for fucked_char in res[pole]:
                     elem.send_keys(fucked_char)
                 wj(driver)
@@ -87,14 +85,7 @@ time.sleep(1)
 conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
 cursor = conn.cursor()
 
-# Заполняем массив дурацкого  селектора "Занимаемая должность"
-emptity = []
-cursor.execute('SELECT code,text FROM status_employment_position WHERE code >-1;')
-rows = cursor.fetchall()
-for row in rows:
-    emptity.append(row[1])
-
-# Формируем SQL
+## Формируем SQL
 sql = 'SELECT '
 for i, inp_i in enumerate(clicktity):
     if str(type(clicktity[inp_i]['SQL']))=="<class 'str'>" and clicktity[inp_i]['SQL'] != '':
