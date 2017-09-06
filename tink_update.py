@@ -76,12 +76,6 @@ webconfig = read_config(filename='tink.ini', section='web')
 fillconfig = read_config(filename='tink.ini', section='fill')
 dbconfig = read_config(filename='tink.ini', section='mysql')
 
-driver = webdriver.Chrome()  # Инициализация драйвера
-driver.implicitly_wait(10)
-authorize(driver, **webconfig)  # Авторизация
-driver.get(**fillconfig)  # Открытие страницы
-time.sleep(1)
-
 conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
 cursor = conn.cursor()
 
@@ -99,7 +93,7 @@ for i, sel_i in enumerate(selectity):
     if selectity[sel_i]['SQL'] != '':
         sql += selectity[sel_i]['SQL'] + ','
 
-sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.loaded=0"
+sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.status_code=0"
 
 #sql = "SELECT banks.bank_id, banks.bank_name, banks.type_rasch, banks.per_day, banks.koef_185_fz, " \
 #      "gar_banks.delta, gar_banks.summ, gar_banks.perc_fz_44, gar_banks.min_fz_44 FROM gar_banks,banks" \
@@ -108,6 +102,17 @@ sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.cl
 #cursor.execute(sql, (delta.days, summ, delta.days, summ))
 cursor.execute(sql)
 rows = cursor.fetchall()
+
+if len(rows) == 0:
+    print('Нет новых договоров')
+    sys.exit()
+
+driver = webdriver.Chrome()  # Инициализация драйвера
+driver.implicitly_wait(10)
+authorize(driver, **webconfig)  # Авторизация
+driver.get(**fillconfig)  # Открытие страницы
+time.sleep(1)
+
 
 for k, row in enumerate(rows):                    # Цикл по строкам таблицы (основной)
 
