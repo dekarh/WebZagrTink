@@ -46,7 +46,7 @@ def my_input2(driver, a, res, inp):
                 for fucked_char in res[pole]:
                     elem.send_keys(fucked_char)
                 wj(driver)
-                elem = p(d=driver, f='c', **inp['Фамилия'])
+                elem = p(d=driver, f='p', **inp['ЩелчокДляСброса'])
                 wj(driver)
                 elem.click()
                 wj(driver)
@@ -63,7 +63,7 @@ def my_input(driver, a, res, inp):
                 wj(driver)
                 elem.send_keys(s_minus(res[pole]))
                 wj(driver)
-                elem = p(d=driver, f='c', **inp['Фамилия'])
+                elem = p(d=driver, f='p', **inp['ЩелчокДляСброса'])
                 wj(driver)
                 elem.click()
                 wj(driver)
@@ -218,13 +218,15 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
-    elem = p(d=driver, f='c', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
+    elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
     wj(driver)
-    elem.click()
+    if elem != None:
+        elem.click()
     wj(driver)
     elem = p(d=driver, f='c', **clicktity['ПодтвМобТел'])
     wj(driver)
-    elem.click()
+    if elem != None:
+        elem.click()
     wj(driver)
     res_inp['МестоРождения'] = res_inp['МестоРождения'].replace('.',' ').replace('  ',' ').replace('  ',' ')
     my_input(driver, ['ДатаРождения', 'СерияНомер', 'МестоРождения', 'КодПодразд', 'ДатаВыдачи'], res_inp, inputtity)
@@ -295,7 +297,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 #        continue
 
     if p(d=driver, f='p', **clicktity['Загружено?']) != None:
-        sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
+        sql = 'UPDATE contracts SET status_code=1 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
 

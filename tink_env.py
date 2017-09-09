@@ -14,7 +14,7 @@ clicktity = {
 'ПодтвФамилии' : {'t': 'x', 's': '//LABEL[@for="surname_verified"]//SPAN[text()="Проверено"]' , 'SQL': "1"},
 'Оформить' : {'t': 'x', 's': '//BUTTON[@type="button"]//SPAN[text()="Оформить"]/..' , 'SQL': "1"},
 'Загружено?' : {'t': 'x', 's': '//H1[text()="Спасибо за предоставленную информацию"]' , 'SQL': "1"},
-'СледующаяЗаявка' : {'t': 'x', 's': '//INPUT[text()="Заполнить новую заявку"]' , 'SQL': "1"}
+'СледующаяЗаявка' : {'t': 'x', 's': '//INPUT[@value="Заполнить новую заявку"]' , 'SQL': "1"}
 }
 
 inputtity = {
@@ -81,6 +81,7 @@ inputtity = {
 'ПерсДоход' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="income_individual"]' , 'SQL': "b.personal_income"}, # Персональный доход
 'КвартПлата' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="expenses_amount"]' , 'SQL': "b.flat_payment"}, # Сумма аренды квартиры
 'КредЛимит' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="desired_credit_limit"]', 'SQL': "b.want_amount"}, # Кредитный лимит
+'ЩелчокДляСброса' : {'t': 'x', 's': '//DIV[@class="app-form-nav-container_static"]', 'SQL': "1"},
 }
 
 selectity = {
@@ -91,7 +92,7 @@ selectity = {
 'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..','SQL':
                 "IF(b.landline_phone>70000000000 AND b.landline_phone IS NOT NULL,0,"
                 "IF(b.landline_phone_relatives>70000000000 AND b.landline_phone_relatives IS NOT NULL,"
-                "2,NULL))"}, # Стационарный - свой, остальные - всегда номер друга
+                "2,2))"}, # Стационарный - свой, остальные - всегда номер друга
 'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
                    'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
                           "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
