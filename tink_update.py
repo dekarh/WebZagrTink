@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 import sys
 from mysql.connector import MySQLConnection, Error
 
-from lib import read_config, lenl, s_minus
+from lib import read_config, lenl, s_minus, s
 from lib_scan import wj, p
 from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
 
@@ -102,6 +102,7 @@ sql = sql[:len(sql) - 1] + " FROM clients AS a INNER JOIN contracts AS b ON a.cl
 #cursor.execute(sql, (delta.days, summ, delta.days, summ))
 cursor.execute(sql)
 rows = cursor.fetchall()
+conn.close()
 
 if len(rows) == 0:
     print('Нет новых договоров')
@@ -189,32 +190,67 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if int(res_sel['ТипЗанятости']) <= 1:                           # Работаю или Бизнес
         my_input(driver, ['НазвФирмы', 'ТелефонРАБ'], res_inp, inputtity)
         if lenl(res_inp['ИндексРАБ']) == 0:
-            my_input(driver, ['РегионРАБ', 'Район+ГородРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ',
-                              'НомОфисаРАБ'], res_inp, inputtity)
+            my_input(driver, ['РегионРАБ'], res_inp, inputtity)
+            probel = ''
+            if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
+                probel = ' '
+            res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
+            my_input(driver, ['РайонРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp,
+                     inputtity)
         else:
-            my_input(driver, ['ИндексРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
-        if p(d=driver, f='p', **inputtity['НасПунктРАБ']) != None:      # Если есть нас пункты, совпадающие с назв. города
-            res_inp['НасПунктРАБ'] = res_inp['Район+ГородРАБ']
-            my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
+            my_input(driver, ['ИндексРАБ'], res_inp, inputtity)
+            if p(d=driver, f='p', **inputtity['РайонРАБ']) != None:
+                probel = ''
+                if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
+                    probel = ' '
+                res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
+            if p(d=driver, f='p', **inputtity['НасПунктРАБ']) != None:
+                if s(res_inp['ГородРАБ']) != '':
+                    res_inp['ГородРАБ'] = s(res_inp['РайонРАБ'])
+                my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
+            my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
 
     if lenl(res_inp['ИндексРЕГ']) == 0:
-        my_input(driver, ['РегионРЕГ', 'Район+ГородРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ',
-                          'КвартираРЕГ'], res_inp, inputtity)
+        my_input(driver, ['РегионРЕГ'], res_inp, inputtity)
+        probel = ''
+        if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
+            probel = ' '
+        res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
+        my_input(driver, ['РайонРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp,
+                 inputtity)
     else:
-        my_input(driver, ['ИндексРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
-    if p(d=driver, f='p', **inputtity['НасПунктРЕГ']) != None:         # Если есть нас пункты, совпадающие с назв. города
-        res_inp['НасПунктРЕГ'] = res_inp['Район+ГородРЕГ']
-        my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
-
+        my_input(driver, ['ИндексРЕГ'], res_inp, inputtity)
+        if p(d=driver, f='p', **inputtity['РайонРЕГ']) != None:
+            probel = ''
+            if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
+                probel = ' '
+            res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
+        if p(d=driver, f='p', **inputtity['НасПунктРЕГ']) != None:
+            if s(res_inp['ГородРЕГ']) != '':
+                res_inp['ГородРЕГ'] = s(res_inp['РайонРЕГ'])
+            my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
+        my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
 
     if lenl(res_inp['ИндексФАКТ']) == 0:
-        my_input(driver, ['РегионФАКТ', 'Район+ГородФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ',
-                          'КвартираФАКТ'], res_inp, inputtity)
+        my_input(driver, ['РегионФАКТ'], res_inp, inputtity)
+        probel = ''
+        if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
+            probel = ' '
+        res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
+        my_input(driver, ['РайонФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp,
+                 inputtity)
     else:
-        my_input(driver, ['ИндексФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
-    if p(d=driver, f='p', **inputtity['НасПунктФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
-        res_inp['НасПунктФАКТ'] = res_inp['Район+ГородФАКТ']
-        my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+        my_input(driver, ['ИндексФАКТ'], res_inp, inputtity)
+        if p(d=driver, f='p', **inputtity['РайонФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
+            probel = ''
+            if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
+                probel = ' '
+            res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
+        if p(d=driver, f='p', **inputtity['НасПунктФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
+            if s(res_inp['ГородФАКТ']) != '':
+                res_inp['ГородФАКТ'] = s(res_inp['РайонФАКТ'])
+            my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+        my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
 
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
@@ -290,16 +326,17 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem.click()
     wj(driver)
 
-#    try:
-#        driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))  # Переключаемся во фрейм
-#    except Exception:
-#        loaded = False                                                     # Если уже во фрейме - ошибка
-#        continue
-
-    if p(d=driver, f='p', **clicktity['Загружено?']) != None:
+    conn = MySQLConnection(**dbconfig)  # Открываем БД из конфиг-файла
+    cursor = conn.cursor()
+    if p(d=driver, f='p', **clicktity['Загружено?']) == None:
+        sql = 'UPDATE contracts SET status_code=4 WHERE client_id=%s AND id>-1'
+        cursor.execute(sql, (res_inp['iId'],))
+        conn.commit()
+    else:
         sql = 'UPDATE contracts SET status_code=1 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
+    conn.close()
 
     driver.switch_to.default_content()   # Выходим из iframe
 

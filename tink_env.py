@@ -33,8 +33,10 @@ inputtity = {
               , 'SQL': "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"}, # Место рождения
 'ИндексФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.d_postalcode"}, # Индекс =факт
 'РегионФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="place"]' , 'SQL': "a.d_region"}, # Регион =факт
-'Район+ГородФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
-                    'SQL': "CONCAT_WS(' ',a.d_district_type,a.d_district,a.d_place_type,a.d_place)"}, # Район или город =факт
+'РайонФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
+                    'SQL': "CONCAT_WS(' ',a.d_district_type,a.d_district)"}, # Район =факт
+'ГородФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
+                    'SQL': "CONCAT_WS(' ',a.d_place_type,a.d_place)"}, # Город =факт
 'НасПунктФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="city"]',
                  'SQL': "CONCAT_WS(' ',a.d_subplace_type,a.d_subplace)"}, # Населенный пункт =факт
 'УлицаФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="street"]',
@@ -45,8 +47,10 @@ inputtity = {
 'КвартираФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="flat"]', 'SQL': "a.d_flat"}, # Квартира =факт
 'ИндексРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.p_postalcode"}, # Индекс =рег
 'РегионРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="place"]', 'SQL': "a.p_region"}, # Регион =рег
-'Район+ГородРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]',
-                    'SQL': "CONCAT_WS(' ',a.p_district_type,a.p_district,a.p_place_type,a.p_place)"}, # Район или город =рег
+'РайонРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]',
+                    'SQL': "CONCAT_WS(' ',a.p_district_type,a.p_district)"}, # Район =рег
+'ГородРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]',
+                    'SQL': "CONCAT_WS(' ',a.p_place_type,a.p_place)"}, # Город =рег
 'НасПунктРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="city"]',
                  'SQL': "CONCAT_WS(' ',a.p_subplace_type,a.p_subplace)"}, # Населенный пункт =рег
 'УлицаРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="street"]',
@@ -67,8 +71,10 @@ inputtity = {
 'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone-70000000000"}, # Рабочий телефон
 'ИндексРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "b.w_postalcode"}, # Индекс =раб
 'РегионРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="place"]' , 'SQL': "b.w_region"}, # Регион =раб
-'Район+ГородРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]' ,
-                    'SQL': "CONCAT_WS(' ',b.w_district_type,b.w_district,b.w_place_type,b.w_place)"}, # Район или город =раб
+'РайонРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]' ,
+                    'SQL': "CONCAT_WS(' ',b.w_district_type,b.w_district)"}, # Район =раб
+'ГородРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]' ,
+                    'SQL': "CONCAT_WS(' ',b.w_place_type,b.w_place)"}, # Город =раб
 'НасПунктРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="city"]' ,
                  'SQL': "CONCAT_WS(' ',b.w_subplace_type,b.w_subplace)"}, # Населенный пункт =раб
 'УлицаРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="street"]' ,
