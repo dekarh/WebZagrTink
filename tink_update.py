@@ -12,7 +12,7 @@ import sys
 from mysql.connector import MySQLConnection, Error
 
 from lib import read_config, lenl, s_minus, s
-from lib_scan import wj, p
+from lib_scan import wj, p, chk
 from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
 
 import time
@@ -199,15 +199,18 @@ for k, row in enumerate(rows):                    # Цикл по строкам
                      inputtity)
         else:
             my_input(driver, ['ИндексРАБ'], res_inp, inputtity)
-            if p(d=driver, f='p', **inputtity['РайонРАБ']) != None:
-                probel = ''
-                if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
-                    probel = ' '
-                res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
-            if p(d=driver, f='p', **inputtity['НасПунктРАБ']) != None:
-                if s(res_inp['ГородРАБ']) != '':
-                    res_inp['ГородРАБ'] = s(res_inp['РайонРАБ'])
-                my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
+            probel = ''
+            if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
+                probel = ' '
+            res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
+            if chk(d=driver, f='p', **inputtity['РайонРАБ']):
+                if p(d=driver, f='p', **inputtity['РайонРАБзнач']) == '':
+                    my_input(driver, ['РайонРАБ'], res_inp, inputtity)
+            if chk(d=driver, f='p', **inputtity['НасПунктРАБ']):
+                if p(d=driver, f='p', **inputtity['НасПунктРАБзнач']) == '':
+                    if s(res_inp['НасПунктРАБ']) == '':
+                        res_inp['НасПунктРАБ'] = s(res_inp['РайонРАБ'])
+                    my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
             my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
 
     if lenl(res_inp['ИндексРЕГ']) == 0:
@@ -220,15 +223,18 @@ for k, row in enumerate(rows):                    # Цикл по строкам
                  inputtity)
     else:
         my_input(driver, ['ИндексРЕГ'], res_inp, inputtity)
-        if p(d=driver, f='p', **inputtity['РайонРЕГ']) != None:
-            probel = ''
-            if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
-                probel = ' '
-            res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
-        if p(d=driver, f='p', **inputtity['НасПунктРЕГ']) != None:
-            if s(res_inp['ГородРЕГ']) != '':
-                res_inp['ГородРЕГ'] = s(res_inp['РайонРЕГ'])
-            my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
+        probel = ''
+        if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
+            probel = ' '
+        res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
+        if chk(d=driver, f='p', **inputtity['РайонРЕГ']):
+            if p(d=driver, f='p', **inputtity['РайонРЕГзнач']) == '':
+                my_input(driver, ['РайонРЕГ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **inputtity['НасПунктРЕГ']):
+            if p(d=driver, f='p', **inputtity['НасПунктРЕГзнач']) == '':
+                if s(res_inp['НасПунктРЕГ']) == '':
+                    res_inp['НасПунктРЕГ'] = s(res_inp['РайонРЕГ'])
+                my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
         my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
 
     if lenl(res_inp['ИндексФАКТ']) == 0:
@@ -241,15 +247,18 @@ for k, row in enumerate(rows):                    # Цикл по строкам
                  inputtity)
     else:
         my_input(driver, ['ИндексФАКТ'], res_inp, inputtity)
-        if p(d=driver, f='p', **inputtity['РайонФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
-            probel = ''
-            if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
-                probel = ' '
-            res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
-        if p(d=driver, f='p', **inputtity['НасПунктФАКТ']) != None:         # Если есть нас пункты, совпадающие с назв. города
-            if s(res_inp['ГородФАКТ']) != '':
-                res_inp['ГородФАКТ'] = s(res_inp['РайонФАКТ'])
-            my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+        probel = ''
+        if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
+            probel = ' '
+        res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
+        if chk(d=driver, f='p', **inputtity['РайонФАКТ']):
+            if p(d=driver, f='p', **inputtity['РайонФАКТзнач']) == '':
+                my_input(driver, ['РайонФАКТ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **inputtity['НасПунктФАКТ']):
+            if p(d=driver, f='p', **inputtity['НасПунктФАКТзнач']) == '':
+                if s(res_inp['НасПунктФАКТ']) == '':
+                    res_inp['НасПунктФАКТ'] = s(res_inp['РайонФАКТ'])
+                my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
         my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
 
 
@@ -260,6 +269,16 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         elem.click()
     wj(driver)
     elem = p(d=driver, f='c', **clicktity['ПодтвМобТел'])
+    wj(driver)
+    if elem != None:
+        elem.click()
+    wj(driver)
+    elem = p(d=driver, f='p', **clicktity['ПодтвИмени'])  # Подверждаем фамилию и телефон
+    wj(driver)
+    if elem != None:
+        elem.click()
+    wj(driver)
+    elem = p(d=driver, f='p', **clicktity['ПодтвОтчества'])  # Подверждаем фамилию и телефон
     wj(driver)
     if elem != None:
         elem.click()
