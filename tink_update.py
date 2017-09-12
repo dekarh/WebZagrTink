@@ -189,78 +189,69 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 
     if int(res_sel['ТипЗанятости']) <= 1:                           # Работаю или Бизнес
         my_input(driver, ['НазвФирмы', 'ТелефонРАБ'], res_inp, inputtity)
+        probel = ''
+        if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
+            probel = ' '
+        res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
+        if s(res_inp['НасПунктРАБ']) == '':
+            res_inp['НасПунктРАБ'] = s(res_inp['РайонРАБ'])
+        if s(res_inp['УлицаРАБ']) == '':
+            res_inp['УлицаРАБ'] = s(res_inp['НасПунктРАБ'])
         if lenl(res_inp['ИндексРАБ']) == 0:
-            my_input(driver, ['РегионРАБ'], res_inp, inputtity)
-            probel = ''
-            if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
-                probel = ' '
-            res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
-            my_input(driver, ['РайонРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp,
-                     inputtity)
+            my_input(driver, ['РегионРАБ','РайонРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'],
+                     res_inp, inputtity)
         else:
             my_input(driver, ['ИндексРАБ'], res_inp, inputtity)
-            probel = ''
-            if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
-                probel = ' '
-            res_inp['РайонРАБ'] = s(res_inp['РайонРАБ']) + probel + s(res_inp['ГородРАБ'])
             if chk(d=driver, f='p', **inputtity['РайонРАБ']):
                 if p(d=driver, f='p', **inputtity['РайонРАБзнач']) == '':
                     my_input(driver, ['РайонРАБ'], res_inp, inputtity)
             if chk(d=driver, f='p', **inputtity['НасПунктРАБ']):
                 if p(d=driver, f='p', **inputtity['НасПунктРАБзнач']) == '':
-                    if s(res_inp['НасПунктРАБ']) == '':
-                        res_inp['НасПунктРАБ'] = s(res_inp['РайонРАБ'])
                     my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
             my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
 
+    probel = ''
+    if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
+        probel = ' '
+    res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
+    if s(res_inp['НасПунктРЕГ']) == '':
+        res_inp['НасПунктРЕГ'] = s(res_inp['РайонРЕГ'])
+    if s(res_inp['УлицаРЕГ']) == '':
+        res_inp['УлицаРЕГ'] = s(res_inp['НасПунктРЕГ'])
+
     if lenl(res_inp['ИндексРЕГ']) == 0:
-        my_input(driver, ['РегионРЕГ'], res_inp, inputtity)
-        probel = ''
-        if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
-            probel = ' '
-        res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
-        my_input(driver, ['РайонРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp,
-                 inputtity)
+        my_input(driver, ['РегионРЕГ','РайонРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'],
+                 res_inp, inputtity)
     else:
         my_input(driver, ['ИндексРЕГ'], res_inp, inputtity)
-        probel = ''
-        if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
-            probel = ' '
-        res_inp['РайонРЕГ'] = s(res_inp['РайонРЕГ']) + probel + s(res_inp['ГородРЕГ'])
         if chk(d=driver, f='p', **inputtity['РайонРЕГ']):
             if p(d=driver, f='p', **inputtity['РайонРЕГзнач']) == '':
                 my_input(driver, ['РайонРЕГ'], res_inp, inputtity)
         if chk(d=driver, f='p', **inputtity['НасПунктРЕГ']):
             if p(d=driver, f='p', **inputtity['НасПунктРЕГзнач']) == '':
-                if s(res_inp['НасПунктРЕГ']) == '':
-                    res_inp['НасПунктРЕГ'] = s(res_inp['РайонРЕГ'])
                 my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
         my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
 
+    probel = ''
+    if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
+        probel = ' '
+    res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
+    if s(res_inp['НасПунктФАКТ']) == '':
+        res_inp['НасПунктФАКТ'] = s(res_inp['РайонФАКТ'])
+    if s(res_inp['УлицаФАКТ']) == '':
+        res_inp['УлицаФАКТ'] = s(res_inp['НасПунктФАКТ'])
     if lenl(res_inp['ИндексФАКТ']) == 0:
-        my_input(driver, ['РегионФАКТ'], res_inp, inputtity)
-        probel = ''
-        if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
-            probel = ' '
-        res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
-        my_input(driver, ['РайонФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp,
-                 inputtity)
+        my_input(driver, ['РегионФАКТ', 'РайонФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'],
+                 res_inp, inputtity)
     else:
         my_input(driver, ['ИндексФАКТ'], res_inp, inputtity)
-        probel = ''
-        if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
-            probel = ' '
-        res_inp['РайонФАКТ'] = s(res_inp['РайонФАКТ']) + probel + s(res_inp['ГородФАКТ'])
         if chk(d=driver, f='p', **inputtity['РайонФАКТ']):
             if p(d=driver, f='p', **inputtity['РайонФАКТзнач']) == '':
                 my_input(driver, ['РайонФАКТ'], res_inp, inputtity)
         if chk(d=driver, f='p', **inputtity['НасПунктФАКТ']):
             if p(d=driver, f='p', **inputtity['НасПунктФАКТзнач']) == '':
-                if s(res_inp['НасПунктФАКТ']) == '':
-                    res_inp['НасПунктФАКТ'] = s(res_inp['РайонФАКТ'])
                 my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
         my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
-
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
     elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон

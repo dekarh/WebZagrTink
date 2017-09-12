@@ -110,4 +110,5 @@ for row in rows:
                 sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
                 cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1', (statuses[statuses_t[i]], row[0]))
                 conn.commit()
+driver.close()
 
