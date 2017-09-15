@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 import sys
 from mysql.connector import MySQLConnection, Error
 
-from lib import read_config, lenl, s_minus, s
+from lib import read_config, lenl, s_minus, s, l
 from lib_scan import wj, p, chk
 from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
 
@@ -41,10 +41,14 @@ def my_input2(driver, a, res, inp):
         if res[pole] != None:
             if res[pole] != '':
                 elem = p(d=driver, f='c', **inp[pole])
-                for iq in range(1,150):
-                    elem.send_keys(Keys.BACKSPACE)
-                for fucked_char in res[pole]:
-                    elem.send_keys(fucked_char)
+                elem.send_keys(' ')
+                elem.clear()
+                elem.send_keys(' ')
+                elem.send_keys(res[pole])
+#                for iq in range(1,150):
+#                    elem.send_keys(Keys.BACKSPACE)
+#                for fucked_char in res[pole]:
+#                    elem.send_keys(fucked_char)
                 wj(driver)
                 elem = p(d=driver, f='p', **inp['ЩелчокДляСброса'])
                 wj(driver)
@@ -154,19 +158,19 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         elem = p(d=driver, f='c', **selectity['Должность'])
         wj(driver)
         elem.click()
-        elem = p(d=driver, f='c', **select_selectity['Должность'][int(res_sel['Должность'])])
+        elem = p(d=driver, f='c', **select_selectity['Должность'][l(res_sel['Должность'])])
         wj(driver)
         elem.click()
         elem = p(d=driver, f='c', **selectity['Стаж'])
         wj(driver)
         elem.click()
-        if int(res_sel['Стаж']) <= 6:
+        if l(res_sel['Стаж']) <= 6:
             elem = p(d=driver, f='c', **select_selectity['Стаж'][0])
-        elif int(res_sel['Стаж']) <= 36:
+        elif l(res_sel['Стаж']) <= 36:
             elem = p(d=driver, f='c', **select_selectity['Стаж'][1])
-        elif int(res_sel['Стаж']) <= 60:
+        elif l(res_sel['Стаж']) <= 60:
             elem = p(d=driver, f='c', **select_selectity['Стаж'][2])
-        elif int(res_sel['Стаж']) <= 84:
+        elif l(res_sel['Стаж']) <= 84:
             elem = p(d=driver, f='c', **select_selectity['Стаж'][3])
         else:
             elem = p(d=driver, f='c', **select_selectity['Стаж'][4])
@@ -189,6 +193,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 
     if int(res_sel['ТипЗанятости']) <= 1:                           # Работаю или Бизнес
         my_input(driver, ['НазвФирмы', 'ТелефонРАБ'], res_inp, inputtity)
+
         probel = ''
         if s(res_inp['РайонРАБ']) != '' and s(res_inp['ГородРАБ']) != '':
             probel = ' '
@@ -197,18 +202,25 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             res_inp['НасПунктРАБ'] = s(res_inp['РайонРАБ'])
         if s(res_inp['УлицаРАБ']) == '':
             res_inp['УлицаРАБ'] = s(res_inp['НасПунктРАБ'])
-        if lenl(res_inp['ИндексРАБ']) == 0:
-            my_input(driver, ['РегионРАБ','РайонРАБ', 'НасПунктРАБ', 'УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'],
-                     res_inp, inputtity)
-        else:
+        if lenl(res_inp['ИндексРАБ']) != 0:
             my_input(driver, ['ИндексРАБ'], res_inp, inputtity)
-            if chk(d=driver, f='p', **inputtity['РайонРАБ']):
-                if p(d=driver, f='p', **inputtity['РайонРАБзнач']) == '':
-                    my_input(driver, ['РайонРАБ'], res_inp, inputtity)
-            if chk(d=driver, f='p', **inputtity['НасПунктРАБ']):
-                if p(d=driver, f='p', **inputtity['НасПунктРАБзнач']) == '':
-                    my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
-            my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **clicktity['ПроверкаИндекса']):
+            elem = p(d=driver, f='p', **inputtity['ИндексРАБ'])
+            wj(driver)
+            elem.clear()
+            wj(driver)
+            elem.send_keys(' ')
+            wj(driver)
+        if chk(d=driver, f='p', **inputtity['РегионРАБ']):
+            if p(d=driver, f='p', **inputtity['РегионРАБзнач']) == '':
+                my_input(driver, ['РегионРАБ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **inputtity['РайонРАБ']):
+            if p(d=driver, f='p', **inputtity['РайонРАБзнач']) == '':
+                my_input(driver, ['РайонРАБ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **inputtity['НасПунктРАБ']):
+            if p(d=driver, f='p', **inputtity['НасПунктРАБзнач']) == '':
+                my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
+        my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
 
     probel = ''
     if s(res_inp['РайонРЕГ']) != '' and s(res_inp['ГородРЕГ']) != '':
@@ -218,19 +230,25 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         res_inp['НасПунктРЕГ'] = s(res_inp['РайонРЕГ'])
     if s(res_inp['УлицаРЕГ']) == '':
         res_inp['УлицаРЕГ'] = s(res_inp['НасПунктРЕГ'])
-
-    if lenl(res_inp['ИндексРЕГ']) == 0:
-        my_input(driver, ['РегионРЕГ','РайонРЕГ', 'НасПунктРЕГ', 'УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'],
-                 res_inp, inputtity)
-    else:
+    if lenl(res_inp['ИндексРЕГ']) != 0:
         my_input(driver, ['ИндексРЕГ'], res_inp, inputtity)
-        if chk(d=driver, f='p', **inputtity['РайонРЕГ']):
-            if p(d=driver, f='p', **inputtity['РайонРЕГзнач']) == '':
-                my_input(driver, ['РайонРЕГ'], res_inp, inputtity)
-        if chk(d=driver, f='p', **inputtity['НасПунктРЕГ']):
-            if p(d=driver, f='p', **inputtity['НасПунктРЕГзнач']) == '':
-                my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
-        my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **clicktity['ПроверкаИндекса']):
+        elem = p(d=driver, f='p', **inputtity['ИндексРЕГ'])
+        wj(driver)
+        elem.clear()
+        wj(driver)
+        elem.send_keys(' ')
+        wj(driver)
+    if chk(d=driver, f='p', **inputtity['РегионРЕГ']):
+        if p(d=driver, f='p', **inputtity['РегионРЕГзнач']) == '':
+            my_input(driver, ['РегионРЕГ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['РайонРЕГ']):
+        if p(d=driver, f='p', **inputtity['РайонРЕГзнач']) == '':
+            my_input(driver, ['РайонРЕГ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['НасПунктРЕГ']):
+        if p(d=driver, f='p', **inputtity['НасПунктРЕГзнач']) == '':
+            my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
+    my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
 
     probel = ''
     if s(res_inp['РайонФАКТ']) != '' and s(res_inp['ГородФАКТ']) != '':
@@ -240,18 +258,25 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         res_inp['НасПунктФАКТ'] = s(res_inp['РайонФАКТ'])
     if s(res_inp['УлицаФАКТ']) == '':
         res_inp['УлицаФАКТ'] = s(res_inp['НасПунктФАКТ'])
-    if lenl(res_inp['ИндексФАКТ']) == 0:
-        my_input(driver, ['РегионФАКТ', 'РайонФАКТ', 'НасПунктФАКТ', 'УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'],
-                 res_inp, inputtity)
-    else:
+    if lenl(res_inp['ИндексФАКТ']) != 0:
         my_input(driver, ['ИндексФАКТ'], res_inp, inputtity)
-        if chk(d=driver, f='p', **inputtity['РайонФАКТ']):
-            if p(d=driver, f='p', **inputtity['РайонФАКТзнач']) == '':
-                my_input(driver, ['РайонФАКТ'], res_inp, inputtity)
-        if chk(d=driver, f='p', **inputtity['НасПунктФАКТ']):
-            if p(d=driver, f='p', **inputtity['НасПунктФАКТзнач']) == '':
-                my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
-        my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **clicktity['ПроверкаИндекса']):
+        elem = p(d=driver, f='p', **inputtity['ИндексФАКТ'])
+        wj(driver)
+        elem.clear()
+        wj(driver)
+        elem.send_keys(' ')
+        wj(driver)
+    if chk(d=driver, f='p', **inputtity['РегионФАКТ']):
+        if p(d=driver, f='p', **inputtity['РегионФАКТзнач']) == '':
+            my_input(driver, ['РегионФАКТ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['РайонФАКТ']):
+        if p(d=driver, f='p', **inputtity['РайонФАКТзнач']) == '':
+            my_input(driver, ['РайонФАКТ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['НасПунктФАКТ']):
+        if p(d=driver, f='p', **inputtity['НасПунктФАКТзнач']) == '':
+            my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+    my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
 
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
     elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
@@ -284,7 +309,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem = p(d = driver, f = 'c', **selectity['ВладелецДопТелефона'])
     wj(driver)
     elem.click()
-    elem = p(d = driver, f = 'c', **select_selectity['ВладелецДопТелефона'][int(res_sel['ВладелецДопТелефона'])])
+    elem = p(d = driver, f = 'c', **select_selectity['ВладелецДопТелефона'][l(res_sel['ВладелецДопТелефона'])])
     wj(driver)
     elem.click()
     wj(driver)
@@ -295,31 +320,31 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem = p(d = driver, f = 'c', **selectity['ПлатежиКредитные'])
     wj(driver)
     elem.click()
-    elem = p(d = driver, f = 'c', **select_selectity['ПлатежиКредитные'][int(res_sel['ПлатежиКредитные'])])
+    elem = p(d = driver, f = 'c', **select_selectity['ПлатежиКредитные'][l(res_sel['ПлатежиКредитные'])])
     wj(driver)
     elem.click()
     wj(driver)
-    if int(res_sel['КредитнаяИстория']) > 0:
+    if l(res_sel['КредитнаяИстория']) > 0:
         elem = p(d = driver, f = 'c', **selectity['КредитнаяИстория'])
         wj(driver)
         elem.click()
-        elem = p(d = driver, f = 'c', **select_selectity['КредитнаяИстория'][int(res_sel['КредитнаяИстория'])])
+        elem = p(d = driver, f = 'c', **select_selectity['КредитнаяИстория'][l(res_sel['КредитнаяИстория'])])
         wj(driver)
         elem.click()
         wj(driver)
-    if int(res_sel['Образование']) > 0:
+    if l(res_sel['Образование']) > 0:
         elem = p(d = driver, f = 'c', **selectity['Образование'])
         wj(driver)
         elem.click()
-        elem = p(d = driver, f = 'c', **select_selectity['Образование'][int(res_sel['Образование'])])
+        elem = p(d = driver, f = 'c', **select_selectity['Образование'][l(res_sel['Образование'])])
         wj(driver)
         elem.click()
         wj(driver)
-    if int(res_sel['СемейноеПоложение']) > 0:
+    if l(res_sel['СемейноеПоложение']) > 0:
         elem = p(d = driver, f = 'c', **selectity['СемейноеПоложение'])
         wj(driver)
         elem.click()
-        elem = p(d = driver, f = 'c', **select_selectity['СемейноеПоложение'][int(res_sel['СемейноеПоложение'])])
+        elem = p(d = driver, f = 'c', **select_selectity['СемейноеПоложение'][l(res_sel['СемейноеПоложение'])])
         wj(driver)
         elem.click()
         wj(driver)
