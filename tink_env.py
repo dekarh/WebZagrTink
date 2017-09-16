@@ -18,6 +18,7 @@ clicktity = {
 'Загружено?' : {'t': 'x', 's': '//H1[text()="Спасибо за предоставленную информацию"]' , 'SQL': "1"},
 'СледующаяЗаявка' : {'t': 'x', 's': '//INPUT[@value="Заполнить новую заявку"]' , 'SQL': "1"},
 'ПроверкаИндекса' : {'t': 'x', 's': '//DIV[text()="Несуществующий индекс"]' , 'SQL': "1"},
+'Ошибки' : {'t': 'x', 's': '//DIV[@class="ui-form-field-error-message ui-form-field-error-message_ui-form"]', 'a':'text', 'SQL': "1"},
 }
 
 
@@ -48,7 +49,8 @@ inputtity = {
 'РайонФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' , 'a':'value', 'SQL': "1"},
 'НасПунктФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
 'УлицаФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="street"]',
-              'SQL': "CONCAT_WS(' ',a.d_street_type,a.d_street)"}, # Улица =рег
+              'SQL': "CONCAT_WS(' ',a.d_street_type,a.d_street)"},
+'УлицаФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="building"]', 'SQL': "a.d_building"}, # Дом =факт
 'КорпусФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "a.d_corpus"}, # Корпус =факт
 'СтроениеФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="stroenie"]', 'SQL': ""}, # Строение =факт
@@ -67,6 +69,7 @@ inputtity = {
 'НасПунктРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
 'УлицаРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="street"]',
               'SQL': "CONCAT_WS(' ',a.p_street_type,a.p_street)"}, # Улица =рег
+'УлицаРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="building"]', 'SQL': "a.p_building"}, # Дом =рег
 'КорпусРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "a.p_corpus"}, # Корпус =рег
 'СтроениеРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =рег
@@ -95,6 +98,7 @@ inputtity = {
 'НасПунктРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
 'УлицаРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="street"]' ,
               'SQL': "CONCAT_WS(' ',b.w_street_type,b.w_street)"}, # Улица =раб
+'УлицаРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="building"]' , 'SQL': "b.w_building"}, # Дом =раб
 'КорпусРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "b.w_corpus"}, # Корпус =раб
 'СтроениеРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =раб

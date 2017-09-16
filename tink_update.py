@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 import sys
+import datetime
 from mysql.connector import MySQLConnection, Error
 
 from lib import read_config, lenl, s_minus, s, l
@@ -108,8 +109,10 @@ cursor.execute(sql)
 rows = cursor.fetchall()
 conn.close()
 
+print('\n'+ datetime.datetime.now().strftime("%H:%M:%S") +' Скрипт выгрузки. Начинаем \n')
+
 if len(rows) == 0:
-    print('Нет новых договоров')
+    print('\n'+ datetime.datetime.now().strftime("%H:%M:%S") + ' Нет новых договоров. Работа скрипта окончена')
     sys.exit()
 
 driver = webdriver.Chrome()  # Инициализация драйвера
@@ -220,6 +223,15 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         if chk(d=driver, f='p', **inputtity['НасПунктРАБ']):
             if p(d=driver, f='p', **inputtity['НасПунктРАБзнач']) == '':
                 my_input(driver, ['НасПунктРАБ'], res_inp, inputtity)
+        if chk(d=driver, f='p', **inputtity['УлицаРАБ']):
+            if p(d=driver, f='p', **inputtity['УлицаРАБзнач']) != '':
+                elem = p(d=driver, f='p', **inputtity['УлицаРАБ'])
+                wj(driver)
+                elem.clear()
+                wj(driver)
+                elem.send_keys(Keys.BACKSPACE)
+                wj(driver)
+                elem.send_keys(' ')
         my_input(driver, ['УлицаРАБ', 'ДомРАБ', 'КорпусРАБ', 'НомОфисаРАБ'], res_inp, inputtity)
 
     probel = ''
@@ -248,6 +260,15 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if chk(d=driver, f='p', **inputtity['НасПунктРЕГ']):
         if p(d=driver, f='p', **inputtity['НасПунктРЕГзнач']) == '':
             my_input(driver, ['НасПунктРЕГ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['УлицаРЕГ']):
+        if p(d=driver, f='p', **inputtity['УлицаРЕГзнач']) != '':
+            elem = p(d=driver, f='p', **inputtity['УлицаРЕГ'])
+            wj(driver)
+            elem.clear()
+            wj(driver)
+            elem.send_keys(Keys.BACKSPACE)
+            wj(driver)
+            elem.send_keys(' ')
     my_input(driver, ['УлицаРЕГ', 'ДомРЕГ', 'КорпусРЕГ', 'КвартираРЕГ'], res_inp, inputtity)
 
     probel = ''
@@ -276,8 +297,17 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if chk(d=driver, f='p', **inputtity['НасПунктФАКТ']):
         if p(d=driver, f='p', **inputtity['НасПунктФАКТзнач']) == '':
             my_input(driver, ['НасПунктФАКТ'], res_inp, inputtity)
+    if chk(d=driver, f='p', **inputtity['УлицаФАКТ']):
+        if p(d=driver, f='p', **inputtity['УлицаФАКТзнач']) != '':
+            elem = p(d=driver, f='p', **inputtity['УлицаФАКТ'])
+            wj(driver)
+            elem.clear()
+            wj(driver)
+            elem.send_keys(Keys.BACKSPACE)
+            wj(driver)
+            elem.send_keys(' ')
     my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
-
+    fio = res_inp['Фамилия'] + ' ' + res_inp['Имя'] + ' ' + res_inp['Отчество']
     my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
     elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
     wj(driver)
@@ -367,6 +397,10 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         sql = 'UPDATE contracts SET status_code=4 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
+        aa = p(d=driver, f='p', **clicktity['Ошибки'])
+        print('\n При заполнении анкеты', fio, ' допущены ошибки:' )
+#        print( '%s.' % ', '.join(aa))
+        print(aa)
     else:
         sql = 'UPDATE contracts SET status_code=1 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
@@ -391,6 +425,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 
 
 driver.close()
+print('\n'+ datetime.datetime.now().strftime("%H:%M:%S") + ' Работа скрипта окончена')
 
 
 
