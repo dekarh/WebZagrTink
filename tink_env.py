@@ -106,6 +106,7 @@ inputtity = {
 'НеРаботаю-Другое' : {'t': 'x', 's': '//INPUT[@name="notwork_other_text"]' , 'SQL': "b.unemployment_other"}, # Не работаю - другое
 'ПерсДоход' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="income_individual"]' , 'SQL': "b.personal_income"}, # Персональный доход
 'КвартПлата' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="expenses_amount"]' , 'SQL': "b.flat_payment"}, # Сумма аренды квартиры
+'ПлатежиПоКредитам' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="expenses_amount"]' , 'SQL': "b.banks_payment"}, # ССумма платежей по тек.кредитам в др.банках
 'КредЛимит' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="desired_credit_limit"]', 'SQL': "b.want_amount"}, # Кредитный лимит
 'ЩелчокДляСброса' : {'t': 'x', 's': '//DIV[@class="app-form-nav-container_static"]', 'SQL': "1"},
 }
@@ -119,11 +120,12 @@ selectity = {
                 "IF(b.landline_phone>70000000000 AND b.landline_phone IS NOT NULL,0,"
                 "IF(b.landline_phone_relatives>70000000000 AND b.landline_phone_relatives IS NOT NULL,"
                 "2,2))"}, # Стационарный - свой, остальные - всегда номер друга
-'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
-                   'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
-                          "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
-                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.25,2,"
-                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.5,3,4))),0)"}, # Сумма платежей по тек.кредитам в др.банках
+'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "0"},
+#'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
+#                   'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
+#                          "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
+#                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.25,2,"
+#                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.5,3,4))),0)"}, # Сумма платежей по тек.кредитам в др.банках
 'КредитнаяИстория' : {'t': 'x', 's': '//SELECT[@name="credit_history"]/..', 'SQL': "status_credit_history_code"}, # Какая кредитная история
 'Образование' : {'t': 'x', 's': '//SELECT[@name="education"]/..'    , 'SQL': "status_education_code"}, # Образование
 'СемейноеПоложение' : {'t': 'x', 's': '//SELECT[@name="marital_status"]/..', 'SQL': "status_marital_code"}, # Семейное положение

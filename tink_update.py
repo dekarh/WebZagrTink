@@ -12,7 +12,7 @@ import sys
 import datetime
 from mysql.connector import MySQLConnection, Error
 
-from lib import read_config, lenl, s_minus, s, l
+from lib import read_config, lenl, s_minus, s, l, filter_rus_sp, filter_rus_minus
 from lib_scan import wj, p, chk
 from tink_env import clicktity, inputtity, inputtity_first, selectity, select_selectity, gluk_w_point
 
@@ -123,7 +123,7 @@ time.sleep(1)
 
 
 for k, row in enumerate(rows):                    # Цикл по строкам таблицы (основной)
-
+    minus_income = False
     j = 0
     res_cli = {}
     for i, inp_i in enumerate(clicktity):
@@ -135,15 +135,37 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             j += 1
 
     res_inp = {}
+    res_sel = {}
     for i, inp_i in enumerate(inputtity):
         if str(type(inputtity[inp_i]['SQL'])) == "<class 'str'>" and inputtity[inp_i]['SQL'] != '':
-            res_inp[inp_i] = row[j]
+            if inp_i in ('МестоРождения'):
+                res_inp[inp_i] = filter_rus_sp(row[j])
+            elif inp_i in ('Фамилия', 'Имя', 'Отчество', 'ВладелецДопТелефона'):
+                res_inp[inp_i] = filter_rus_minus(row[j])
+            else:
+                res_inp[inp_i] = row[j]
             j += 1
 
-    res_sel = {}
     for i, sel_i in enumerate(selectity):
         if selectity[sel_i]['SQL'] != '':
-            res_sel[sel_i] = row[j]
+            if sel_i == 'ПлатежиКредитные':
+                if l(res_inp['ПерсДоход']) < l(res_inp['ПлатежиПоКредитам']):
+                    minus_income = True
+                    res_sel[sel_i] = 0
+                    continue
+                q = 1 - (l(res_inp['ПерсДоход']) - l(res_inp['ПлатежиПоКредитам']))/l(res_inp['ПерсДоход'])
+                if q > 0.5:
+                    res_sel[sel_i] = 4
+                elif q > 0.25:
+                    res_sel[sel_i] = 3
+                elif q > 0.1:
+                    res_sel[sel_i] = 2
+                elif q > 0:
+                    res_sel[sel_i] = 1
+                elif q == 0:
+                    res_sel[sel_i] = 0
+            else:
+                res_sel[sel_i] = row[j]
             j += 1
 
     driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
@@ -329,7 +351,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if elem != None:
         elem.click()
     wj(driver)
-    res_inp['МестоРождения'] = res_inp['МестоРождения'].replace('.',' ').replace('  ',' ').replace('  ',' ')
+#    res_inp['МестоРождения'] = res_inp['МестоРождения'].replace('.',' ').replace('  ',' ').replace('  ',' ')
     my_input(driver, ['ДатаРождения', 'СерияНомер', 'МестоРождения', 'КодПодразд', 'ДатаВыдачи'], res_inp, inputtity)
     res_inp['КемВыдан'] = res_inp['КемВыдан'].replace('.', ' ').replace('  ', ' ').replace('  ', ' ')
     my_input2(driver, ['КемВыдан'], res_inp, inputtity)
@@ -398,9 +420,15 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
         aa = p(d=driver, f='p', **clicktity['Ошибки'])
-        print('\n При заполнении анкеты', fio, ' допущены ошибки:' )
+        print('\n При заполнении анкеты', fio, 'допущены ошибки:' )
 #        print( '%s.' % ', '.join(aa))
         print(aa)
+    elif minus_income:
+        sql = 'UPDATE contracts SET status_code=4 WHERE client_id=%s AND id>-1'
+        cursor.execute(sql, (res_inp['iId'],))
+        conn.commit()
+        print('\n При заполнении анкеты', fio, 'допущены ошибки:')
+        print('"Сумма платежей по текущим кредитам в других банках" должна быть меньше значения в поле "Персональный доход"')
     else:
         sql = 'UPDATE contracts SET status_code=1 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
