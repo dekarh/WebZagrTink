@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib.py" afterPath="$PROJECT_DIR$/lib.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_update.py" afterPath="$PROJECT_DIR$/tink_update.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -559,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505788712810</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Отловил ошибку превышения расходв над доходами">
+      <created>1505791597337</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1505791597337</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
