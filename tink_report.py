@@ -73,7 +73,7 @@ elem.send_keys(dt.strftime("%d.%m.%Y"))
 wj(driver)
 elem = p(d=driver, f='c', **localtity['От'])
 wj(driver)
-dt += datetime.timedelta(weeks=-1)     # !!!!! на 1 неделю назад смотрим
+dt += datetime.timedelta(weeks=-3)     # !!!!! на 1 неделю назад смотрим
 for iq in range(1, 20):
     elem.send_keys(Keys.BACKSPACE)
 wj(driver)
@@ -104,8 +104,8 @@ rows = cursor.fetchall()
 for row in rows:
     for i, fio_t in enumerate(fios_t):
         if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
-                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')- row[5]) < datetime.timedelta(days=2):
-            if statuses[statuses_t[i]] > row[1]:
+                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')- row[5]) < datetime.timedelta(days=21):
+            if statuses[statuses_t[i]] != row[1]:
                 write_cursor = conn.cursor()
                 sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
                 cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1', (statuses[statuses_t[i]], row[0]))

@@ -431,7 +431,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         print('\n При заполнении анкеты', fio, 'допущены ошибки:')
         print('"Сумма платежей по текущим кредитам в других банках" должна быть меньше значения в поле "Персональный доход"')
     else:
-        sql = 'UPDATE contracts SET status_code=1 WHERE client_id=%s AND id>-1'
+        sql = 'UPDATE contracts SET status_code=5 WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
     conn.close()
