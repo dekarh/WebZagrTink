@@ -149,7 +149,8 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     for i, sel_i in enumerate(selectity):
         if selectity[sel_i]['SQL'] != '':
             if sel_i == 'ПлатежиКредитные':
-                if l(res_inp['ПерсДоход']) < l(res_inp['ПлатежиПоКредитам']):
+                if l(res_inp['ПерсДоход']) < (l(res_inp['ПлатежиПоКредитам'])+l(res_inp['КвартПлата'])) \
+                or l(res_inp['ПерсДоход']) == 0:
                     minus_income = True
                     res_sel[sel_i] = 0
                     continue
