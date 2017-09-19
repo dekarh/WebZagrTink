@@ -140,7 +140,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         if str(type(inputtity[inp_i]['SQL'])) == "<class 'str'>" and inputtity[inp_i]['SQL'] != '':
             if inp_i in ('МестоРождения'):
                 res_inp[inp_i] = filter_rus_sp(row[j])
-            elif inp_i in ('Фамилия', 'Имя', 'Отчество', 'ВладелецДопТелефона'):
+            elif inp_i in ('Фамилия', 'Имя', 'Отчество', 'ИмяДопТелефон'):
                 res_inp[inp_i] = filter_rus_minus(row[j])
             else:
                 res_inp[inp_i] = row[j]

@@ -72,11 +72,11 @@ def unique(lst):            # сделать список уникальным
     return
 
 def filter_rus_sp(a):
-    b = re.sub(r'[^а-яА-Я0-9\\\-\.\/\(\)\s]', '', a)
+    b = re.sub(r'[^а-яА-ЯёЁ0-9\\\-\.\/\(\)\s]', '', a)
     return b.replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ')
 
 def filter_rus_minus(a):
-    b = re.sub(r'[^а-яА-Я0-9\-\s]', '', a)
+    b = re.sub(r'[^а-яА-ЯёЁ0-9\-\s]', '', a)
     return b.replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ').replace('  ',' ')
 
 def get_path(full):
