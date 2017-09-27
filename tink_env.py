@@ -27,7 +27,7 @@ inputtity = {
 'Фамилия' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="surname"]', 'SQL': "a.p_surname"}, # Фамилия
 'Имя' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="name"]', 'SQL': "a.p_name"}, # Имя
 'Отчество' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
-'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "a.phone_personal_mobile-70000000000"}, # Мобильный телефон
+'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "b.phone_personal_mobile-70000000000"}, # Мобильный телефон
 'Email' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
 'СерияНомер' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия)
 'КемВыдан' : {'t': 'x', 's': '//TEXTAREA[@name="passport_who_given"]' , 'SQL': "a.p_police"}, # Кто выдал
@@ -75,12 +75,10 @@ inputtity = {
 'СтроениеРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =рег
 'КвартираРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="flat"]' , 'SQL': "a.p_flat"}, # Квартира =рег
 'СтацТелефон' : {'t': 'x', 's': '//[@class="phone_home"]' , 'SQL': "b.landline_phone-70000000000"}, # Стационарный телефон по месту проживания или регистрации
-'ДопТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="additional_phone_home"]', 'SQL':
-                "IF(b.landline_phone>70000000000 AND b.landline_phone IS NOT NULL,"
-                "b.landline_phone-70000000000,IF(b.landline_phone_relatives>70000000000 AND "
-                "b.landline_phone_relatives IS NOT NULL,b.landline_phone_relatives-70000000000,NULL))"}, # Дополнительный телефон
+'ДопТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="additional_phone_home"]',
+                'SQL': "b.additional_phone-70000000000"}, # Дополнительный телефон
 'ИмяДопТелефон' : {'t': 'x', 's': '//INPUT[@type="text"][@name="additional_phone_home_comment"]',
-                   'SQL': "b.landline_phone_relatives_comment"},
+                   'SQL': "b.additional_phone_person"},
 'НазвФирмы' : {'t': 'x', 's': '//TEXTAREA[@name="work_name"]' , 'SQL': "b.employment_organization"}, # Наименование организации
 'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': ""}, # Название должности !!!!!ПОКА НЕТ!!!!
 'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone-70000000000"}, # Рабочий телефон
@@ -116,10 +114,8 @@ selectity = {
 'ТипНезанятости' : {'t': 'x', 's': "not_work", 'SQL': "unemployment_code"}, # Если не работаю то Кем ПРОВЕРИТЬ ИЗМЕНЕНИЯ !!!!!
 'Должность' : {'t': 'x', 's': '//SPAN[text()="Тип должности"]', 'SQL': "employment_position_code"}, # Если работаю то Должность
 'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы"]' , 'SQL': "b.employment_experience_months"}, # Стаж работы (мес)
-'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..','SQL':
-                "IF(b.landline_phone>70000000000 AND b.landline_phone IS NOT NULL,0,"
-                "IF(b.landline_phone_relatives>70000000000 AND b.landline_phone_relatives IS NOT NULL,"
-                "2,2))"}, # Стационарный - свой, остальные - всегда номер друга
+'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..',
+                         'SQL': "b.additional_phone_owner"},
 'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "0"},
 #'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
 #                   'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
