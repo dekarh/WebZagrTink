@@ -432,8 +432,9 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         print('\n При заполнении анкеты', fio, 'допущены ошибки:')
         print(aa)
     else:
-        sql = 'UPDATE contracts SET status_code=5 WHERE client_id=%s AND id>-1'
-        cursor.execute(sql, (res_inp['iId'],))
+        aa = 'Ошибок нет, заявка отправлена в банк ' + datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+        sql = 'UPDATE contracts SET status_code=5, error_message=%s WHERE client_id=%s AND id>-1'
+        cursor.execute(sql, (aa, res_inp['iId']))
         conn.commit()
     conn.close()
 
