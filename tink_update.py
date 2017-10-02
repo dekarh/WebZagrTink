@@ -190,16 +190,14 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         elem = p(d=driver, f='c', **selectity['Стаж'])
         wj(driver)
         elem.click()
-        if l(res_sel['Стаж']) <= 6:
-            elem = p(d=driver, f='c', **select_selectity['Стаж'][0])
-        elif l(res_sel['Стаж']) <= 36:
-            elem = p(d=driver, f='c', **select_selectity['Стаж'][1])
-        elif l(res_sel['Стаж']) <= 60:
-            elem = p(d=driver, f='c', **select_selectity['Стаж'][2])
-        elif l(res_sel['Стаж']) <= 84:
-            elem = p(d=driver, f='c', **select_selectity['Стаж'][3])
-        else:
-            elem = p(d=driver, f='c', **select_selectity['Стаж'][4])
+        if l(res_sel['Стаж']) > 0:
+            elem = p(d=driver, f='c', **selectity['Стаж'])
+            wj(driver)
+            elem.click()
+            elem = p(d=driver, f='c', **select_selectity['Стаж'][l(res_sel['Стаж'])])
+            wj(driver)
+            elem.click()
+            wj(driver)
         wj(driver)
         elem.click()
         wj(driver)
@@ -432,8 +430,8 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         print('\n При заполнении анкеты', fio, 'допущены ошибки:')
         print(aa)
     else:
-        aa = 'Ошибок нет, заявка отправлена в банк ' + datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-        sql = 'UPDATE contracts SET status_code=5, error_message=%s WHERE client_id=%s AND id>-1'
+        aa = 'Ошибок нет, заявка отправлена в банк ' + datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
+        sql = 'UPDATE contracts SET status_code=5, error_message=%s, transaction_date=NOW() WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (aa, res_inp['iId']))
         conn.commit()
     conn.close()

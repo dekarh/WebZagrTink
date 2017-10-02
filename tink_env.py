@@ -80,7 +80,7 @@ inputtity = {
 'ИмяДопТелефон' : {'t': 'x', 's': '//INPUT[@type="text"][@name="additional_phone_home_comment"]',
                    'SQL': "b.additional_phone_person"},
 'НазвФирмы' : {'t': 'x', 's': '//TEXTAREA[@name="work_name"]' , 'SQL': "b.employment_organization"}, # Наименование организации
-'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': ""}, # Название должности !!!!!ПОКА НЕТ!!!!
+'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': "employment_position"}, # Название должности !!!!!ПОКА НЕТ!!!!
 'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone-70000000000"}, # Рабочий телефон
 'ИндексРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "b.w_postalcode"}, # Индекс =раб
 'РегионРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="place"]' ,
@@ -112,8 +112,8 @@ inputtity = {
 selectity = {
 'ТипЗанятости' : {'t': 'x', 's': '//SELECT[@name="employment_type"]/..', 'SQL': "employment_status_code"},
 'ТипНезанятости' : {'t': 'x', 's': "not_work", 'SQL': "unemployment_code"}, # Если не работаю то Кем ПРОВЕРИТЬ ИЗМЕНЕНИЯ !!!!!
-'Должность' : {'t': 'x', 's': '//SPAN[text()="Тип должности"]', 'SQL': "employment_position_code"}, # Если работаю то Должность
-'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы"]' , 'SQL': "b.employment_experience_months"}, # Стаж работы (мес)
+'Должность' : {'t': 'x', 's': '//SPAN[text()="Тип должности"]', 'SQL': "b.employment_position_code"}, # Если работаю то Должность
+'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы"]' , 'SQL': "b.employment_experience"}, # Стаж работы (тип)
 'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..',
                          'SQL': "b.additional_phone_owner"},
 'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "0"},
@@ -122,10 +122,10 @@ selectity = {
 #                          "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
 #                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.25,2,"
 #                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.5,3,4))),0)"}, # Сумма платежей по тек.кредитам в др.банках
-'КредитнаяИстория' : {'t': 'x', 's': '//SELECT[@name="credit_history"]/..', 'SQL': "status_credit_history_code"}, # Какая кредитная история
-'Образование' : {'t': 'x', 's': '//SELECT[@name="education"]/..'    , 'SQL': "status_education_code"}, # Образование
-'СемейноеПоложение' : {'t': 'x', 's': '//SELECT[@name="marital_status"]/..', 'SQL': "status_marital_code"}, # Семейное положение
-'Автомобиль' : {'t': 'x', 's': '//SELECT[@name="asset_foreign_vehicle_flag"]/..', 'SQL': "status_car_code"}, # Автомобиль
+'КредитнаяИстория' : {'t': 'x', 's': '//SELECT[@name="credit_history"]/..', 'SQL': "b.status_credit_history_code"}, # Какая кредитная история
+'Образование' : {'t': 'x', 's': '//SELECT[@name="education"]/..'    , 'SQL': "b.status_education_code"}, # Образование
+'СемейноеПоложение' : {'t': 'x', 's': '//SELECT[@name="marital_status"]/..', 'SQL': "b.status_marital_code"}, # Семейное положение
+'Автомобиль' : {'t': 'x', 's': '//SELECT[@name="asset_foreign_vehicle_flag"]/..', 'SQL': "b.status_car_code"}, # Автомобиль
 'ПрПолисКАСКО' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[16]'   , 'SQL': "auto_kasko_attachment_id"}, # Полис страхования КАСКО
 'ПрСНИЛС' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[18]'   , 'SQL': "number_attachment_id"}, # Предоставит СНИЛС
 'ПрЗагранпаспорт' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[10]'   , 'SQL': "international_passport_attachment_id"}, # Предоставит Загранпаспорт
@@ -163,6 +163,7 @@ select_selectity = {
                {'t': 'x', 's': '//SPAN[text()="Рабочий"]', 'txt': 'Рабочий'},
                {'t': 'x', 's': '//SPAN[text()="Обсл. персонал"]', 'txt': 'Обсл. персонал'}],
 'Стаж' : [{'t': 'x', 's': '//SPAN[text()="6 месяцев и меньше"]' , 'txt': '6 месяцев и меньше'}, # Стаж работы (мес)
+          {'t': 'x', 's': '//SPAN[text()="6 месяцев и меньше"]', 'txt': '6 месяцев и меньше'},
           {'t': 'x', 's': '//SPAN[text()="0,5-3 года"]', 'txt': '0,5-3 года'},
           {'t': 'x', 's': '//SPAN[text()="3-5 лет"]', 'txt': '3-5 лет'},
           {'t': 'x', 's': '//SPAN[text()="5-7 лет"]', 'txt': '5-7 лет'},
