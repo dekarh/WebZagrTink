@@ -116,7 +116,7 @@ selectity = {
 'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы"]' , 'SQL': "b.employment_experience"}, # Стаж работы (тип)
 'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..',
                          'SQL': "b.additional_phone_owner"},
-'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "0"},
+'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "b.current_payments_code"},
 #'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
 #                   'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
 #                          "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
@@ -172,6 +172,7 @@ select_selectity = {
                          {'t': 'x', 's': '//SPAN[text()="Номер родственника"]', 'txt': 'Номер родственника'},
                          {'t': 'x', 's': '//SPAN[text()="Номер друга"]', 'txt': 'Номер друга'},],
 'ПлатежиКредитные' : [{'t': 'x', 's': '//SPAN[text()="Нет других кредитов"]', 'txt': 'Нет других кредитов'},
+                      {'t': 'x', 's': '//SPAN[text()="Нет других кредитов"]', 'txt': 'Нет других кредитов'},
                       {'t': 'x', 's': '//SPAN[text()="Менее 10% дохода"]', 'txt': 'Менее 10% дохода'},
                       {'t': 'x', 's': '//SPAN[text()="От 10% до 25% дохода"]', 'txt': 'От 10% до 25% дохода'},
                       {'t': 'x', 's': '//SPAN[text()="От 25% до 50% дохода"]', 'txt': 'От 25% до 50% дохода'},

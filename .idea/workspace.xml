@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_env.py" afterPath="$PROJECT_DIR$/tink_env.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_update.py" afterPath="$PROJECT_DIR$/tink_update.py" />
@@ -15,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1506395573549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1507096857313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebZagrTink$WebZagrTink.coverage" NAME="WebZagrTink Coverage Results" MODIFIED="1503543219673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1506580492124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -27,10 +26,10 @@
       <file leaf-file-name="tink_env.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tink_env.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="124" column="10" lean-forward="false" selection-start-line="124" selection-start-column="10" selection-end-line="124" selection-end-column="10" />
+            <state relative-caret-position="306">
+              <caret line="174" column="108" lean-forward="false" selection-start-line="174" selection-start-column="108" selection-end-line="174" selection-end-column="108" />
               <folding>
-                <element signature="e#15831#15960#0" expanded="false" />
+                <element signature="e#15853#15982#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -56,13 +55,13 @@
       <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="370" column="58" lean-forward="true" selection-start-line="370" selection-start-column="58" selection-end-line="370" selection-end-column="58" />
+            <state relative-caret-position="378">
+              <caret line="369" column="14" lean-forward="true" selection-start-line="369" selection-start-column="14" selection-end-line="369" selection-end-column="14" />
               <folding>
                 <element signature="e#76#106#0" expanded="true" />
-                <marker date="1506914976312" expanded="true" signature="17248:17330" ph="UPDATE contr... " />
-                <marker date="1506914976312" expanded="true" signature="17565:17646" ph="UPDATE contr... " />
-                <marker date="1506914976312" expanded="true" signature="17936:18041" ph="UPDATE contr... " />
+                <marker date="1507176186366" expanded="true" signature="17319:17401" ph="UPDATE contr... " />
+                <marker date="1507176186366" expanded="true" signature="17636:17717" ph="UPDATE contr... " />
+                <marker date="1507176186366" expanded="true" signature="18007:18112" ph="UPDATE contr... " />
               </folding>
             </state>
           </provider>
@@ -93,8 +92,8 @@
       <file leaf-file-name="lib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+            <state relative-caret-position="468">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#63#76#0" expanded="true" />
               </folding>
@@ -120,6 +119,7 @@
       <find>conn</find>
       <find>.execute</find>
       <find>ФАКТ</find>
+      <find>minus_income</find>
     </findStrings>
     <replaceStrings>
       <replace>'s': '//DIV[@class=&quot;</replace>
@@ -592,7 +592,14 @@
       <option name="project" value="LOCAL" />
       <updated>1506481711152</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Добавил:&#10; дату отправки&#10; название должности&#10;Поправил:&#10; тип должности&#10; стаж">
+      <created>1506927671719</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1506927671719</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView">
@@ -654,7 +661,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Нашел поле, которое не закрывается выпадающими списками и кликаю на него как подтверждение сохранения данных" />
     <MESSAGE value="Исправил ошибку  с account_duration_months (неправильно вычислялось в mysql) &#10;Нашел и компенсировал глюк программы (в поле появляется 0)" />
     <MESSAGE value="Поправил прописывание телефона родственников (только если нет домашнего) и его крыжик&#10;Убрал закомментаренные поля работы и прописал новые (добавили в таблицу  b) - раньше было дублирование полей прописки&#10;Добавил замену None на  0 при заполнении res_cli (результаты для полей кликов-крыжиков)&#10;" />
     <MESSAGE value="Прописал в addresstype_*_city если  города - дублирование из addresstype_*_area (на уровне MySQL)&#10; Отловил глюк печатания на клавиатуре английской раскладке русских букв - точку меняет на ю (см. gluck_w_point)&#10; Добавил отправку анкеты (click() пока закомментил)&#10; Написал проект определялки отправлено/неотправлено (iframe не работает !!!)" />
@@ -679,20 +685,16 @@
     <MESSAGE value="Добавил сохранение ошибки в поле error_message" />
     <MESSAGE value="Скорректировал поля МобТелефон, ДопТелефон, ИмяДопТелефон, ВладелецДопТелефона" />
     <MESSAGE value="Добавил обнуление ошибки если заявка отправлена в банк" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил обнуление ошибки если заявка отправлена в банк" />
+    <MESSAGE value="Добавил:&#10; дату отправки&#10; название должности&#10;Поправил:&#10; тип должности&#10; стаж" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил:&#10; дату отправки&#10; название должности&#10;Поправил:&#10; тип должности&#10; стаж" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>409</line>
+          <line>410</line>
           <option name="timeStamp" value="217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>218</line>
-          <option name="timeStamp" value="218" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -948,13 +950,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/datetime.pyi">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-          <folding>
-            <element signature="e#63#76#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="189">
+          <caret line="190" column="8" lean-forward="false" selection-start-line="190" selection-start-column="8" selection-end-line="190" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -973,33 +972,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/datetime.pyi">
+    <entry file="file://$PROJECT_DIR$/lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="190" column="8" lean-forward="false" selection-start-line="190" selection-start-column="8" selection-end-line="190" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="468">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#63#76#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tink_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="370" column="58" lean-forward="true" selection-start-line="370" selection-start-column="58" selection-end-line="370" selection-end-column="58" />
+        <state relative-caret-position="378">
+          <caret line="369" column="14" lean-forward="true" selection-start-line="369" selection-start-column="14" selection-end-line="369" selection-end-column="14" />
           <folding>
             <element signature="e#76#106#0" expanded="true" />
-            <marker date="1506914976312" expanded="true" signature="17248:17330" ph="UPDATE contr... " />
-            <marker date="1506914976312" expanded="true" signature="17565:17646" ph="UPDATE contr... " />
-            <marker date="1506914976312" expanded="true" signature="17936:18041" ph="UPDATE contr... " />
+            <marker date="1507176186366" expanded="true" signature="17319:17401" ph="UPDATE contr... " />
+            <marker date="1507176186366" expanded="true" signature="17636:17717" ph="UPDATE contr... " />
+            <marker date="1507176186366" expanded="true" signature="18007:18112" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tink_env.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="124" column="10" lean-forward="false" selection-start-line="124" selection-start-column="10" selection-end-line="124" selection-end-column="10" />
+        <state relative-caret-position="306">
+          <caret line="174" column="108" lean-forward="false" selection-start-line="174" selection-start-column="108" selection-end-line="174" selection-end-column="108" />
           <folding>
-            <element signature="e#15831#15960#0" expanded="false" />
+            <element signature="e#15853#15982#0" expanded="false" />
           </folding>
         </state>
       </provider>
