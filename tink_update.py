@@ -329,7 +329,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             elem.send_keys(' ')
     my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
     fio = res_inp['Фамилия'] + ' ' + res_inp['Имя'] + ' ' + res_inp['Отчество']
-    my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
+    my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'СНИЛС', 'Email'], res_inp, inputtity)
     elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
     wj(driver)
     if elem != None:
@@ -407,6 +407,23 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     wj(driver)
     elem.click()
     wj(driver)
+    if l(res_sel['Автомобиль']) > 0:
+        my_input(driver, ['МаркаАвто', 'МодельАвто', ], res_inp, inputtity)
+        elem = p(d=driver, f='c', **clicktity['НетКАСКО'])
+        wj(driver)
+        if res_cli['НетКАСКО'] == 0:
+            elem.click()
+            wj(driver)
+        else:
+            my_input(driver, ['ДатаКАСКОАвто'], res_inp, inputtity)
+        if l(res_sel['ГодАвто']) > 1969 and l(res_sel['ГодАвто']) <= datetime.datetime.now().year :
+            elem = p(d=driver, f='c', **selectity['ГодАвто'])
+            wj(driver)
+            elem.click()
+            manual_selectity = {'t': 'x', 's': '//SPAN[text()="' + res_sel['ГодАвто'] + '"]', 'txt': res_sel['ГодАвто']}
+            elem = p(d=driver, f='c', **manual_selectity)
+            wj(driver)
+            elem.click()
 
     elem = p(d=driver, f='c', **clicktity['Оформить'])  # Нажимаем кнопку Оформить
     wj(driver)

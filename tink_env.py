@@ -18,6 +18,8 @@ clicktity = {
 'Загружено?' : {'t': 'x', 's': '//H1[text()="Спасибо за предоставленную информацию"]' , 'SQL': "1"},
 'СледующаяЗаявка' : {'t': 'x', 's': '//INPUT[@value="Заполнить новую заявку"]' , 'SQL': "1"},
 'ПроверкаИндекса' : {'t': 'x', 's': '//DIV[text()="Несуществующий индекс"]' , 'SQL': "1"},
+'НетКАСКО' : {'t': 'x', 's': '//SPAN[text()="Нет полиса КАСКО"]' ,
+              'SQL': "IF(co.car_insurance_expiration_date IS NOT NULL) AND (co.car_insurance_expiration_date > NOW()),0,1)"},
 'Ошибки' : {'t': 'x', 's': '//DIV[@class="ui-form-field-error-message ui-form-field-error-message_ui-form"]', 'a':'text', 'SQL': "1"},
 }
 
@@ -28,6 +30,7 @@ inputtity = {
 'Имя' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="name"]', 'SQL': "a.p_name"}, # Имя
 'Отчество' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
 'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "b.phone_personal_mobile-70000000000"}, # Мобильный телефон
+'СНИЛС' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="social_security_no"]', 'SQL': "a.number"},
 'Email' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
 'СерияНомер' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия)
 'КемВыдан' : {'t': 'x', 's': '//TEXTAREA[@name="passport_who_given"]' , 'SQL': "a.p_police"}, # Кто выдал
@@ -36,6 +39,10 @@ inputtity = {
 'ДатаРождения' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="birthdate"]' , 'SQL': "DATE_FORMAT(a.b_date,'%d%m%Y')"}, # Дата рождения
 'МестоРождения' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="place_of_birth"]'
               , 'SQL': "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"}, # Место рождения
+'МаркаАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_producer"]' , 'SQL': "b.car_brand"},
+'МодельАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_model"]' , 'SQL': "b.car_model"},
+'ДатаКАСКОАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_model"]' , 'SQL': "DATE_FORMAT(b.car_insurance_expiration_date,'%d%m%Y')"},
+
 'ИндексФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.d_postalcode"}, # Индекс =факт
 'РегионФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="place"]' ,
                 'SQL': "CONCAT_WS(' ',a.d_region,a.d_region_type)"}, # Регион =факт
@@ -129,6 +136,8 @@ selectity = {
 'ПрПолисКАСКО' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[16]'   , 'SQL': "auto_kasko_attachment_id"}, # Полис страхования КАСКО
 'ПрСНИЛС' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[18]'   , 'SQL': "number_attachment_id"}, # Предоставит СНИЛС
 'ПрЗагранпаспорт' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[10]'   , 'SQL': "international_passport_attachment_id"}, # Предоставит Загранпаспорт
+#'ГодАвто' : {'t': 'x', 's': '//SELECT[@name="car_year"]' , 'SQL': "YEAR(NOW())-b.car_production_year"},
+'ГодАвто' : {'t': 'x', 's': '//SELECT[@name="car_year"]' , 'SQL': "b.car_production_year"},
 
 'СкДетей' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[3]'    , 'SQL': "status_childs_code"}, # Количество детей
 'ПросрочкиПоКредитам' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[8]'    , 'SQL': "status_credit_delay_code"}, # Просрочки по текущим кредитам
