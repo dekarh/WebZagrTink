@@ -30,57 +30,57 @@ clicktity = {
 
 inputtity = {
 'iId' : {'t': 'x', 's': '//[@class="id"]', 'SQL': "a.client_id"}, # Поле id для update b.loaded
-'Фамилия' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="surname"]', 'SQL': "a.p_surname"}, # Фамилия
-'Имя' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="name"]', 'SQL': "a.p_name"}, # Имя
-'Отчество' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
+'Фамилия' : {'t': 'x', 's': '//INPUT[@type="text"][@name="surname"]', 'SQL': "a.p_surname"}, # Фамилия
+'Имя' : {'t': 'x', 's': '//INPUT[@type="text"][@name="name"]', 'SQL': "a.p_name"}, # Имя
+'Отчество' : {'t': 'x', 's': '//INPUT[@type="text"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
 'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "b.phone_personal_mobile-70000000000"}, # Мобильный телефон
 'СНИЛС' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="social_security_no"]', 'SQL': "a.number"},
-'Email' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
+'Email' : {'t': 'x', 's': '//INPUT[@type="text"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
 'СерияНомер' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия)
 'КемВыдан' : {'t': 'x', 's': '//TEXTAREA[@name="passport_who_given"]' , 'SQL': "a.p_police"}, # Кто выдал
 'ДатаВыдачи' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="passport_date_given"]' , 'SQL': "DATE_FORMAT(a.p_date,'%d%m%Y')"}, # Дата выдачи
 'КодПодразд' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_division_code"]' , 'SQL': "a.p_police_code"}, # Код подразделения
 'ДатаРождения' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="birthdate"]' , 'SQL': "DATE_FORMAT(a.b_date,'%d%m%Y')"}, # Дата рождения
-'МестоРождения' : {'t': 'x', 's': '//INPUT[@type="suggest"][@name="place_of_birth"]'
+'МестоРождения' : {'t': 'x', 's': '//INPUT[@type="text"][@name="place_of_birth"]'
               , 'SQL': "CONCAT_WS(' ', a.b_country,a.b_region,a.b_district,a.b_place)"}, # Место рождения
 'МаркаАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_producer"]' , 'SQL': "b.car_brand"},
 'МодельАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_model"]' , 'SQL': "b.car_model"},
 'ДатаКАСКОАвто' : {'t': 'x', 's': '//INPUT[@type="text"][@name="car_model"]' , 'SQL': "DATE_FORMAT(b.car_insurance_expiration_date,'%d%m%Y')"},
 
 'ИндексФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.d_postalcode"}, # Индекс =факт
-'РегионФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="place"]' ,
+'РегионФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="place"]' ,
                 'SQL': "CONCAT_WS(' ',a.d_region,a.d_region_type)"}, # Регион =факт
-'РегионФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="place"]', 'a':'value', 'SQL': "1"},
-'РайонФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
+'РегионФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="place"]', 'a':'value', 'SQL': "1"},
+'РайонФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="area"]' ,
                     'SQL': "CONCAT_WS(' ',a.d_district_type,a.d_district)"}, # Район =факт
-'ГородФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' ,
+'ГородФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="area"]' ,
                     'SQL': "CONCAT_WS(' ',a.d_place_type,a.d_place)"}, # Город =факт
-'НасПунктФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="city"]',
+'НасПунктФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="city"]',
                  'SQL': "CONCAT_WS(' ',a.d_subplace_type,a.d_subplace)"}, # Населенный пункт =факт
-'РайонФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="area"]' , 'a':'value', 'SQL': "1"},
-'НасПунктФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
-'УлицаФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="street"]',
+'РайонФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="area"]' , 'a':'value', 'SQL': "1"},
+'НасПунктФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="city"]', 'a': 'value', 'SQL': "1"},
+'УлицаФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="street"]',
               'SQL': "CONCAT_WS(' ',a.d_street_type,a.d_street)"},
-'УлицаФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
+'УлицаФАКТзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="building"]', 'SQL': "a.d_building"}, # Дом =факт
 'КорпусФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "a.d_corpus"}, # Корпус =факт
 'СтроениеФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="stroenie"]', 'SQL': ""}, # Строение =факт
 'КвартираФАКТ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][2]//INPUT[@type="text"][@name="flat"]', 'SQL': "a.d_flat"}, # Квартира =факт
 'ИндексРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "a.p_postalcode"}, # Индекс =рег
-'РегионРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="place"]',
+'РегионРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="place"]',
                'SQL': "CONCAT_WS(' ',a.p_region,a.p_region_type)"}, # Регион =рег
-'РегионРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="place"]', 'a': 'value', 'SQL': "1" }, # Регион =рег
-'РайонРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]',
+'РегионРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="place"]', 'a': 'value', 'SQL': "1" }, # Регион =рег
+'РайонРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="area"]',
                     'SQL': "CONCAT_WS(' ',a.p_district_type,a.p_district)"}, # Район =рег
-'ГородРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]',
+'ГородРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="area"]',
                     'SQL': "CONCAT_WS(' ',a.p_place_type,a.p_place)"}, # Город =рег
-'НасПунктРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="city"]',
+'НасПунктРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="city"]',
                  'SQL': "CONCAT_WS(' ',a.p_subplace_type,a.p_subplace)"}, # Населенный пункт =рег
-'РайонРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="area"]', 'a': 'value', 'SQL': "1" },
-'НасПунктРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
-'УлицаРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="street"]',
+'РайонРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="area"]', 'a': 'value', 'SQL': "1" },
+'НасПунктРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="city"]', 'a': 'value', 'SQL': "1"},
+'УлицаРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="street"]',
               'SQL': "CONCAT_WS(' ',a.p_street_type,a.p_street)"}, # Улица =рег
-'УлицаРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
+'УлицаРЕГзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="building"]', 'SQL': "a.p_building"}, # Дом =рег
 'КорпусРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "a.p_corpus"}, # Корпус =рег
 'СтроениеРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =рег
@@ -91,23 +91,23 @@ inputtity = {
 'ИмяДопТелефон' : {'t': 'x', 's': '//INPUT[@type="text"][@name="additional_phone_home_comment"]',
                    'SQL': "b.additional_phone_person"},
 'НазвФирмы' : {'t': 'x', 's': '//TEXTAREA[@name="work_name"]' , 'SQL': "b.employment_organization"}, # Наименование организации
-'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': "employment_position"}, # Название должности !!!!!ПОКА НЕТ!!!!
+'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': "b.employment_position"}, # Название должности !!!!!ПОКА НЕТ!!!!
 'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone-70000000000"}, # Рабочий телефон
 'ИндексРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "b.w_postalcode"}, # Индекс =раб
-'РегионРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="place"]' ,
+'РегионРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="place"]' ,
                'SQL': "CONCAT_WS(' ',b.w_region,b.w_region_type)"}, # Регион =раб
-'РегионРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="place"]', 'a': 'value', 'SQL': "1"},
-'РайонРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]' ,
+'РегионРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="place"]', 'a': 'value', 'SQL': "1"},
+'РайонРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="area"]' ,
                     'SQL': "CONCAT_WS(' ',b.w_district_type,b.w_district)"}, # Район =раб
-'РайонРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]', 'a': 'value', 'SQL': "1"},
-'ГородРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="area"]' ,
+'РайонРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="area"]', 'a': 'value', 'SQL': "1"},
+'ГородРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="area"]' ,
                     'SQL': "CONCAT_WS(' ',b.w_place_type,b.w_place)"}, # Город =раб
-'НасПунктРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="city"]' ,
+'НасПунктРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="city"]' ,
                  'SQL': "CONCAT_WS(' ',b.w_subplace_type,b.w_subplace)"}, # Населенный пункт =раб
-'НасПунктРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="city"]', 'a': 'value', 'SQL': "1"},
-'УлицаРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="street"]' ,
+'НасПунктРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="city"]', 'a': 'value', 'SQL': "1"},
+'УлицаРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="street"]' ,
               'SQL': "CONCAT_WS(' ',b.w_street_type,b.w_street)"}, # Улица =раб
-'УлицаРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="suggest"][@name="street"]', 'a': 'value', 'SQL': "1"},
+'УлицаРАБзнач' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="street"]', 'a': 'value', 'SQL': "1"},
 'ДомРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="building"]' , 'SQL': "b.w_building"}, # Дом =раб
 'КорпусРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "b.w_corpus"}, # Корпус =раб
 'СтроениеРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =раб
@@ -124,7 +124,7 @@ selectity = {
 'ТипЗанятости' : {'t': 'x', 's': '//SELECT[@name="employment_type"]/..', 'SQL': "employment_status_code"},
 'ТипНезанятости' : {'t': 'x', 's': "not_work", 'SQL': "unemployment_code"}, # Если не работаю то Кем ПРОВЕРИТЬ ИЗМЕНЕНИЯ !!!!!
 'Должность' : {'t': 'x', 's': '//SPAN[text()="Тип должности"]', 'SQL': "b.employment_position_code"}, # Если работаю то Должность
-'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы"]' , 'SQL': "b.employment_experience"}, # Стаж работы (тип)
+'Стаж' : {'t': 'x', 's': '//SPAN[text()="Стаж работы в организации"]/../../..' , 'SQL': "b.employment_experience"}, # Стаж работы (тип)
 'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..',
                          'SQL': "b.additional_phone_owner"},
 'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "b.current_payments_code"},
@@ -172,14 +172,12 @@ select_selectity = {
                     {'t': 'x', 's': '//DIV[text()="Ищу работу"]', 'txt': 'Ищу работу'},
                     {'t': 'x', 's': '//DIV[text()="Содержит муж/жена"]', 'txt': 'Содержит муж/жена'},
                     {'t': 'x', 's': '//DIV[text()="Другое"]', 'txt': 'Другое'}],
-'Должность' : [{'t': 'x', 's': '//SPAN[text()="Рабочий"]', 'txt': 'Рабочий'},  # Если работаю то Должность. Не заполнил - рабочий
-               {'t': 'x', 's': '//SPAN[text()="Генеральный директор"]', 'txt': 'Генеральный директор'},
+'Должность' : [{'t': 'x', 's': '//SPAN[text()="Генеральный директор"]', 'txt': 'Генеральный директор'},
                {'t': 'x', 's': '//SPAN[text()="Руководитель"]', 'txt': 'Руководитель'},
                {'t': 'x', 's': '//SPAN[text()="Специалист"]', 'txt': 'Специалист'},
-               {'t': 'x', 's': '//SPAN[text()="Рабочий"]', 'txt': 'Рабочий'},
-               {'t': 'x', 's': '//SPAN[text()="Обсл. персонал"]', 'txt': 'Обсл. персонал'}],
-'Стаж' : [{'t': 'x', 's': '//SPAN[text()="6 месяцев и меньше"]' , 'txt': '6 месяцев и меньше'}, # Стаж работы (мес)
-          {'t': 'x', 's': '//SPAN[text()="6 месяцев и меньше"]', 'txt': '6 месяцев и меньше'},
+               {'t': 'x', 's': '//SPAN[text()="Обсл. персонал"]', 'txt': 'Обсл. персонал'},
+               {'t': 'x', 's': '//SPAN[text()="Рабочий"]', 'txt': 'Рабочий'}],
+'Стаж' : [{'t': 'x', 's': '//SPAN[text()="6 месяцев и меньше"]', 'txt': '6 месяцев и меньше'},
           {'t': 'x', 's': '//SPAN[text()="0,5-3 года"]', 'txt': '0,5-3 года'},
           {'t': 'x', 's': '//SPAN[text()="3-5 лет"]', 'txt': '3-5 лет'},
           {'t': 'x', 's': '//SPAN[text()="5-7 лет"]', 'txt': '5-7 лет'},

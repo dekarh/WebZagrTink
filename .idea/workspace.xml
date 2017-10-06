@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib_scan.py" afterPath="$PROJECT_DIR$/lib_scan.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_env.py" afterPath="$PROJECT_DIR$/tink_env.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_update.py" afterPath="$PROJECT_DIR$/tink_update.py" />
     </list>
@@ -14,9 +15,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1507096857313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1507287153997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebZagrTink$WebZagrTink.coverage" NAME="WebZagrTink Coverage Results" MODIFIED="1503543219673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1507263385288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1507316494283" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -26,8 +27,8 @@
       <file leaf-file-name="tink_env.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_env.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="162" column="34" lean-forward="false" selection-start-line="162" selection-start-column="34" selection-end-line="162" selection-end-column="34" />
+            <state relative-caret-position="294">
+              <caret line="93" column="14" lean-forward="false" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -36,7 +37,7 @@
       <file leaf-file-name="tink_report.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_report.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1196">
+            <state relative-caret-position="1340">
               <caret line="96" column="35" lean-forward="false" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
               <folding>
                 <element signature="e#82#112#0" expanded="true" />
@@ -50,22 +51,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tink_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+            <state relative-caret-position="181">
+              <caret line="451" column="0" lean-forward="false" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
               <folding>
                 <element signature="e#76#106#0" expanded="true" />
-                <marker date="1507263258712" expanded="true" signature="18558:18640" ph="UPDATE contr... " />
-                <marker date="1507263258712" expanded="true" signature="18875:18956" ph="UPDATE contr... " />
-                <marker date="1507263258712" expanded="true" signature="19246:19351" ph="UPDATE contr... " />
+                <marker date="1507316494200" expanded="true" signature="19245:19327" ph="UPDATE contr... " />
+                <marker date="1507316494200" expanded="true" signature="19562:19643" ph="UPDATE contr... " />
+                <marker date="1507316494200" expanded="true" signature="19933:20038" ph="UPDATE contr... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apport_python_hook.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_pydev_execfile.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="1022" column="0" lean-forward="false" selection-start-line="1022" selection-start-column="0" selection-end-line="1022" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apport_python_hook.py" pinned="false" current-in-tab="false">
         <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="181">
@@ -75,20 +96,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="errorhandler.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/errorhandler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="lib_scan.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib_scan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1458">
+            <state relative-caret-position="181">
               <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#79#109#0" expanded="true" />
@@ -139,10 +150,13 @@
       <find>ФАКТ</find>
       <find>minus_income</find>
       <find>co.</find>
+      <find>&quot;suggest&quot;</find>
+      <find>НазвДолжности</find>
     </findStrings>
     <replaceStrings>
       <replace>'s': '//DIV[@class=&quot;</replace>
       <replace>'s': '//[@class=&quot;</replace>
+      <replace>&quot;text&quot;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -155,9 +169,9 @@
         <option value="$PROJECT_DIR$/python_mysql_dbconfig.py" />
         <option value="$PROJECT_DIR$/WebZagrTink.py" />
         <option value="$PROJECT_DIR$/tink.ini" />
-        <option value="$PROJECT_DIR$/lib_scan.py" />
         <option value="$PROJECT_DIR$/lib.py" />
         <option value="$PROJECT_DIR$/tink_report.py" />
+        <option value="$PROJECT_DIR$/lib_scan.py" />
         <option value="$PROJECT_DIR$/tink_env.py" />
         <option value="$PROJECT_DIR$/tink_update.py" />
       </list>
@@ -170,9 +184,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="577" />
+    <option name="x" value="642" />
     <option name="y" value="24" />
-    <option name="width" value="1343" />
+    <option name="width" value="1277" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
@@ -632,7 +646,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507231694126</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Добавил и проверил все по списку&#10;Добавил:&#10;   чекбокс Загранпаспорт&#10;   выпад.меню Как часто заграницей&#10;Начал отладку - исправил ТипЗанятости">
+      <created>1507263714536</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1507263714536</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView">
@@ -645,7 +666,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="577" y="24" width="1343" height="1056" extended-state="4" />
+    <frame x="642" y="24" width="1277" height="1056" extended-state="4" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21289875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32951945" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -693,7 +714,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Прописал в addresstype_*_city если  города - дублирование из addresstype_*_area (на уровне MySQL)&#10; Отловил глюк печатания на клавиатуре английской раскладке русских букв - точку меняет на ю (см. gluck_w_point)&#10; Добавил отправку анкеты (click() пока закомментил)&#10; Написал проект определялки отправлено/неотправлено (iframe не работает !!!)" />
     <MESSAGE value="Добавил в запрос id, чтобы потом updat'ить loaded&#10;Упростил пропуск inputtity_first с помощью волшебного in (при заполнении полей)&#10;Добавил пропуск id (при заполнении полей)&#10;Скорректировал (добавил еще один try) определение загрузилось или нет&#10;Добавил update для loaded&#10;Добавил закрытие/открытие driver (окна) чтобы попасть в новое заполнение кредитной карты&#10;&#10;" />
     <MESSAGE value="Изменил read_db_config на read_config  &#10;Сделал все через config.ini" />
     <MESSAGE value="Изменился исходный сайт :(&#10;Изменил назавания файлов, переделал структуру проекта под имеющиеся наработки" />
@@ -718,20 +738,16 @@
     <MESSAGE value="Добавил:&#10; дату отправки&#10; название должности&#10;Поправил:&#10; тип должности&#10; стаж" />
     <MESSAGE value="Поправил:&#10;   платежи кредитные" />
     <MESSAGE value="Добавил:&#10;   Поля Автомобиля" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил:&#10;   Поля Автомобиля" />
+    <MESSAGE value="Добавил и проверил все по списку&#10;Добавил:&#10;   чекбокс Загранпаспорт&#10;   выпад.меню Как часто заграницей&#10;Начал отладку - исправил ТипЗанятости" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил и проверил все по списку&#10;Добавил:&#10;   чекбокс Загранпаспорт&#10;   выпад.меню Как часто заграницей&#10;Начал отладку - исправил ТипЗанятости" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>438</line>
+          <line>451</line>
           <option name="timeStamp" value="217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>189</line>
-          <option name="timeStamp" value="225" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -741,13 +757,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="226" />
+      <option name="time" value="235" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="inp[pole]" language="Python" />
-        <watch expression="res[pole]" language="Python" />
-        <watch expression="select_selectity['Должность'][l(res_sel['Должность'])]" language="Python" />
+        <watch expression="l(res_sel['КредитнаяИстория'])" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -936,13 +950,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/http/client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -950,27 +957,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="1595" column="0" lean-forward="false" selection-start-line="1595" selection-start-column="0" selection-end-line="1595" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/re.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3222">
           <caret line="181" column="0" lean-forward="false" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib_scan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1458">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding>
-            <element signature="e#79#109#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -991,9 +981,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/errorhandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="1022" column="0" lean-forward="false" selection-start-line="1022" selection-start-column="0" selection-end-line="1022" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib_scan.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding>
+            <element signature="e#79#109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tink_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
+        <state relative-caret-position="1340">
           <caret line="96" column="35" lean-forward="false" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
           <folding>
             <element signature="e#82#112#0" expanded="true" />
@@ -1006,40 +1030,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tink_env.py">
+    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="162" column="34" lean-forward="false" selection-start-line="162" selection-start-column="34" selection-end-line="162" selection-end-column="34" />
+        <state relative-caret-position="181">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/errorhandler.py">
+    <entry file="file://$PROJECT_DIR$/tink_env.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+        <state relative-caret-position="294">
+          <caret line="93" column="14" lean-forward="false" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tink_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+        <state relative-caret-position="181">
+          <caret line="451" column="0" lean-forward="false" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
           <folding>
             <element signature="e#76#106#0" expanded="true" />
-            <marker date="1507263258712" expanded="true" signature="18558:18640" ph="UPDATE contr... " />
-            <marker date="1507263258712" expanded="true" signature="18875:18956" ph="UPDATE contr... " />
-            <marker date="1507263258712" expanded="true" signature="19246:19351" ph="UPDATE contr... " />
+            <marker date="1507316494200" expanded="true" signature="19245:19327" ph="UPDATE contr... " />
+            <marker date="1507316494200" expanded="true" signature="19562:19643" ph="UPDATE contr... " />
+            <marker date="1507316494200" expanded="true" signature="19933:20038" ph="UPDATE contr... " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

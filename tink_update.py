@@ -148,25 +148,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
 
     for i, sel_i in enumerate(selectity):
         if selectity[sel_i]['SQL'] != '':
-            if sel_i == 'ПлатежиКредитные':
-                if l(res_inp['ПерсДоход']) < (l(res_inp['ПлатежиПоКредитам'])+l(res_inp['КвартПлата'])) \
-                or l(res_inp['ПерсДоход']) == 0:
-                    minus_income = True
-                    res_sel[sel_i] = 0
-                    continue
-                q = 1 - (l(res_inp['ПерсДоход']) - l(res_inp['ПлатежиПоКредитам']))/l(res_inp['ПерсДоход'])
-                if q > 0.5:
-                    res_sel[sel_i] = 4
-                elif q > 0.25:
-                    res_sel[sel_i] = 3
-                elif q > 0.1:
-                    res_sel[sel_i] = 2
-                elif q > 0:
-                    res_sel[sel_i] = 1
-                elif q == 0:
-                    res_sel[sel_i] = 0
-            else:
-                res_sel[sel_i] = row[j]
+            res_sel[sel_i] = row[j]
             j += 1
 
     driver.switch_to.frame(driver.find_element_by_tag_name("iframe")) # Переключаемся во фрейм
@@ -181,19 +163,20 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     wj(driver)
     elem.click()
     if int(res_sel['ТипЗанятости']) == 0:                           # Работаю
+        my_input(driver, ['НазвДолжности'], res_inp, inputtity)
         elem = p(d=driver, f='c', **selectity['Должность'])
         wj(driver)
         elem.click()
         elem = p(d=driver, f='c', **select_selectity['Должность'][l(res_sel['Должность'])])
         wj(driver)
         elem.click()
+        elem = p(d=driver, f='p', **inputtity['ЩелчокДляСброса'])
+        wj(driver)
+        elem.click()
         elem = p(d=driver, f='c', **selectity['Стаж'])
         wj(driver)
         elem.click()
         elem = p(d=driver, f='c', **select_selectity['Стаж'][l(res_sel['Стаж'])])
-        wj(driver)
-        elem.click()
-        wj(driver)
         wj(driver)
         elem.click()
         wj(driver)
@@ -325,7 +308,9 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             elem.send_keys(' ')
     my_input(driver, ['УлицаФАКТ', 'ДомФАКТ', 'КорпусФАКТ', 'КвартираФАКТ'], res_inp, inputtity)
     fio = res_inp['Фамилия'] + ' ' + res_inp['Имя'] + ' ' + res_inp['Отчество']
-    my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'СНИЛС', 'Email'], res_inp, inputtity)
+    my_input(driver, ['Фамилия', 'Имя', 'Отчество', 'МобТелефон', 'КредЛимит', 'Email'], res_inp, inputtity)
+    if l(res_inp['СНИЛС']) > 0:
+        my_input(driver, ['СНИЛС'], res_inp, inputtity)
     elem = p(d=driver, f='p', **clicktity['ПодтвФамилии'])  # Подверждаем фамилию и телефон
     wj(driver)
     if elem != None:
@@ -360,14 +345,18 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     wj(driver)
     elem.click()
     wj(driver)
-    if int(res_sel['ВладелецДопТелефона']) > 0:
+    if l(res_sel['ВладелецДопТелефона']) > 0:
         my_input(driver, ['ИмяДопТелефон'], res_inp, inputtity)
     my_input(driver, ['ПерсДоход', 'КвартПлата'], res_inp, inputtity)
     wj(driver)
     if l(res_sel['ПлатежиКредитные']) > 0:
         elem = p(d = driver, f = 'c', **selectity['ПлатежиКредитные'])
         wj(driver)
-        elem.click()
+        elem2 = p(d = driver, f = 'p', **select_selectity['ПлатежиКредитные'][l(res_sel['ПлатежиКредитные'])])
+        wj(driver)
+        while not elem2.is_displayed():
+            elem.click()
+        wj(driver)
         elem = p(d = driver, f = 'c', **select_selectity['ПлатежиКредитные'][l(res_sel['ПлатежиКредитные'])])
         wj(driver)
         elem.click()
@@ -375,7 +364,11 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if l(res_sel['КредитнаяИстория']) > 0:
         elem = p(d = driver, f = 'c', **selectity['КредитнаяИстория'])
         wj(driver)
-        elem.click()
+        elem2 = p(d = driver, f = 'p', **select_selectity['КредитнаяИстория'][l(res_sel['КредитнаяИстория'])])
+        wj(driver)
+        while not elem2.is_displayed():
+            elem.click()
+        wj(driver)
         elem = p(d = driver, f = 'c', **select_selectity['КредитнаяИстория'][l(res_sel['КредитнаяИстория'])])
         wj(driver)
         elem.click()
@@ -383,7 +376,11 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if l(res_sel['Образование']) > 0:
         elem = p(d = driver, f = 'c', **selectity['Образование'])
         wj(driver)
-        elem.click()
+        elem2 = p(d=driver, f='p', **select_selectity['Образование'][l(res_sel['Образование'])])
+        wj(driver)
+        while not elem2.is_displayed():
+            elem.click()
+        wj(driver)
         elem = p(d = driver, f = 'c', **select_selectity['Образование'][l(res_sel['Образование'])])
         wj(driver)
         elem.click()
@@ -391,14 +388,22 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     if l(res_sel['СемейноеПоложение']) > 0:
         elem = p(d = driver, f = 'c', **selectity['СемейноеПоложение'])
         wj(driver)
-        elem.click()
+        elem2 = p(d = driver, f = 'p', **select_selectity['СемейноеПоложение'][l(res_sel['СемейноеПоложение'])])
+        wj(driver)
+        while not elem2.is_displayed():
+            elem.click()
+        wj(driver)
         elem = p(d = driver, f = 'c', **select_selectity['СемейноеПоложение'][l(res_sel['СемейноеПоложение'])])
         wj(driver)
         elem.click()
         wj(driver)
     elem = p(d = driver, f = 'c', **selectity['Автомобиль'])
     wj(driver)
-    elem.click()
+    elem2 = p(d = driver, f = 'p', **select_selectity['Автомобиль'][int(res_sel['Автомобиль'])])
+    wj(driver)
+    while not elem2.is_displayed():
+        elem.click()
+    wj(driver)
     elem = p(d = driver, f = 'c', **select_selectity['Автомобиль'][int(res_sel['Автомобиль'])])
     wj(driver)
     elem.click()
@@ -415,8 +420,12 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         if l(res_sel['ГодАвто']) > 1969 and l(res_sel['ГодАвто']) <= datetime.datetime.now().year :
             elem = p(d=driver, f='c', **selectity['ГодАвто'])
             wj(driver)
-            elem.click()
             manual_selectity = {'t': 'x', 's': '//SPAN[text()="' + res_sel['ГодАвто'] + '"]', 'txt': res_sel['ГодАвто']}
+            elem2 = p(d=driver, f='p', **manual_selectity)
+            wj(driver)
+            while not elem2.is_displayed():
+                elem.click()
+            wj(driver)
             elem = p(d=driver, f='c', **manual_selectity)
             wj(driver)
             elem.click()
@@ -430,7 +439,11 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         if l(res_sel['ЧастоЗагран']) > 0:
             elem = p(d=driver, f='c', **selectity['ЧастоЗагран'])
             wj(driver)
-            elem.click()
+            elem2 = p(d=driver, f='p', **select_selectity['ЧастоЗагран'][int(res_sel['ЧастоЗагран'])])
+            wj(driver)
+            while not elem2.is_displayed():
+                elem.click()
+            wj(driver)
             elem = p(d=driver, f='c', **select_selectity['ЧастоЗагран'][int(res_sel['ЧастоЗагран'])])
             wj(driver)
             elem.click()
