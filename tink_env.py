@@ -18,8 +18,12 @@ clicktity = {
 'Загружено?' : {'t': 'x', 's': '//H1[text()="Спасибо за предоставленную информацию"]' , 'SQL': "1"},
 'СледующаяЗаявка' : {'t': 'x', 's': '//INPUT[@value="Заполнить новую заявку"]' , 'SQL': "1"},
 'ПроверкаИндекса' : {'t': 'x', 's': '//DIV[text()="Несуществующий индекс"]' , 'SQL': "1"},
-'НетКАСКО' : {'t': 'x', 's': '//SPAN[text()="Нет полиса КАСКО"]' ,
-              'SQL': "IF(co.car_insurance_expiration_date IS NOT NULL) AND (co.car_insurance_expiration_date > NOW()),0,1)"},
+'НетКАСКО' : {'t': 'x', 's': '//SPAN[text()="Нет полиса КАСКО"]',
+       'SQL': "IF((b.car_insurance_expiration_date IS NOT NULL) AND (b.car_insurance_expiration_date > NOW()),0,1)"},
+'ЕстьЗагранПаспорт' : {'t': 'x', 's': '//SPAN[text()="Есть заграничный паспорт"]' ,
+                       'SQL': "IF(b.travel_information_code>0,1,0)"},
+'ПредоставлюЗагранПаспорт' : {'t': 'x', 's': '//SPAN[text()="Предоставлю на встрече заграничный паспорт"]',
+                              'SQL': "IF(b.travel_information_code>0,1,0)"},
 'Ошибки' : {'t': 'x', 's': '//DIV[@class="ui-form-field-error-message ui-form-field-error-message_ui-form"]', 'a':'text', 'SQL': "1"},
 }
 
@@ -133,12 +137,12 @@ selectity = {
 'Образование' : {'t': 'x', 's': '//SELECT[@name="education"]/..'    , 'SQL': "b.status_education_code"}, # Образование
 'СемейноеПоложение' : {'t': 'x', 's': '//SELECT[@name="marital_status"]/..', 'SQL': "b.status_marital_code"}, # Семейное положение
 'Автомобиль' : {'t': 'x', 's': '//SELECT[@name="asset_foreign_vehicle_flag"]/..', 'SQL': "b.status_car_code"}, # Автомобиль
-'ПрПолисКАСКО' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[16]'   , 'SQL': "auto_kasko_attachment_id"}, # Полис страхования КАСКО
-'ПрСНИЛС' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[18]'   , 'SQL': "number_attachment_id"}, # Предоставит СНИЛС
-'ПрЗагранпаспорт' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[10]'   , 'SQL': "international_passport_attachment_id"}, # Предоставит Загранпаспорт
-#'ГодАвто' : {'t': 'x', 's': '//SELECT[@name="car_year"]' , 'SQL': "YEAR(NOW())-b.car_production_year"},
 'ГодАвто' : {'t': 'x', 's': '//SELECT[@name="car_year"]' , 'SQL': "b.car_production_year"},
+'ЧастоЗагран' : {'t': 'x', 's': '//SELECT[@name="visit_foreign_country_frequency"]' , 'SQL': "b.travel_information_code"},
 
+#'ПрПолисКАСКО' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[16]'   , 'SQL': "auto_kasko_attachment_id"}, # Полис страхования КАСКО
+#'ПрСНИЛС' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[18]'   , 'SQL': "number_attachment_id"}, # Предоставит СНИЛС
+'ПрЗагранпаспорт' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[10]'   , 'SQL': "international_passport_attachment_id"}, # Предоставит Загранпаспорт
 'СкДетей' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[3]'    , 'SQL': "status_childs_code"}, # Количество детей
 'ПросрочкиПоКредитам' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[8]'    , 'SQL': "status_credit_delay_code"}, # Просрочки по текущим кредитам
 'ПрВодительскоеУд' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[9]'    , 'SQL': "driver_card_attachment_id"}, # Предоставит вод.удостоверение
@@ -154,12 +158,15 @@ selectity = {
 }
 
 select_selectity = {
-'ТипЗанятости' : [{'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
-                                  '//SPAN[text()="Работаю в организации"]', 'txt': 'Работаю в организации'},
-                  {'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
-                                  '//SPAN[text()="Собственный бизнес"]', 'txt': 'Собственный бизнес'},
-                  {'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
-                                  '//SPAN[text()="Не работаю"]', 'txt': 'Не работаю'}],
+'ТипЗанятости' : [{'t': 'x', 's': '//SPAN[text()="Работаю в организации"]', 'txt': 'Работаю в организации'},
+                  {'t': 'x', 's': '//SPAN[text()="Собственный бизнес"]', 'txt': 'Собственный бизнес'},
+                  {'t': 'x', 's': '//SPAN[text()="Не работаю"]', 'txt': 'Не работаю'}],
+#'ТипЗанятости' : [{'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
+#                                  '//SPAN[text()="Работаю в организации"]', 'txt': 'Работаю в организации'},
+#                  {'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
+#                                  '//SPAN[text()="Собственный бизнес"]', 'txt': 'Собственный бизнес'},
+#                  {'t': 'x', 's': '//UL[@class="ui-select__slider ui-select__slider_open"]'
+#                                  '//SPAN[text()="Не работаю"]', 'txt': 'Не работаю'}],
 'ТипНезанятости' : [{'t': 'x', 's': '//DIV[text()="По возрасту/стажу работы"]', 'txt': 'По возрасту/стажу работы'}, # Если не работаю то почему
                     {'t': 'x', 's': '//DIV[text()="По инвалидности"]', 'txt': 'По инвалидности'},
                     {'t': 'x', 's': '//DIV[text()="Ищу работу"]', 'txt': 'Ищу работу'},
@@ -206,6 +213,11 @@ select_selectity = {
 'Автомобиль' : [{'t': 'x', 's': '//SPAN[text()="Нет"]', 'txt': 'Нет'},
                 {'t': 'x', 's': '//SPAN[text()="Отечественный"]', 'txt': 'Отечественный'},
                 {'t': 'x', 's': '//SPAN[text()="Иномарка"]', 'txt': 'Иномарка'},], # Автомобиль
+'ЧастоЗагран' : [{'t': 'x', 's': '//SPAN[text()="Реже 1 раза в год"]', 'txt': 'Реже 1 раза в год'},
+                {'t': 'x', 's': '//SPAN[text()="Реже 1 раза в год"]', 'txt': 'Реже 1 раза в год'},
+                {'t': 'x', 's': '//SPAN[text()="1-2 раза в год"]', 'txt': '1-2 раза в год'},
+                {'t': 'x', 's': '//SPAN[text()="3-5 раз в год"]', 'txt': '3-5 раз в год'},
+                {'t': 'x', 's': '//SPAN[text()="Чаще 6 раз в год"]', 'txt': 'Чаще 6 раз в год'},],
 
 'СкДетей' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[3]'    , 'SQL': "status_childs_code"}, # Количество детей
 'ПросрочкиПоКредитам' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[8]'    , 'SQL': "status_credit_delay_code"}, # Просрочки по текущим кредитам
