@@ -63,6 +63,11 @@ time.sleep(1)
 
 conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
 
+write_cursor = conn.cursor()       # Если болльше трех дней рассматривают - посылаем заявку заново
+write_cursor.execute('UPDATE saturn_fin.contracts SET status_code = 0 WHERE transaction_date < DATE_SUB(NOW(),'
+                     ' INTERVAL 3 DAY) and status_code = 1')
+conn.commit()
+
 elem = p(d=driver, f='c', **localtity['До'])
 wj(driver)
 dt = datetime.datetime.now()
@@ -107,8 +112,8 @@ for row in rows:
                         and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')- row[5]) < datetime.timedelta(days=21):
             if statuses[statuses_t[i]] != row[1]:
                 write_cursor = conn.cursor()
-                sql = 'UPDATE contracts SET loaded=1 WHERE client_id=%s AND id>-1'
-                cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1', (statuses[statuses_t[i]], row[0]))
+                write_cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1',
+                                     (statuses[statuses_t[i]], row[0]))
                 conn.commit()
 driver.close()
 

@@ -123,7 +123,6 @@ time.sleep(1)
 
 
 for k, row in enumerate(rows):                    # Цикл по строкам таблицы (основной)
-    minus_income = False
     j = 0
     res_cli = {}
     for i, inp_i in enumerate(clicktity):
@@ -139,9 +138,13 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     for i, inp_i in enumerate(inputtity):
         if str(type(inputtity[inp_i]['SQL'])) == "<class 'str'>" and inputtity[inp_i]['SQL'] != '':
             if inp_i in ('МестоРождения'):
-                res_inp[inp_i] = filter_rus_sp(row[j])
+                res_inp[inp_i] = filter_rus_sp(row[j]).replace('.',' ')
             elif inp_i in ('Фамилия', 'Имя', 'Отчество', 'ИмяДопТелефон'):
                 res_inp[inp_i] = filter_rus_minus(row[j])
+            elif inp_i in ('СНИЛС'):
+                res_inp[inp_i] = '{:011d}'.format(row[j])
+            elif inp_i in ('МобТелефон', 'ДопТелефон', 'ТелефонРАБ'):
+                res_inp[inp_i] = '{:011d}'.format(row[j])[1:]
             else:
                 res_inp[inp_i] = row[j]
             j += 1
@@ -412,20 +415,24 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         my_input(driver, ['МаркаАвто', 'МодельАвто', ], res_inp, inputtity)
         elem = p(d=driver, f='c', **clicktity['НетКАСКО'])
         wj(driver)
-        if res_cli['НетКАСКО'] == 0:
+        if res_cli['НетКАСКО'] == 1:
             elem.click()
             wj(driver)
         else:
             my_input(driver, ['ДатаКАСКОАвто'], res_inp, inputtity)
         if l(res_sel['ГодАвто']) > 1969 and l(res_sel['ГодАвто']) <= datetime.datetime.now().year :
-            elem = p(d=driver, f='c', **selectity['ГодАвто'])
+            elem = p(d=driver, f='c', **selectity['ГодАвто']) #.get_attribute('innerHTML')
             wj(driver)
-            manual_selectity = {'t': 'x', 's': '//SPAN[text()="' + res_sel['ГодАвто'] + '"]', 'txt': res_sel['ГодАвто']}
-            elem2 = p(d=driver, f='p', **manual_selectity)
+            open_selectity = {'t': 'x', 's': '//SPAN[text()="2016"]', 'txt': str(res_sel['ГодАвто'])}
+            manual_selectity = {'t': 'x', 's': '//SPAN[text()="' + str(res_sel['ГодАвто']) + '"]',
+                                'txt': str(res_sel['ГодАвто'])}
+            elem2 = p(d=driver, f='p', **open_selectity)
             wj(driver)
             while not elem2.is_displayed():
                 elem.click()
             wj(driver)
+            for i in range(datetime.datetime.now().year,1969,-1):
+                elem.send_keys(Keys.ARROW_DOWN)
             elem = p(d=driver, f='c', **manual_selectity)
             wj(driver)
             elem.click()
@@ -464,17 +471,9 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         sql = 'UPDATE contracts SET status_code=4, error_message=%s  WHERE client_id=%s AND id>-1'
         cursor.execute(sql,(aa, res_inp['iId']))
         conn.commit()
-    elif minus_income:
-        aa = '"Сумма платежей по текущим кредитам в других банках" должна быть меньше значения в поле "Персональный доход"'
-        sql = 'UPDATE contracts SET status_code=4, error_message=%s WHERE client_id=%s AND id>-1'
-        cursor.execute(sql, (aa, res_inp['iId']))
-        conn.commit()
-        print('\n При заполнении анкеты', fio, 'допущены ошибки:')
-        print(aa)
     else:
-        aa = 'Ошибок нет, заявка отправлена в банк ' + datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
-        sql = 'UPDATE contracts SET status_code=5, error_message=%s, transaction_date=NOW() WHERE client_id=%s AND id>-1'
-        cursor.execute(sql, (aa, res_inp['iId']))
+        sql = 'UPDATE contracts SET status_code=5, transaction_date=NOW() WHERE client_id=%s AND id>-1'
+        cursor.execute(sql, (res_inp['iId']),)
         conn.commit()
     conn.close()
 

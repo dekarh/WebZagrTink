@@ -33,7 +33,7 @@ inputtity = {
 'Фамилия' : {'t': 'x', 's': '//INPUT[@type="text"][@name="surname"]', 'SQL': "a.p_surname"}, # Фамилия
 'Имя' : {'t': 'x', 's': '//INPUT[@type="text"][@name="name"]', 'SQL': "a.p_name"}, # Имя
 'Отчество' : {'t': 'x', 's': '//INPUT[@type="text"][@name="patronymic"]', 'SQL': "a.p_lastname"}, # Отчество
-'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "b.phone_personal_mobile-70000000000"}, # Мобильный телефон
+'МобТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="phone_mobile"]', 'SQL': "b.phone_personal_mobile"}, # Мобильный телефон
 'СНИЛС' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="social_security_no"]', 'SQL': "a.number"},
 'Email' : {'t': 'x', 's': '//INPUT[@type="text"][@name="email"]', 'SQL': "a.email"}, # Электронная почта
 'СерияНомер' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="id_code_number"]' , 'SQL': "CONCAT_WS('',a.p_seria,a.p_number)"}, # Паспорт (номер и серия)
@@ -85,14 +85,12 @@ inputtity = {
 'КорпусРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="corpus"]' , 'SQL': "a.p_corpus"}, # Корпус =рег
 'СтроениеРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="stroenie"]' , 'SQL': ""}, # Строение =рег
 'КвартираРЕГ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][1]//INPUT[@type="text"][@name="flat"]' , 'SQL': "a.p_flat"}, # Квартира =рег
-'СтацТелефон' : {'t': 'x', 's': '//[@class="phone_home"]' , 'SQL': "b.landline_phone-70000000000"}, # Стационарный телефон по месту проживания или регистрации
-'ДопТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="additional_phone_home"]',
-                'SQL': "b.additional_phone-70000000000"}, # Дополнительный телефон
+'ДопТелефон' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="additional_phone_home"]', 'SQL': "b.additional_phone"}, # Дополнительный телефон
 'ИмяДопТелефон' : {'t': 'x', 's': '//INPUT[@type="text"][@name="additional_phone_home_comment"]',
                    'SQL': "b.additional_phone_person"},
 'НазвФирмы' : {'t': 'x', 's': '//TEXTAREA[@name="work_name"]' , 'SQL': "b.employment_organization"}, # Наименование организации
 'НазвДолжности' : {'t': 'x', 's': '//INPUT[@name="work_position_text"]' , 'SQL': "b.employment_position"}, # Название должности !!!!!ПОКА НЕТ!!!!
-'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone-70000000000"}, # Рабочий телефон
+'ТелефонРАБ' : {'t': 'x', 's': '//INPUT[@name="phone_work"]' , 'SQL': "b.employment_phone"}, # Рабочий телефон
 'ИндексРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="tel"][@name="postal_code"]', 'SQL': "b.w_postalcode"}, # Индекс =раб
 'РегионРАБ' : {'t': 'x', 's': '//DIV[@class="ui-kladr"][3]//INPUT[@type="text"][@name="place"]' ,
                'SQL': "CONCAT_WS(' ',b.w_region,b.w_region_type)"}, # Регион =раб
@@ -118,6 +116,7 @@ inputtity = {
 'ПлатежиПоКредитам' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="expenses_amount"]' , 'SQL': "b.banks_payment"}, # ССумма платежей по тек.кредитам в др.банках
 'КредЛимит' : {'t': 'x', 's': '//INPUT[@type="tel"][@name="desired_credit_limit"]', 'SQL': "b.want_amount"}, # Кредитный лимит
 'ЩелчокДляСброса' : {'t': 'x', 's': '//DIV[@class="app-form-nav-container_static"]', 'SQL': "1"},
+#'СтацТелефон' : {'t': 'x', 's': '//[@class="phone_home"]' , 'SQL': "b.landline_phone-70000000000"}, # Стационарный телефон по месту проживания или регистрации
 }
 
 selectity = {
@@ -128,17 +127,12 @@ selectity = {
 'ВладелецДопТелефона' : {'t': 'x', 's': '//SELECT[@name="additional_phone_home_type"]/..',
                          'SQL': "b.additional_phone_owner"},
 'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' , 'SQL': "b.current_payments_code"},
-#'ПлатежиКредитные' : {'t': 'x', 's': '//SELECT[@name="liability_n_w_amount__dbl"]/..' ,
-#                   'SQL': "IF(1-(personal_income-banks_payment)/personal_income > 0,"
-#                          "IF(1-(personal_income-banks_payment)/personal_income < 0.1,1,"
-#                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.25,2,"
-#                          "IF(1-(personal_income-banks_payment)/personal_income <= 0.5,3,4))),0)"}, # Сумма платежей по тек.кредитам в др.банках
 'КредитнаяИстория' : {'t': 'x', 's': '//SELECT[@name="credit_history"]/..', 'SQL': "b.status_credit_history_code"}, # Какая кредитная история
 'Образование' : {'t': 'x', 's': '//SELECT[@name="education"]/..'    , 'SQL': "b.status_education_code"}, # Образование
 'СемейноеПоложение' : {'t': 'x', 's': '//SELECT[@name="marital_status"]/..', 'SQL': "b.status_marital_code"}, # Семейное положение
 'Автомобиль' : {'t': 'x', 's': '//SELECT[@name="asset_foreign_vehicle_flag"]/..', 'SQL': "b.status_car_code"}, # Автомобиль
-'ГодАвто' : {'t': 'x', 's': '//SELECT[@name="car_year"]' , 'SQL': "b.car_production_year"},
-'ЧастоЗагран' : {'t': 'x', 's': '//SELECT[@name="visit_foreign_country_frequency"]' , 'SQL': "b.travel_information_code"},
+'ГодАвто' : {'t': 'x', 's': '//SPAN[text()="Год выпуска"]/../../../..' , 'SQL': "b.car_production_year"},
+'ЧастоЗагран' : {'t': 'x', 's': '//SELECT[@name="visit_foreign_country_frequency"]/..' , 'SQL': "b.travel_information_code"},
 
 #'ПрПолисКАСКО' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[16]'   , 'SQL': "auto_kasko_attachment_id"}, # Полис страхования КАСКО
 #'ПрСНИЛС' : {'t': 'x', 's': '//[@class="tcs-plugin-select2"])[18]'   , 'SQL': "number_attachment_id"}, # Предоставит СНИЛС
