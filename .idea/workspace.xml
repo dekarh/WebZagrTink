@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="">
+    <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="Добавил">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_env.py" afterPath="$PROJECT_DIR$/tink_env.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_report.py" afterPath="$PROJECT_DIR$/tink_report.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_update.py" afterPath="$PROJECT_DIR$/tink_update.py" />
     </list>
@@ -15,9 +14,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1507601106335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1507632376604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebZagrTink$WebZagrTink.coverage" NAME="WebZagrTink Coverage Results" MODIFIED="1503543219673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1507521896319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1507626337235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -34,32 +33,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tink_report.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tink_report.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_report.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="65" column="98" lean-forward="true" selection-start-line="65" selection-start-column="98" selection-end-line="65" selection-end-column="98" />
+            <state relative-caret-position="1912">
+              <caret line="113" column="104" lean-forward="true" selection-start-line="113" selection-start-column="104" selection-end-line="113" selection-end-column="104" />
               <folding>
                 <element signature="e#82#112#0" expanded="true" />
-                <marker date="1507602242029" expanded="true" signature="2229:2377" ph="UPDATE satur... " />
-                <marker date="1507602242029" expanded="true" signature="3320:3443" ph="SELECT b.cli... clients" />
-                <marker date="1507602242029" expanded="true" signature="3320:3496" ph="SELECT code,... clients" />
-                <marker date="1507602242029" expanded="true" signature="3320:3524" ph="SELECT b.cli... clients" />
-                <marker date="1507602242029" expanded="true" signature="3996:4060" ph="UPDATE contr... " />
+                <marker date="1507603781999" expanded="true" signature="2229:2377" ph="UPDATE satur... " />
+                <marker date="1507603781999" expanded="true" signature="3320:3439" ph="SELECT b.cli... clients" />
+                <marker date="1507603781999" expanded="true" signature="3320:3492" ph="SELECT code,... clients" />
+                <marker date="1507603781999" expanded="true" signature="3320:3520" ph="SELECT b.cli... clients" />
+                <marker date="1507603781999" expanded="true" signature="3977:4041" ph="UPDATE contr... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tink_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="473" column="9" lean-forward="false" selection-start-line="473" selection-start-column="9" selection-end-line="473" selection-end-column="9" />
+            <state relative-caret-position="505">
+              <caret line="479" column="60" lean-forward="true" selection-start-line="479" selection-start-column="60" selection-end-line="479" selection-end-column="60" />
               <folding>
                 <element signature="e#76#106#0" expanded="true" />
-                <marker date="1507540561768" expanded="true" signature="19749:19831" ph="UPDATE contr... " />
-                <marker date="1507540561768" expanded="true" signature="19929:20016" ph="UPDATE contr... " />
+                <marker date="1507632920428" expanded="true" signature="19752:19857" ph="UPDATE contr... " />
+                <marker date="1507632920428" expanded="true" signature="19955:20062" ph="UPDATE contr... " />
               </folding>
             </state>
           </provider>
@@ -131,6 +130,7 @@
       <find>&quot;suggest&quot;</find>
       <find>НазвДолжности</find>
       <find>minus_income</find>
+      <find>transaction_date</find>
     </findStrings>
     <replaceStrings>
       <replace>'s': '//DIV[@class=&quot;</replace>
@@ -151,8 +151,8 @@
         <option value="$PROJECT_DIR$/lib.py" />
         <option value="$PROJECT_DIR$/lib_scan.py" />
         <option value="$PROJECT_DIR$/tink_env.py" />
-        <option value="$PROJECT_DIR$/tink_update.py" />
         <option value="$PROJECT_DIR$/tink_report.py" />
+        <option value="$PROJECT_DIR$/tink_update.py" />
       </list>
     </option>
   </component>
@@ -653,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507316693650</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Отладил обработку СНИЛС&#10;Добавил если больше трех дней рассматривают - посылаем заявку заново">
+      <created>1507602368798</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1507602368798</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -723,7 +730,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Изменил read_db_config на read_config  &#10;Сделал все через config.ini" />
     <MESSAGE value="Изменился исходный сайт :(&#10;Изменил назавания файлов, переделал структуру проекта под имеющиеся наработки" />
     <MESSAGE value="Подключил станадртизированную lib_scan.py&#10;Обновил версию lib.py&#10;Жду решения по js в функции wj()" />
     <MESSAGE value="Дошел до паспортных данннных" />
@@ -748,7 +754,8 @@
     <MESSAGE value="Добавил:&#10;   Поля Автомобиля" />
     <MESSAGE value="Добавил и проверил все по списку&#10;Добавил:&#10;   чекбокс Загранпаспорт&#10;   выпад.меню Как часто заграницей&#10;Начал отладку - исправил ТипЗанятости" />
     <MESSAGE value="Отладил" />
-    <option name="LAST_COMMIT_MESSAGE" value="Отладил" />
+    <MESSAGE value="Отладил обработку СНИЛС&#10;Добавил если больше трех дней рассматривают - посылаем заявку заново" />
+    <option name="LAST_COMMIT_MESSAGE" value="Отладил обработку СНИЛС&#10;Добавил если больше трех дней рассматривают - посылаем заявку заново" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1043,29 +1050,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tink_update.py">
+    <entry file="file://$PROJECT_DIR$/tink_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="473" column="9" lean-forward="false" selection-start-line="473" selection-start-column="9" selection-end-line="473" selection-end-column="9" />
+        <state relative-caret-position="1912">
+          <caret line="113" column="104" lean-forward="true" selection-start-line="113" selection-start-column="104" selection-end-line="113" selection-end-column="104" />
           <folding>
-            <element signature="e#76#106#0" expanded="true" />
-            <marker date="1507540561768" expanded="true" signature="19749:19831" ph="UPDATE contr... " />
-            <marker date="1507540561768" expanded="true" signature="19929:20016" ph="UPDATE contr... " />
+            <element signature="e#82#112#0" expanded="true" />
+            <marker date="1507603781999" expanded="true" signature="2229:2377" ph="UPDATE satur... " />
+            <marker date="1507603781999" expanded="true" signature="3320:3439" ph="SELECT b.cli... clients" />
+            <marker date="1507603781999" expanded="true" signature="3320:3492" ph="SELECT code,... clients" />
+            <marker date="1507603781999" expanded="true" signature="3320:3520" ph="SELECT b.cli... clients" />
+            <marker date="1507603781999" expanded="true" signature="3977:4041" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tink_report.py">
+    <entry file="file://$PROJECT_DIR$/tink_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="65" column="98" lean-forward="true" selection-start-line="65" selection-start-column="98" selection-end-line="65" selection-end-column="98" />
+        <state relative-caret-position="505">
+          <caret line="479" column="60" lean-forward="true" selection-start-line="479" selection-start-column="60" selection-end-line="479" selection-end-column="60" />
           <folding>
-            <element signature="e#82#112#0" expanded="true" />
-            <marker date="1507602242029" expanded="true" signature="2229:2377" ph="UPDATE satur... " />
-            <marker date="1507602242029" expanded="true" signature="3320:3443" ph="SELECT b.cli... clients" />
-            <marker date="1507602242029" expanded="true" signature="3320:3496" ph="SELECT code,... clients" />
-            <marker date="1507602242029" expanded="true" signature="3320:3524" ph="SELECT b.cli... clients" />
-            <marker date="1507602242029" expanded="true" signature="3996:4060" ph="UPDATE contr... " />
+            <element signature="e#76#106#0" expanded="true" />
+            <marker date="1507632920428" expanded="true" signature="19752:19857" ph="UPDATE contr... " />
+            <marker date="1507632920428" expanded="true" signature="19955:20062" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>

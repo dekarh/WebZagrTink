@@ -78,7 +78,7 @@ elem.send_keys(dt.strftime("%d.%m.%Y"))
 wj(driver)
 elem = p(d=driver, f='c', **localtity['От'])
 wj(driver)
-dt += datetime.timedelta(weeks=-3)     # !!!!! на 1 неделю назад смотрим
+dt += datetime.timedelta(weeks=-3)     # !!!!! на 3 недели назад смотрим
 for iq in range(1, 20):
     elem.send_keys(Keys.BACKSPACE)
 wj(driver)
@@ -102,14 +102,13 @@ for i in range(0, n_strok):
     statuses_t.append(elems[i*4+3])
 
 cursor = conn.cursor()
-cursor.execute('SELECT b.client_id, b.status_code, a.p_surname, a.p_name, a.p_lastname, b.inserted_date '
-               'FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.inserted_date >= %s;',
-               (dt,))
+cursor.execute('SELECT b.client_id, b.status_code, a.p_surname, a.p_name, a.p_lastname, b.transaction_date '
+        'FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.inserted_date >= %s;', (dt,))
 rows = cursor.fetchall()
 for row in rows:
     for i, fio_t in enumerate(fios_t):
         if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
-                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')- row[5]) < datetime.timedelta(days=21):
+                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y') - row[5]) < datetime.timedelta(days=2):
             if statuses[statuses_t[i]] != row[1]:
                 write_cursor = conn.cursor()
                 write_cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1',

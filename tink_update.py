@@ -144,7 +144,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             elif inp_i in ('СНИЛС'):
                 res_inp[inp_i] = '{:011d}'.format(row[j])
             elif inp_i in ('МобТелефон', 'ДопТелефон', 'ТелефонРАБ'):
-                res_inp[inp_i] = '{:011d}'.format(row[j])[1:]
+                res_inp[inp_i] = '{:011d}'.format(l(row[j]))[1:]
             else:
                 res_inp[inp_i] = row[j]
             j += 1
@@ -468,11 +468,11 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         print('\n При заполнении анкеты', fio, 'допущены ошибки:' )
 #        print( '%s.' % ', '.join(aa))
         print(aa)
-        sql = 'UPDATE contracts SET status_code=4, error_message=%s  WHERE client_id=%s AND id>-1'
+        sql = 'UPDATE contracts SET status_code=4, transaction_date=NULL, error_message=%s  WHERE client_id=%s AND id>-1'
         cursor.execute(sql,(aa, res_inp['iId']))
         conn.commit()
     else:
-        sql = 'UPDATE contracts SET status_code=5, transaction_date=NOW() WHERE client_id=%s AND id>-1'
+        sql = 'UPDATE contracts SET status_code=5, transaction_date=NOW(), error_message=NULL WHERE client_id=%s AND id>-1'
         cursor.execute(sql, (res_inp['iId']),)
         conn.commit()
     conn.close()
