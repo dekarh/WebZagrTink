@@ -142,7 +142,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
             elif inp_i in ('Фамилия', 'Имя', 'Отчество', 'ИмяДопТелефон'):
                 res_inp[inp_i] = filter_rus_minus(row[j])
             elif inp_i in ('СНИЛС'):
-                res_inp[inp_i] = '{:011d}'.format(row[j])
+                res_inp[inp_i] = '{:011d}'.format(l(row[j]))
             elif inp_i in ('МобТелефон', 'ДопТелефон', 'ТелефонРАБ'):
                 res_inp[inp_i] = '{:011d}'.format(l(row[j]))[1:]
             else:
@@ -473,7 +473,7 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         conn.commit()
     else:
         sql = 'UPDATE contracts SET status_code=5, transaction_date=NOW(), error_message=NULL WHERE client_id=%s AND id>-1'
-        cursor.execute(sql, (res_inp['iId']),)
+        cursor.execute(sql, (res_inp['iId'],))
         conn.commit()
     conn.close()
 
