@@ -66,7 +66,11 @@ def my_input(driver, a, res, inp):
     #            wj(driver)
     #            elem.clear()
                 wj(driver)
-                elem.send_keys(s_minus(res[pole]))
+                if pole in ['УлицаРАБ', 'УлицаРЕГ', 'УлицаФАКТ']:
+                    res[pole] = s_minus(res[pole]).replace('.',' ')
+                for fucked_char in s(res[pole]):
+                    elem.send_keys(fucked_char)
+
                 wj(driver)
                 elem = p(d=driver, f='p', **inp['ЩелчокДляСброса'])
                 wj(driver)
@@ -167,6 +171,9 @@ for k, row in enumerate(rows):                    # Цикл по строкам
     elem.click()
     if int(res_sel['ТипЗанятости']) == 0:                           # Работаю
         my_input(driver, ['НазвДолжности'], res_inp, inputtity)
+        elem = p(d=driver, f='p', **inputtity['ЩелчокДляСброса'])
+        wj(driver)
+        elem.click()
         elem = p(d=driver, f='c', **selectity['Должность'])
         wj(driver)
         elem.click()

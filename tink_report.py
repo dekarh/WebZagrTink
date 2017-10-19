@@ -47,7 +47,6 @@ def authorize(driver, login, password, authorize_page=''):
     elem = driver.find_element_by_name('go')
     elem.click()
 
-
 # driver = webdriver.Chrome(DRIVER_PATH)  # Инициализация драйвера
 #driver = webdriver.Firefox()  # Инициализация драйвера
 
@@ -107,12 +106,13 @@ cursor.execute('SELECT b.client_id, b.status_code, a.p_surname, a.p_name, a.p_la
 rows = cursor.fetchall()
 for row in rows:
     for i, fio_t in enumerate(fios_t):
-        if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
-                        and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y') - row[5]) < datetime.timedelta(days=2):
-            if statuses[statuses_t[i]] != row[1]:
-                write_cursor = conn.cursor()
-                write_cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1',
-                                     (statuses[statuses_t[i]], row[0]))
-                conn.commit()
+        if row[5] != None:
+            if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
+                            and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y') - row[5]) < datetime.timedelta(days=2):
+                if statuses[statuses_t[i]] != row[1]:
+                    write_cursor = conn.cursor()
+                    write_cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1',
+                                         (statuses[statuses_t[i]], row[0]))
+                    conn.commit()
 driver.close()
 
