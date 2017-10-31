@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 import sys
+import difflib
 from mysql.connector import MySQLConnection, Error
 
 from lib import read_config, lenl, s_minus
@@ -29,7 +30,8 @@ localtity = {
 'ТаблицаЯчейки' : {'t': 'x', 's': '//TABLE[@class="content"]//TR[not(@class="thead")]/TD', 'a': 'text'},
 
 }
-statuses = {'Новая': 0, 'В рассмотрении': 1, 'Отказ': 2, 'Одобрена': 3}
+statuses = {'Новая': 0, 'В рассмотрении': 1, 'Отказ': 2, 'Одобрена': 3, 'Не отправлена - Ошибка в данных': 4,
+            'Отправлена в Банк': 5, 'Зависла в Банке': 6, 'Исправлена в Банке - исправьте ФИО': 7}
 
 
 def authorize(driver, login, password, authorize_page=''):
@@ -62,10 +64,12 @@ time.sleep(1)
 
 conn = MySQLConnection(**dbconfig) # Открываем БД из конфиг-файла
 
-write_cursor = conn.cursor()       # Если болльше трех дней рассматривают - посылаем заявку заново
-write_cursor.execute('UPDATE saturn_fin.contracts SET status_code = 0 WHERE transaction_date < DATE_SUB(NOW(),'
-                     ' INTERVAL 3 DAY) and status_code = 1')
-conn.commit()
+#----------------------- Нужно в алгоритме все делать, так не работает
+
+#write_cursor = conn.cursor()       # Если болльше трех дней рассматривают - посылаем заявку заново
+#write_cursor.execute('UPDATE saturn_fin.contracts SET status_code = 0 WHERE transaction_date < DATE_SUB(NOW(),'
+#                     ' INTERVAL 3 DAY) and (status_code = 1 or status_code = 5)')
+#conn.commit()
 
 elem = p(d=driver, f='c', **localtity['До'])
 wj(driver)
@@ -77,7 +81,7 @@ elem.send_keys(dt.strftime("%d.%m.%Y"))
 wj(driver)
 elem = p(d=driver, f='c', **localtity['От'])
 wj(driver)
-dt += datetime.timedelta(weeks=-3)     # !!!!! на 3 недели назад смотрим
+dt += datetime.timedelta(weeks=-10)     # !!!!! на 3 недели назад смотрим
 for iq in range(1, 20):
     elem.send_keys(Keys.BACKSPACE)
 wj(driver)
@@ -105,14 +109,47 @@ cursor.execute('SELECT b.client_id, b.status_code, a.p_surname, a.p_name, a.p_la
         'FROM clients AS a INNER JOIN contracts AS b ON a.client_id=b.client_id WHERE b.inserted_date >= %s;', (dt,))
 rows = cursor.fetchall()
 for row in rows:
-    for i, fio_t in enumerate(fios_t):
-        if row[5] != None:
-            if fio_t.strip() == row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.' \
-                            and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y') - row[5]) < datetime.timedelta(days=2):
+    if row[5] != None:                                          # Точное совпадение ФИО
+        not_found = True
+        fio_db = row[2].strip() + ' ' + row[3].strip()[0] + '. ' + row[4].strip()[0] + '.'
+        for i, fio_t in enumerate(fios_t):
+            fio_html = fio_t.strip().replace('  ', ' ').replace('  ', ' ')
+            if fio_html ==  fio_db and (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y')
+                                            - row[5]) < datetime.timedelta(days=2):
+                not_found = False
                 if statuses[statuses_t[i]] != row[1]:
                     write_cursor = conn.cursor()
                     write_cursor.execute('UPDATE contracts SET status_code=%s WHERE client_id=%s AND id>-1',
                                          (statuses[statuses_t[i]], row[0]))
                     conn.commit()
+
+        if not_found and row[1] not in [2, 3]:              # Ошибка в ФИО
+            differenses = []
+            for i, fio_t in enumerate(fios_t):
+                fio_html = fio_t.strip().replace('  ', ' ').replace('  ', ' ')
+                differenses.append(1000)
+                d = difflib.Differ()
+                if (datetime.datetime.strptime(dates_t[i].strip(), '%d.%m.%Y') - row[5]) < datetime.timedelta(days=2):
+                    differenses[i] = 0
+                    diff = d.compare(fio_db,fio_html)
+                    diff_rezs = '\n'.join(diff).split('\n')
+                    for diff_rez in diff_rezs:
+                        if diff_rez[0] != ' ':
+                            differenses[i] += 1
+            if min(differenses) <= 4:                     # Допускаем только 4 и меньше ошибок
+                not_found = False
+                error_message = 'В Банке ' + fio_db + ' было исправлено на ' + \
+                              fios_t[differenses.index(min(differenses))].strip().replace('  ', ' ').replace('  ', ' ')\
+                              + ' Если Вы согласны с этим исправлением - отредактируйте ФИО в паспортных данных.'
+                write_cursor = conn.cursor()
+                write_cursor.execute('UPDATE contracts SET status_code=7, error_message=%s WHERE client_id=%s AND id>-1',
+                                     (error_message, row[0]))
+                conn.commit()
+                                                                                # ФИО не найдено - зависла в Банке
+        if not_found and (datetime.datetime.now() - row[5]) > datetime.timedelta(days=3) and row[1] not in [2, 3]:
+            write_cursor = conn.cursor()
+            write_cursor.execute('UPDATE contracts SET status_code=6 WHERE client_id=%s AND id>-1', (row[0],))
+            conn.commit()
+
 driver.close()
 

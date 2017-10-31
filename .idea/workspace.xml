@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="">
+    <list default="true" id="bb34e1a0-5995-464b-ade4-39c261e80ae7" name="Default" comment="Скорректировал work_position по факту изменений на сайте&#10;Исправил &quot;КредитнаяИстория&quot;&#10;Добавил проверку на отсутствие None в report&#10;Переделал внесение информации в input-поле, сделал посимвольно">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_env.py" afterPath="$PROJECT_DIR$/tink_env.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_report.py" afterPath="$PROJECT_DIR$/tink_report.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tink_update.py" afterPath="$PROJECT_DIR$/tink_update.py" />
     </list>
@@ -15,9 +14,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1508053008299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_report.coverage" NAME="tink_report Coverage Results" MODIFIED="1509421364992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebZagrTink$WebZagrTink.coverage" NAME="WebZagrTink Coverage Results" MODIFIED="1503543219673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1508410954449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebZagrTink$tink_update.coverage" NAME="tink_update Coverage Results" MODIFIED="1508695902175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -27,40 +26,53 @@
       <file leaf-file-name="tink_env.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_env.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
+            <state relative-caret-position="1098">
               <caret line="61" column="10" lean-forward="false" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tink_report.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tink_report.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tink_report.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1794">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+            <state relative-caret-position="328">
+              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding>
                 <element signature="e#82#112#0" expanded="true" />
-                <marker date="1508010745960" expanded="true" signature="2228:2376" ph="UPDATE satur... " />
-                <marker date="1508010745960" expanded="true" signature="3319:3438" ph="SELECT b.cli... clients" />
-                <marker date="1508010745960" expanded="true" signature="3319:3491" ph="SELECT code,... clients" />
-                <marker date="1508010745960" expanded="true" signature="3319:3519" ph="SELECT b.cli... clients" />
-                <marker date="1508010745960" expanded="true" signature="4023:4087" ph="UPDATE contr... " />
+                <marker date="1509421364948" expanded="true" signature="2454:2604" ph="UPDATE satur... " />
+                <marker date="1509421364948" expanded="true" signature="2454:2624" ph="UPDATE satur... " />
+                <marker date="1509421364948" expanded="true" signature="3569:3688" ph="SELECT b.cli... clients" />
+                <marker date="1509421364948" expanded="true" signature="3569:3741" ph="SELECT code,... clients" />
+                <marker date="1509421364948" expanded="true" signature="3569:3769" ph="SELECT b.cli... clients" />
+                <marker date="1509421364948" expanded="true" signature="4506:4570" ph="UPDATE contr... " />
+                <marker date="1509421364948" expanded="true" signature="5934:6015" ph="UPDATE contr... " />
+                <marker date="1509421364948" expanded="true" signature="6415:6478" ph="UPDATE contr... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tink_update.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tink_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8550">
-              <caret line="493" column="0" lean-forward="false" selection-start-line="493" selection-start-column="0" selection-end-line="493" selection-end-column="0" />
+            <state relative-caret-position="148">
+              <caret line="510" column="90" lean-forward="false" selection-start-line="510" selection-start-column="74" selection-end-line="510" selection-end-column="90" />
               <folding>
                 <element signature="e#76#106#0" expanded="true" />
-                <marker date="1508410952411" expanded="true" signature="20901:21006" ph="UPDATE contr... " />
-                <marker date="1508410952411" expanded="true" signature="21104:21211" ph="UPDATE contr... " />
+                <marker date="1508503910744" expanded="true" signature="21055:21160" ph="UPDATE contr... " />
+                <marker date="1508503910744" expanded="true" signature="21258:21365" ph="UPDATE contr... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/python3.5/http/client.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4680">
+              <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,7 +80,7 @@
       <file leaf-file-name="lib_scan.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib_scan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1764">
+            <state relative-caret-position="1458">
               <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#79#109#0" expanded="true" />
@@ -90,7 +102,7 @@
       <file leaf-file-name="lib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
+            <state relative-caret-position="846">
               <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
               <folding>
                 <element signature="e#63#76#0" expanded="true" />
@@ -141,9 +153,9 @@
         <option value="$PROJECT_DIR$/tink.ini" />
         <option value="$PROJECT_DIR$/lib.py" />
         <option value="$PROJECT_DIR$/lib_scan.py" />
-        <option value="$PROJECT_DIR$/tink_report.py" />
         <option value="$PROJECT_DIR$/tink_env.py" />
         <option value="$PROJECT_DIR$/tink_update.py" />
+        <option value="$PROJECT_DIR$/tink_report.py" />
       </list>
     </option>
   </component>
@@ -154,7 +166,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="563" />
+    <option name="x" value="564" />
     <option name="y" value="24" />
     <option name="width" value="1313" />
     <option name="height" value="1056" />
@@ -192,7 +204,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tink_update">
+  <component name="RunManager" selected="Python.tink_report">
     <configuration name="WebZagrTink" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -658,7 +670,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507813813102</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Скорректировал work_position по факту изменений на сайте&#10;Исправил &quot;КредитнаяИстория&quot;&#10;Добавил проверку на отсутствие None в report&#10;Переделал внесение информации в input-поле, сделал посимвольно">
+      <created>1508412570680</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1508412570680</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TodoView">
@@ -671,7 +690,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="563" y="24" width="1313" height="1056" extended-state="4" />
+    <frame x="564" y="24" width="1313" height="1056" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2127809" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32951945" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -682,7 +702,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24957983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35382956" sideWeight="0.47702205" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35382956" sideWeight="0.47702205" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -727,7 +747,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Недоделал паспортные данннные" />
     <MESSAGE value="Сделал все, кроме сохранения и проверки сохраненности" />
     <MESSAGE value="Начал писать обновляющего статусы робота" />
     <MESSAGE value="Отладил обновляющего статусы робота" />
@@ -752,15 +771,16 @@
     <MESSAGE value="Добавил очистку transaction_date и error_message" />
     <MESSAGE value="Отладил СНИЛС и апдейт когда заявка принята" />
     <MESSAGE value="Добавил Щелчков для сброса" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил Щелчков для сброса" />
+    <MESSAGE value="Скорректировал work_position по факту изменений на сайте&#10;Исправил &quot;КредитнаяИстория&quot;&#10;Добавил проверку на отсутствие None в report&#10;Переделал внесение информации в input-поле, сделал посимвольно" />
+    <option name="LAST_COMMIT_MESSAGE" value="Скорректировал work_position по факту изменений на сайте&#10;Исправил &quot;КредитнаяИстория&quot;&#10;Добавил проверку на отсутствие None в report&#10;Переделал внесение информации в input-поле, сделал посимвольно" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tink_update.py</url>
-          <line>493</line>
-          <option name="timeStamp" value="250" />
+          <line>498</line>
+          <option name="timeStamp" value="261" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -770,19 +790,9 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="252" />
+      <option name="time" value="265" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="l(res_sel['КредитнаяИстория'])" language="Python" />
-        <watch expression="a[0].get_attribute('innerHTML')" language="Python" />
-        <watch expression="res_cli['НетКАСКО']" language="Python" />
-        <watch expression="res_inp['УлицаРАБ']" language="Python" />
-        <watch expression="res_inp['НасПунктРАБ']" language="Python" />
-        <watch expression="res[pole]" language="Python" />
-        <watch expression="s_minus(res[pole]).replace('.',' ')" language="Python" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/WebZagrTink.py" />
@@ -999,7 +1009,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib_scan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
+        <state relative-caret-position="1458">
           <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding>
             <element signature="e#79#109#0" expanded="true" />
@@ -1021,16 +1031,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.5/http/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="257" column="0" lean-forward="false" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
+        <state relative-caret-position="846">
           <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
           <folding>
             <element signature="e#63#76#0" expanded="true" />
@@ -1038,37 +1041,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/lib/python3.5/http/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4680">
+          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tink_env.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
+        <state relative-caret-position="1098">
           <caret line="61" column="10" lean-forward="false" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tink_report.py">
+    <entry file="file://$PROJECT_DIR$/tink_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1794">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+        <state relative-caret-position="148">
+          <caret line="510" column="90" lean-forward="false" selection-start-line="510" selection-start-column="74" selection-end-line="510" selection-end-column="90" />
           <folding>
-            <element signature="e#82#112#0" expanded="true" />
-            <marker date="1508010745960" expanded="true" signature="2228:2376" ph="UPDATE satur... " />
-            <marker date="1508010745960" expanded="true" signature="3319:3438" ph="SELECT b.cli... clients" />
-            <marker date="1508010745960" expanded="true" signature="3319:3491" ph="SELECT code,... clients" />
-            <marker date="1508010745960" expanded="true" signature="3319:3519" ph="SELECT b.cli... clients" />
-            <marker date="1508010745960" expanded="true" signature="4023:4087" ph="UPDATE contr... " />
+            <element signature="e#76#106#0" expanded="true" />
+            <marker date="1508503910744" expanded="true" signature="21055:21160" ph="UPDATE contr... " />
+            <marker date="1508503910744" expanded="true" signature="21258:21365" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tink_update.py">
+    <entry file="file://$PROJECT_DIR$/tink_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8550">
-          <caret line="493" column="0" lean-forward="false" selection-start-line="493" selection-start-column="0" selection-end-line="493" selection-end-column="0" />
+        <state relative-caret-position="328">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
           <folding>
-            <element signature="e#76#106#0" expanded="true" />
-            <marker date="1508410952411" expanded="true" signature="20901:21006" ph="UPDATE contr... " />
-            <marker date="1508410952411" expanded="true" signature="21104:21211" ph="UPDATE contr... " />
+            <element signature="e#82#112#0" expanded="true" />
+            <marker date="1509421364948" expanded="true" signature="2454:2604" ph="UPDATE satur... " />
+            <marker date="1509421364948" expanded="true" signature="2454:2624" ph="UPDATE satur... " />
+            <marker date="1509421364948" expanded="true" signature="3569:3688" ph="SELECT b.cli... clients" />
+            <marker date="1509421364948" expanded="true" signature="3569:3741" ph="SELECT code,... clients" />
+            <marker date="1509421364948" expanded="true" signature="3569:3769" ph="SELECT b.cli... clients" />
+            <marker date="1509421364948" expanded="true" signature="4506:4570" ph="UPDATE contr... " />
+            <marker date="1509421364948" expanded="true" signature="5934:6015" ph="UPDATE contr... " />
+            <marker date="1509421364948" expanded="true" signature="6415:6478" ph="UPDATE contr... " />
           </folding>
         </state>
       </provider>

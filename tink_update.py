@@ -454,13 +454,18 @@ for k, row in enumerate(rows):                    # Цикл по строкам
         if l(res_sel['ГодАвто']) > 1969 and l(res_sel['ГодАвто']) <= datetime.datetime.now().year :
             elem = p(d=driver, f='c', **selectity['ГодАвто']) #.get_attribute('innerHTML')
             wj(driver)
-            open_selectity = {'t': 'x', 's': '//SPAN[text()="2016"]', 'txt': str(res_sel['ГодАвто'])}
+            open_selectity = {'t': 'x', 's': '//SPAN[text()="Год выпуска"]/following-sibling::*',
+                              'txt': str(res_sel['ГодАвто'])}
             manual_selectity = {'t': 'x', 's': '//SPAN[text()="' + str(res_sel['ГодАвто']) + '"]',
                                 'txt': str(res_sel['ГодАвто'])}
-            elem2 = p(d=driver, f='p', **open_selectity)
+            elem2 = p(d=driver, f='p', **manual_selectity)
             wj(driver)
+            m = 0
             while not elem2.is_displayed():
                 elem.click()
+                m += 1
+                if m > 10:
+                    break
             wj(driver)
             for i in range(datetime.datetime.now().year,1969,-1):
                 elem.send_keys(Keys.ARROW_DOWN)
