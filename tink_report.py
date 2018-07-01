@@ -81,7 +81,7 @@ elem.send_keys(dt.strftime("%d.%m.%Y"))
 wj(driver)
 elem = p(d=driver, f='c', **localtity['От'])
 wj(driver)
-dt += datetime.timedelta(weeks=-10)     # !!!!! на 3 недели назад смотрим
+dt += datetime.timedelta(weeks=-3)     # !!!!! на 3 недели назад смотрим
 for iq in range(1, 20):
     elem.send_keys(Keys.BACKSPACE)
 wj(driver)
